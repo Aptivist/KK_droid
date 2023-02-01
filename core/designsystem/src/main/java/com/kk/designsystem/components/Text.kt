@@ -13,7 +13,7 @@ import java.util.*
 fun KkTitle(
     modifier: Modifier = Modifier,
     label: String
-){
+) {
     Text(text = label, style = KkTypography.titleMedium, modifier = modifier)
 }
 
@@ -21,7 +21,7 @@ fun KkTitle(
 fun KkBody(
     modifier: Modifier = Modifier,
     label: String
-){
+) {
     Text(text = label, style = KkTypography.bodyLarge, modifier = modifier)
 }
 
@@ -29,22 +29,37 @@ fun KkBody(
 fun KkOrangeTitle(
     modifier: Modifier = Modifier,
     label: String
-){
-    Text(text = label.uppercase(Locale.ROOT), color = BurntSienna, style = KkTypography.titleLarge, modifier = modifier)
+) {
+    Text(
+        text = label.uppercase(Locale.ROOT),
+        color = BurntSienna,
+        style = KkTypography.titleLarge,
+        modifier = modifier
+    )
 }
 
 @Composable
 fun KkCorrectTitle(
     modifier: Modifier = Modifier,
     label: String
-){
-    Text(text = label.uppercase(Locale.ROOT), color = ShamrockGreen, style = KkTypography.titleLarge, modifier = modifier)
+) {
+    Text(
+        text = label.uppercase(Locale.ROOT),
+        color = ShamrockGreen,
+        style = KkTypography.titleLarge,
+        modifier = modifier
+    )
 }
 
 @Composable
 fun KkIncorrectTitle(
     modifier: Modifier = Modifier,
     label: String
-){
-    Text(text = label.uppercase(Locale.ROOT), color = RedSalsa, style = KkTypography.titleLarge, modifier = modifier)
+) {
+    Text(
+        text = label.uppercase(Locale.ROOT),
+        color = RedSalsa,
+        style = KkTypography.titleLarge,
+        modifier = modifier
+    )
 }

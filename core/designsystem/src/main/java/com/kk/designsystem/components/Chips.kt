@@ -15,7 +15,8 @@ import com.kk.designsystem.theme.KkTypography
 
 @Composable
 fun KkChip(
-    label: String
+    label: String,
+    modifier: Modifier = Modifier,
 ){
     Box(
         Modifier

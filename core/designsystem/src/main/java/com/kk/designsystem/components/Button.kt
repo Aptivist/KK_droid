@@ -40,7 +40,14 @@ fun KkCorrectButton(
     enabled: Boolean = true,
     label: String
 ) {
-    KkButton(onClick = { onClick }, label = label, border = BorderStroke(2.dp, ShamrockGreen), colors = ButtonDefaults.outlinedButtonColors(contentColor = ShamrockGreen))
+    KkButton(
+        onClick = { onClick() },
+        label = label,
+        modifier = modifier,
+        enabled = enabled,
+        border = BorderStroke(2.dp, ShamrockGreen),
+        colors = ButtonDefaults.outlinedButtonColors(contentColor = ShamrockGreen)
+    )
 }
 
 @Composable
@@ -50,5 +57,12 @@ fun KkIncorrectButton(
     enabled: Boolean = true,
     label: String
 ) {
-    KkButton(onClick = { onClick }, label = label, border = BorderStroke(2.dp, RedSalsa), colors = ButtonDefaults.outlinedButtonColors(contentColor = RedSalsa))
+    KkButton(
+        onClick = { onClick() },
+        label = label,
+        modifier = modifier,
+        enabled = enabled,
+        border = BorderStroke(2.dp, RedSalsa),
+        colors = ButtonDefaults.outlinedButtonColors(contentColor = RedSalsa)
+    )
 }

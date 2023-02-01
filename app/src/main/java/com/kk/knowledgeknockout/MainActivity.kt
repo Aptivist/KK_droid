@@ -8,12 +8,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kk.designsystem.components.*
-import com.kk.designsystem.theme.BurntSienna
-import com.kk.designsystem.theme.DimGray
 import com.kk.designsystem.theme.KnowledgeKnockoutTheme
 
 class MainActivity : ComponentActivity() {
@@ -33,7 +30,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DisplayComponent() {
     val rememberText = remember {
