@@ -20,13 +20,6 @@ jobs:
       with:
         java-version: 11
 
-    - name: Install Android SDK components
-      run: |
-        echo 'y' | sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3"
-      env:
-        ANDROID_SDK_ROOT: /usr/local/android-sdk
-      if: ${{ !startswith(github.ref, 'refs/tags/') }}
-
     - name: Build and test Android project
       run: |
         ./gradlew build connectedCheck
