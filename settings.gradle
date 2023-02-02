@@ -48,8 +48,8 @@ dependencyResolutionManagement {
 rootProject.name = "Knowledge Knockout"
 include ':app'
 include ':core'
-include ':feature'
 include ':core:data'
 include ':core:domain'
 include ':core:network'
 include ':core:designsystem'
+include ':presentation'
