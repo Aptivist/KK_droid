@@ -4,9 +4,6 @@ on:
   push:
     branches: [ main ]
 
-env:
-  ANDROID_HOME: /usr/local/android-sdk
-
 jobs:
   build:
     runs-on: ubuntu-latest
