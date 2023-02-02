@@ -32,7 +32,4 @@ android {
 
 dependencies {
 
-    implementation libs.bundles.compose
-    debugImplementation libs.bundles.composeDebug
-    implementation libs.bundles.accompanist
 }
