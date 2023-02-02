@@ -17,8 +17,8 @@ jobs:
       with:
         java-version: 11
 
-    - name: Build and test Android project
+    - name: Build and test Android project (Temporal)
       run: |
-        ./gradlew build assembleDebug
+          ./gradlew build assembleDebug --continue
       env:
         ANDROID_SDK_ROOT: /usr/local/android-sdk
