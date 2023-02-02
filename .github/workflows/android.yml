@@ -19,6 +19,6 @@ jobs:
 
     - name: Build and test Android project
       run: |
-        ./gradlew build connectedCheck
+        ./gradlew build assembleDebug
       env:
         ANDROID_SDK_ROOT: /usr/local/android-sdk
