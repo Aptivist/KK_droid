@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kk.designsystem.components.*
 import com.kk.designsystem.theme.KnowledgeKnockoutTheme
+import com.kk.presentation.ScreenHome
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    DisplayComponent()
+                    ScreenHome()
                 }
             }
         }
