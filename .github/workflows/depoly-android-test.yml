@@ -8,9 +8,9 @@ on:
 
 env:
   APP_CENTER_TOKEN: ${{ secrets.APP_CENTER_KK }}
-  APP_NAME: ${{ ‘MyApp-Android/ENV_TEST’ }}
-  TESTING_GROUP: ${{ ‘ENV_TEST’ }}
-  UPLOAD_FILE: ${{ ‘android/app/build/outputs/apk/app-release.apk' }}
+  APP_NAME: ${{ 'MyApp-Android/ENV_TEST'  }}  
+  TESTING_GROUP: ${{  'ENV_TEST'  }} 
+  UPLOAD_FILE: ${{ 'android/app/build/outputs/apk/app-release.apk'  }}  
   
 jobs:
   build:
