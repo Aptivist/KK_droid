@@ -27,7 +27,7 @@ jobs:
         
     - name: Build android
       run:  |
-        ./gradlew build -x test
+        ./gradlew assembleRelease -x test
         
     - name: Upload to App Center
       uses: wzieba/AppCenter-Github-Action@v1
