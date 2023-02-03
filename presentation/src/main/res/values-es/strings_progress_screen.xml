@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="for_to">¡punto para</string>
+    <string name="next_button">siguiente</string>
+    <string name="timing">segundos</string>
+    <string name="question_to_ask">Haz tu pregunta</string>
+    <string name="start_round">Comenzar Ronda</string>
+    <string name="player_answer">Respuesta</string>
+    <string name="correct_answer_button">Correct</string>
+    <string name="incorrect_answer_button">Incorrect</string>
+</resources>
