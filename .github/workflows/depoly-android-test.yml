@@ -8,28 +8,30 @@ on:
 
 env:
   APP_CENTER_TOKEN: ${{ secrets.APP_CENTER_KK }}
-  APP_NAME: ${{ 'MyApp-Android/ENV_TEST'  }}  
-  TESTING_GROUP: ${{  'ENV_TEST'  }} 
-  UPLOAD_FILE: ${{ 'android/app/build/outputs/apk/app-release.apk'  }}  
-  
+  APP_NAME: ${{ 'Knowledge Knockout/ENV_TEST'  }}
+  TESTING_GROUP: ${{  'ENV_TEST'  }}
+  UPLOAD_FILE: ${{ 'app/build/outputs/apk/debug/app-debug.apk'  }}
+
 jobs:
   build:
-    name: Build
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v2
-      - name: set up JDK 1.8
+
+      - name: Setup JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8
+          java-version: 11
+      - name: Build APK
+        run: bash ./gradlew assembleDebug --stacktrace
+      - name: Upload APK
+        uses: actions/upload-artifact@v1
+        with:
+          name: apk
+          path: app/build/outputs/apk/debug/app-debug.apk 
 
-      - name: Install dependencies
-        run: npm install
-      - name: Build android
-        run: npm run cd android && ./gradlew build -x test
-        
       - name: Upload to App Center
         uses: wzieba/AppCenter-Github-Action@v1
         with:
