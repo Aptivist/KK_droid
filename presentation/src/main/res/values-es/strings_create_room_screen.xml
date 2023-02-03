@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="create_room">Crear partida</string>
-    <string name="participants">Participantes</string>
-    <string name="points">Puntos</string>
-    <string name="time">Timer (segundos)</string>
-    <string name="create">Crear</string>
+    <string name="cr_create_room">Crear partida</string>
+    <string name="cr_participants">Participantes</string>
+    <string name="cr_points">Puntos</string>
+    <string name="cr_time">Timer (segundos)</string>
+    <string name="cr_create">Crear</string>
 </resources>

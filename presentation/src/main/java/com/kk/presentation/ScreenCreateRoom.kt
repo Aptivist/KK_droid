@@ -24,12 +24,12 @@ fun ScreenCreateRoom() {
             .padding(horizontal = 30.dp)
     ) {
         KkTitle(
-            label = stringResource(R.string.create_room),
+            label = stringResource(R.string.cr_create_room),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(vertical = 40.dp)
         )
-        KkBody(label = stringResource(R.string.participants))
+        KkBody(label = stringResource(R.string.cr_participants))
         Spacer(modifier = Modifier.size(10.dp))
         KkNumberField(
             value = participantValue,
@@ -42,7 +42,7 @@ fun ScreenCreateRoom() {
         )
 
         Spacer(modifier = Modifier.size(20.dp))
-        KkBody(label = stringResource(R.string.points))
+        KkBody(label = stringResource(R.string.cr_points))
         Spacer(modifier = Modifier.size(10.dp))
         KkNumberField(
             value = pointValue,
@@ -55,7 +55,7 @@ fun ScreenCreateRoom() {
         )
 
         Spacer(modifier = Modifier.size(20.dp))
-        KkBody(label = stringResource(R.string.time))
+        KkBody(label = stringResource(R.string.cr_time))
         Spacer(modifier = Modifier.size(10.dp))
         KkNumberField(
             value = timerValue,
@@ -71,7 +71,7 @@ fun ScreenCreateRoom() {
         Spacer(modifier = Modifier.weight(1f))
         KkButton(
             onClick = { /*TODO*/ },
-            label = stringResource(R.string.create),
+            label = stringResource(R.string.cr_create),
             modifier = Modifier
                 .padding(vertical = 50.dp)
                 .fillMaxWidth()
