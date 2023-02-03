@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="create_room">Create room</string>
+    <string name="participants">Participants</string>
+    <string name="points">Points</string>
+    <string name="time">Timer (seconds)</string>
+    <string name="create">Create</string>
+</resources>
