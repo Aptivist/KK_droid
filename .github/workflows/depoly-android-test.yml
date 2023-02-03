@@ -26,7 +26,8 @@ jobs:
         java-version: 11
         
     - name: Build android
-      run: npm run cd android && ./gradlew build -x test
+      run:  |
+        ./gradlew build -x test
         
     - name: Upload to App Center
       uses: wzieba/AppCenter-Github-Action@v1
