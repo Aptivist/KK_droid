@@ -67,7 +67,6 @@ fun ShowWinnerAdminView(round: String, winnerName: String){
 
 @Composable
 fun RateAnswerAdminView( round: String, playerAnswer: String, showSkip:Boolean){
-
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier
             .fillMaxWidth()
