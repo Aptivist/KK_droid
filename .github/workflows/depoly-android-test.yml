@@ -1,0 +1,40 @@
+name: Deploy-Android-TEST
+
+on:
+  push:
+    branches: [ "main","feature" ]
+  pull_request:
+    branches: [ "main","feature" ]
+
+env:
+  APP_CENTER_TOKEN: ${{ secrets.APP_CENTER_KK }}
+  APP_NAME: ${{ 'MyApp-Android/ENV_TEST'  }}  
+  TESTING_GROUP: ${{  'ENV_TEST'  }} 
+  UPLOAD_FILE: ${{ 'android/app/build/outputs/apk/app-release.apk'  }}  
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+        
+    - name: Build android
+      run:  |
+        ./gradlew assembleRelease -x test
+        
+    - name: Upload to App Center
+      uses: wzieba/AppCenter-Github-Action@v1
+      with:
+        appName: ${{ env.APP_NAME }}
+        token: ${{ env.APP_CENTER_TOKEN }}
+        group: ${{ env.TESTING_GROUP }}
+        file: ${{ env.UPLOAD_FILE }}
+        notifyTesters: true
+        debug: false
