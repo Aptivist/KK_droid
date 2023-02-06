@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="jg_join_room_title">Unirse a partida</string>
+    <string name="jr_name">Nombre</string>
+    <string name="jr_code">Código</string>
+    <string name="jr_scan_code">Escanear código QR</string>
+    <string name="jr_join_room">Unirse</string>
+</resources>
