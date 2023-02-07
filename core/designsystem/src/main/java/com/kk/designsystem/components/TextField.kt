@@ -23,8 +23,8 @@ fun KkTextField(
         value = value,
         onValueChange = onValueChange,
         colors = TextFieldDefaults.textFieldColors(
-            containerColor = BurntSienna.copy(alpha = 0.3f),
-            disabledLabelColor = BurntSienna,
+            containerColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.3f),
+            disabledLabelColor = MaterialTheme.colorScheme.onPrimary,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),
@@ -44,9 +44,9 @@ fun KkNumberField(
         value = value,
         onValueChange = onValueChange,
         colors = TextFieldDefaults.textFieldColors(
-            containerColor = BurntSienna.copy(alpha = 0.3f),
-            cursorColor = EerieBlack,
-            disabledLabelColor = BurntSienna,
+            containerColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.3f),
+            cursorColor = MaterialTheme.colorScheme.primary,
+            disabledLabelColor = MaterialTheme.colorScheme.onPrimary,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),
