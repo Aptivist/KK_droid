@@ -8,4 +8,5 @@
     <string name="player_answer">Answer</string>
     <string name="correct_answer_button">Correct</string>
     <string name="incorrect_answer_button">Incorrect</string>
+    <string name="skip">skip</string>
 </resources>
