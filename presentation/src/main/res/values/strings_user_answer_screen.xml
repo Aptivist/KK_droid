@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ua_title">1st round</string>
+    <string name="ua_time">45 seconds</string>
+    <string name="ua_user_answer">Answer</string>
+    <string name="ua_send_answer">Send</string>
+</resources>
