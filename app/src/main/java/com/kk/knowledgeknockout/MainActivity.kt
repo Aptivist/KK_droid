@@ -1,6 +1,9 @@
 package com.kk.knowledgeknockout
 
+import android.os.Build
 import android.os.Bundle
+import android.view.WindowInsetsController
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -10,8 +13,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import com.kk.designsystem.components.*
 import com.kk.designsystem.theme.KnowledgeKnockoutTheme
+import com.kk.presentation.ScreenHome
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +31,23 @@ class MainActivity : ComponentActivity() {
                 ) {
                     DisplayComponent()
                 }
+            }
+        }
+        hideStatusBar()
+    }
+
+    private fun hideStatusBar() {
+        actionBar?.hide()
+
+        //Hide the status bars
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        } else {
+            window.insetsController?.apply {
+                hide(WindowInsetsCompat.Type.statusBars())
+                systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
             }
         }
     }
