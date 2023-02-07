@@ -39,7 +39,7 @@ fun UserQuestionButtonView() {
         Spacer(modifier = Modifier.size(40.dp))
         Image(
             painter = image,
-            contentDescription = "button_main",
+            contentDescription = stringResource(R.string.uqb_main_button),
             modifier = Modifier
                 .height(300.dp)
                 .align(Alignment.CenterHorizontally)
