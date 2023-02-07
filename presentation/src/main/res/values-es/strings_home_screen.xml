@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hs_create_room">Crear partida</string>
+    <string name="hs_join_room">Unirse a partida</string>
+</resources>
