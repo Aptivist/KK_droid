@@ -1,17 +1,13 @@
 package com.kk.presentation
 
-import android.content.Context
-import android.widget.Toast
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -58,31 +54,31 @@ fun ResultView(){
     var bottomText = ""
 
     if(!gameOver){
-        viewTitle = "Ronda #$roundNumber"
-        bottomText = "Esperando al administrador..."
+        viewTitle = stringResource(R.string.round_n)+roundNumber
+        bottomText = stringResource(R.string.waiting_for_host)
         if(roundWinner == userId){
             viewColor = ShamrockGreen
             viewAnimation = correctAnswerComposition
-            viewMessage = "¡Respuesta correcta!"
+            viewMessage = stringResource(R.string.correct_answer)
             animationSize = 400.dp
         }else{
             viewColor = RedSalsa
             viewAnimation = wrongAnswerComposition
-            viewMessage = "¡Punto para "+score.filter { it.second == roundWinner }.map { it.first }+"!"
+            viewMessage = stringResource(R.string.round_winner, score.filter { it.second == roundWinner }.map { it.first })
             animationSize = 400.dp
         }
     }else{
-        viewTitle = "Resultados"
-        bottomText = "Ir a inicio"
+        viewTitle = stringResource(R.string.results)
+        bottomText = stringResource(R.string.home)
         if(score.sortedBy { it.third }.last().second == userId){
             viewColor = ShamrockGreen
             viewAnimation = winnerComposition
-            viewMessage = "¡Ganaste!"
+            viewMessage = stringResource(R.string.you_won)
             animationSize = 400.dp
         }else{
             viewColor = RedSalsa
             viewAnimation = null
-            viewMessage = "¡Perdiste!"
+            viewMessage = stringResource(R.string.you_lose)
             animationSize = 200.dp
         }
     }
@@ -150,9 +146,13 @@ fun displayMessage(message: String, color: Color, players: MutableList<Triple<St
             label = message
         )
 
-        if(message == "¡Perdiste!"){
+        if(message == stringResource(R.string.you_lose)){
             for(player in players){
-                KkBody(label = player.first+" - "+player.third+" puntos")
+                KkBody(
+                    label = stringResource(
+                        R.string.player_and_score, player.first, player.third
+                    )
+                )
             }
         }
     }
