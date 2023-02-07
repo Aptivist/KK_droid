@@ -22,6 +22,7 @@ dependencyResolutionManagement {
                 version('accompanist', '0.28.0')
                 version('zxing', '3.5.1')
                 version('material3', '1.0.1')
+                version('lottieVersion', '5.2.0')
 
                 library('compose-material3','androidx.compose.material3' ,'material3').versionRef('material3')
                 library('compose-windows','androidx.compose.material3', 'material3-window-size-class').versionRef('material3')
@@ -41,11 +42,14 @@ dependencyResolutionManagement {
 
                 library('zxing-core', 'com.google.zxing', 'core').versionRef('zxing')
 
+
+                library('lottie', 'com.airbnb.android', 'lottie-compose').versionRef('lottieVersion')
+
                 bundle('compose', ['compose-material3', 'compose-windows', 'compose-activity', 'compose-view-model', 'compose-constraints','compose-tooling','compose-tooling-prev'])
+
                 bundle('camerax', ['camera','camera-lifecycle','camera-view'])
                 bundle('accompanist', ['accompanist-permisions'])
                 bundle('zxing', ['zxing-core'])
-
             }
         }
     }

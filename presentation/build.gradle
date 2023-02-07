@@ -40,4 +40,5 @@ dependencies {
     implementation libs.bundles.compose
     implementation libs.bundles.accompanist
     implementation project(':core:designsystem')
+    implementation libs.lottie
 }
