@@ -20,9 +20,9 @@ fun KkChip(
 ){
     Box(
         Modifier
-            .border(2.dp, BurntSienna, RoundedCornerShape(20.dp))
+            .border(2.dp, MaterialTheme.colorScheme.onPrimary, RoundedCornerShape(20.dp))
             .clip(RoundedCornerShape(20.dp))
-            .background(BurntSienna.copy(alpha = 0.3f))
+            .background(MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.3f))
             .padding(15.dp, 5.dp, 15.dp, 5.dp)
     ){
         Text(text = label, style = KkTypography.titleSmall)
