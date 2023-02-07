@@ -13,7 +13,7 @@ import com.kk.designsystem.components.KkChip
 import com.kk.designsystem.components.KkTitle
 
 @Composable
-class WaitingRoomPlayerView {
+fun WaitingRoomPlayerView() {
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         val (titleLabel, subtitleLabel, chipGroup) = createRefs()
 

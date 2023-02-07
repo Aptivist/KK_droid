@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="waiting_room_title">Sala de espera</string>
-    <string name="waiting_room_subtitle">La partida comenzará en unos momentos...</string>
+    <string name="waiting_room_title">Lobby</string>
+    <string name="waiting_room_subtitle">The game will start in a few moments...</string>
 </resources>
