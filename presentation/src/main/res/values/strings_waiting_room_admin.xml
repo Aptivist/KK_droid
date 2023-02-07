@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="stringTitle" type="string">Sala de espera</item>
+    <item name="stringSubtitle" type="string">Comparte el siguiente código</item>
+    <item name="stringQR" type="string">Ó escanea el QR</item>
+    <item name="stringPlayers" type="string">Jugadores conectados</item>
+    <item name="stringButton" type="string">COMENZAR</item>
+</resources>

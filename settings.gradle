@@ -16,6 +16,7 @@ dependencyResolutionManagement {
                 version('compose', '1.3.1')
                 version('activityCompose', '1.6.1')
                 version('viewmodelCompose', '2.5.1')
+                version('constraintsCompose','1.0.1')
                 version('composeFonts', '1.4.0-alpha05')
                 version('camerax', '1.2.1')
                 version('accompanist', '0.28.0')
@@ -24,21 +25,25 @@ dependencyResolutionManagement {
 
                 library('compose-material3','androidx.compose.material3' ,'material3').versionRef('material3')
                 library('compose-windows','androidx.compose.material3', 'material3-window-size-class').versionRef('material3')
+                library('compose-tooling','androidx.compose.ui','ui-tooling').versionRef('material3')
+                library('compose-tooling-prev','androidx.compose.ui','ui-tooling-preview').versionRef('material3')
 
                 library('compose-activity', 'androidx.activity', 'activity-compose').versionRef('compose')
                 library('compose-view-model', 'androidx.lifecycle', 'lifecycle-viewmodel-compose').versionRef('viewmodelCompose')
+                library('compose-constraints','androidx.constraintlayout','constraintlayout-compose').versionRef('constraintsCompose')
+
 
                 library('camera','androidx.camera','camera-camera2').versionRef('camerax')
                 library('camera-lifecycle','androidx.camera','camera-lifecycle').versionRef('camerax')
                 library('camera-view','androidx.camera','camera-view').versionRef('camerax')
 
-                //library('accompanist-permisions', 'com.google.accompanist', 'accompanist-permissions').versionRef('accompanist')
+                library('accompanist-permisions', 'com.google.accompanist', 'accompanist-permissions').versionRef('accompanist')
 
                 library('zxing-core', 'com.google.zxing', 'core').versionRef('zxing')
 
-                bundle('compose', ['compose-material3', 'compose-windows', 'compose-activity', 'compose-view-model'])
+                bundle('compose', ['compose-material3', 'compose-windows', 'compose-activity', 'compose-view-model', 'compose-constraints','compose-tooling','compose-tooling-prev'])
                 bundle('camerax', ['camera','camera-lifecycle','camera-view'])
-                //bundle('accompanist', ['accompanist-permisions'])
+                bundle('accompanist', ['accompanist-permisions'])
                 bundle('zxing', ['zxing-core'])
 
             }
