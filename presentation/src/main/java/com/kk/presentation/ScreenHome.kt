@@ -9,14 +9,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.kk.designsystem.R
 import com.kk.designsystem.components.KkButton
 import com.kk.presentation.R.string.hs_create_room
 import com.kk.presentation.R.string.hs_join_room
 
 @Composable
-fun ScreenHome(navController: NavController) {
+fun ScreenHome() {
     val image = if (isSystemInDarkTheme()) painterResource(id = R.drawable.logo_dark)
     else painterResource(
         id = R.drawable.logo_light
