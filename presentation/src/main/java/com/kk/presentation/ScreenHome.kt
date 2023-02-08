@@ -3,6 +3,8 @@ package com.kk.presentation
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,19 +20,18 @@ import com.kk.presentation.R.string.hs_join_room
 @Composable
 fun ScreenHome(navController: NavController) {
     val image = if (isSystemInDarkTheme()) painterResource(id = R.drawable.logo_dark)
-    else painterResource(
-        id = R.drawable.logo_light
-    )
+    else painterResource(id = R.drawable.logo_light)
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 30.dp)
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
             painter = image,
             contentDescription = "logo",
-            alignment = Alignment.Center,
             modifier = Modifier.padding(start = 50.dp, end = 50.dp, top = 100.dp)
         )
         KkButton(
@@ -46,7 +47,7 @@ fun ScreenHome(navController: NavController) {
             onClick = { /*TODO*/ },
             label = stringResource(hs_join_room),
             modifier = Modifier
-                .padding(top = 25.dp)
+                .padding(top = 25.dp, bottom = 50.dp)
                 .fillMaxWidth()
                 .height(50.dp)
         )
