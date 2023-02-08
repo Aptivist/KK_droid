@@ -10,14 +10,18 @@ private val DarkColorPalette = darkColorScheme(
     primary = Snow,
     onPrimary = BurntSienna,
     secondary = DimGray,
-    background = EerieBlack
+    background = EerieBlack,
+    error = RedSalsa,
+    tertiary = ShamrockGreen
 )
 
 private val LightColorPalette = lightColorScheme(
     primary = EerieBlack,
     onPrimary = BurntSienna,
     secondary = DimGray,
-    background = Snow
+    background = Snow,
+    error = RedSalsa,
+    tertiary = ShamrockGreen
 )
 
 @Composable

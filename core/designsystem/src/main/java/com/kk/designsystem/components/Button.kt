@@ -18,8 +18,8 @@ fun KkButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     label: String,
-    border: BorderStroke = BorderStroke(2.dp, BurntSienna),
-    colors: ButtonColors = ButtonDefaults.outlinedButtonColors(contentColor = BurntSienna)
+    border: BorderStroke = BorderStroke(2.dp, MaterialTheme.colorScheme.onPrimary),
+    colors: ButtonColors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.onPrimary)
 ) {
     Button(
         onClick = onClick,
@@ -45,8 +45,8 @@ fun KkCorrectButton(
         label = label,
         modifier = modifier,
         enabled = enabled,
-        border = BorderStroke(2.dp, ShamrockGreen),
-        colors = ButtonDefaults.outlinedButtonColors(contentColor = ShamrockGreen)
+        border = BorderStroke(2.dp, MaterialTheme.colorScheme.tertiary),
+        colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.tertiary)
     )
 }
 
@@ -62,7 +62,7 @@ fun KkIncorrectButton(
         label = label,
         modifier = modifier,
         enabled = enabled,
-        border = BorderStroke(2.dp, RedSalsa),
-        colors = ButtonDefaults.outlinedButtonColors(contentColor = RedSalsa)
+        border = BorderStroke(2.dp, MaterialTheme.colorScheme.error),
+        colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
     )
 }
