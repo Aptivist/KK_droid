@@ -25,7 +25,7 @@ dependencyResolutionManagement {
                 version('koin-version','3.3.2')
                 library('koin','io.insert-koin','koin-android').versionRef('koin-version')
                 version('lottieVersion', '5.2.0')
-                version('ktorVersion', '2.2.3')
+                version('ktorVersion', '1.5.0')
 
                 library('compose-material3','androidx.compose.material3' ,'material3').versionRef('material3')
                 library('compose-windows','androidx.compose.material3', 'material3-window-size-class').versionRef('material3')
