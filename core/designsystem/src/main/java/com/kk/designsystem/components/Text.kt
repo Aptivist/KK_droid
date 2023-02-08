@@ -1,5 +1,6 @@
 package com.kk.designsystem.components
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -32,7 +33,7 @@ fun KkOrangeTitle(
 ) {
     Text(
         text = label.uppercase(Locale.ROOT),
-        color = BurntSienna,
+        color = MaterialTheme.colorScheme.onPrimary,
         style = KkTypography.titleLarge,
         modifier = modifier
     )
@@ -45,7 +46,7 @@ fun KkCorrectTitle(
 ) {
     Text(
         text = label.uppercase(Locale.ROOT),
-        color = ShamrockGreen,
+        color = MaterialTheme.colorScheme.tertiary,
         style = KkTypography.titleLarge,
         modifier = modifier
     )
@@ -58,7 +59,7 @@ fun KkIncorrectTitle(
 ) {
     Text(
         text = label.uppercase(Locale.ROOT),
-        color = RedSalsa,
+        color = MaterialTheme.colorScheme.error,
         style = KkTypography.titleLarge,
         modifier = modifier
     )
