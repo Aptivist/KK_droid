@@ -31,5 +31,6 @@ android {
 }
 
 dependencies {
-
+    implementation libs.bundles.ktor
+    implementation project(':core:network')
 }

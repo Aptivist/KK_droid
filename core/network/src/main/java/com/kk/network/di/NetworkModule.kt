@@ -20,3 +20,9 @@ fun provideHttpClient() = HttpClient(CIO){
         serializer = KotlinxSerializer()
     }
 }
+
+object BaseUrl{
+    private const val baseUrl: String = "ws://192.168.86.58:8080/"
+    const val urlHost: String = baseUrl+"host"
+    const val urlPlayer: String = baseUrl+"player"
+}
