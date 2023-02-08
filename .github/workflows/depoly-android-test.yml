@@ -28,13 +28,3 @@ jobs:
     - name: Build android
       run:  |
         ./gradlew assembleRelease -x test
-        
-    - name: Upload to App Center
-      uses: wzieba/AppCenter-Github-Action@v1
-      with:
-        appName: ${{ env.APP_NAME }}
-        token: ${{ env.APP_CENTER_TOKEN }}
-        group: ${{ env.TESTING_GROUP }}
-        file: ${{ env.UPLOAD_FILE }}
-        notifyTesters: true
-        debug: false
