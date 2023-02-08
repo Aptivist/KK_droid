@@ -48,7 +48,6 @@ dependencyResolutionManagement {
 
                 library('zxing-core', 'com.google.zxing', 'core').versionRef('zxing')
 
-                bundle('compose', ['compose-material3', 'compose-windows', 'compose-activity', 'compose-view-model', 'compose-navigation'])
                 library('lottie', 'com.airbnb.android', 'lottie-compose').versionRef('lottieVersion')
 
                 library('ktor-core', 'io.ktor', 'ktor-client-core').versionRef('ktorVersion')
@@ -58,7 +57,7 @@ dependencyResolutionManagement {
                 library('ktor-jvm', 'io.ktor', 'ktor-client-logging-jvm').versionRef('ktorVersion')
                 library('ktor-websockets', 'io.ktor', 'ktor-client-websockets').versionRef('ktorVersion')
 
-                bundle('compose', ['compose-material3', 'compose-windows', 'compose-activity', 'compose-view-model', 'compose-constraints','compose-tooling','compose-tooling-prev'])
+                bundle('compose', ['compose-material3', 'compose-windows', 'compose-activity', 'compose-view-model', 'compose-constraints','compose-tooling','compose-tooling-prev','compose-navigation'])
 
                 bundle('camerax', ['camera','camera-lifecycle','camera-view'])
                 bundle('accompanist', ['accompanist-permisions'])
