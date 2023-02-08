@@ -21,10 +21,11 @@ dependencyResolutionManagement {
                 version('accompanist', '0.28.0')
                 version('zxing', '3.5.1')
                 version('material3', '1.0.1')
+                version('composeNavigation','2.5.3')
 
                 library('compose-material3','androidx.compose.material3' ,'material3').versionRef('material3')
                 library('compose-windows','androidx.compose.material3', 'material3-window-size-class').versionRef('material3')
-
+                library('compose-navigation','androidx.navigation','navigation-compose').versionRef('composeNavigation')
                 library('compose-activity', 'androidx.activity', 'activity-compose').versionRef('compose')
                 library('compose-view-model', 'androidx.lifecycle', 'lifecycle-viewmodel-compose').versionRef('viewmodelCompose')
 
@@ -36,7 +37,7 @@ dependencyResolutionManagement {
 
                 library('zxing-core', 'com.google.zxing', 'core').versionRef('zxing')
 
-                bundle('compose', ['compose-material3', 'compose-windows', 'compose-activity', 'compose-view-model'])
+                bundle('compose', ['compose-material3', 'compose-windows', 'compose-activity', 'compose-view-model', 'compose-navigation'])
                 bundle('camerax', ['camera','camera-lifecycle','camera-view'])
                 //bundle('accompanist', ['accompanist-permisions'])
                 bundle('zxing', ['zxing-core'])
