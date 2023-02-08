@@ -25,6 +25,7 @@ dependencyResolutionManagement {
                 version('koin-version','3.3.2')
                 library('koin','io.insert-koin','koin-android').versionRef('koin-version')
                 version('lottieVersion', '5.2.0')
+                version('ktorVersion', '1.5.0')
 
                 library('compose-material3','androidx.compose.material3' ,'material3').versionRef('material3')
                 library('compose-windows','androidx.compose.material3', 'material3-window-size-class').versionRef('material3')
@@ -44,14 +45,21 @@ dependencyResolutionManagement {
 
                 library('zxing-core', 'com.google.zxing', 'core').versionRef('zxing')
 
-
                 library('lottie', 'com.airbnb.android', 'lottie-compose').versionRef('lottieVersion')
+
+                library('ktor-core', 'io.ktor', 'ktor-client-core').versionRef('ktorVersion')
+                library('ktor-cio', 'io.ktor', 'ktor-client-cio').versionRef('ktorVersion')
+                library('ktor-android', 'io.ktor', 'ktor-client-android').versionRef('ktorVersion')
+                library('ktor-serialization', 'io.ktor', 'ktor-client-serialization').versionRef('ktorVersion')
+                library('ktor-jvm', 'io.ktor', 'ktor-client-logging-jvm').versionRef('ktorVersion')
+                library('ktor-websockets', 'io.ktor', 'ktor-client-websockets').versionRef('ktorVersion')
 
                 bundle('compose', ['compose-material3', 'compose-windows', 'compose-activity', 'compose-view-model', 'compose-constraints','compose-tooling','compose-tooling-prev'])
 
                 bundle('camerax', ['camera','camera-lifecycle','camera-view'])
                 bundle('accompanist', ['accompanist-permisions'])
                 bundle('zxing', ['zxing-core'])
+                bundle('ktor', ['ktor-core', 'ktor-cio', 'ktor-android', 'ktor-serialization', 'ktor-jvm', 'ktor-websockets'])
             }
         }
     }
