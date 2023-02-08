@@ -38,10 +38,8 @@ class MainActivity : ComponentActivity() {
 
     private fun hideStatusBar() {
         actionBar?.hide()
-
         //Hide the status bars
         WindowCompat.setDecorFitsSystemWindows(window, false)
-
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         } else {
