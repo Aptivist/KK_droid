@@ -3,9 +3,9 @@ package com.kk.data
 interface ISocketService {
     suspend fun connectSocket()
 
-    suspend fun sendEvent()
+    suspend fun requestSocket()
 
-    suspend fun receiveStates()
+    suspend fun receiveData()
 
     suspend fun closeSocket()
 }

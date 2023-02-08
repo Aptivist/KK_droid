@@ -6,20 +6,20 @@ import io.ktor.client.features.websocket.*
 import io.ktor.client.request.*
 import io.ktor.http.cio.websocket.*
 
-class SocketServiceImp(private val httpClient: HttpClient): ISocketService{
+class SocketServicePlayerImp(private val httpClient: HttpClient): ISocketService{
     private var socket: WebSocketSession? = null
 
     override suspend fun connectSocket() {
         socket = httpClient.webSocketSession {
-            url(BaseUrl.urlHost)
+            url(BaseUrl.urlPlayer)
         }
     }
 
-    override suspend fun sendEvent() {
+    override suspend fun requestSocket() {
         TODO("Not yet implemented")
     }
 
-    override suspend fun receiveStates() {
+    override suspend fun receiveData() {
         TODO("Not yet implemented")
     }
 
