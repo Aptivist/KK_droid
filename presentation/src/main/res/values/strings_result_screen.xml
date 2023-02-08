@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="round_n">Round #</string>
+    <string name="waiting_for_host">Waiting for host…</string>
+    <string name="correct_answer">Correct answer!</string>
+    <string name="results">Results</string>
+    <string name="you_won">You won!</string>
+    <string name="you_lose">You lose</string>
+    <string name="home">Home</string>
+    <string name="round_winner">Round winner %1$s!</string>
+    <string name="player_and_score">%1$s - %2$s points</string>
+</resources>

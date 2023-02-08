@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="stringTitle" type="string">Lobby</item>
+    <item name="stringSubtitle" type="string">Share the following code</item>
+    <item name="stringQR" type="string">Or scan the QR code</item>
+    <item name="stringPlayers" type="string">Online players</item>
+    <item name="stringButton" type="string">START</item>
+</resources>
