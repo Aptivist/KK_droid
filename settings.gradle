@@ -22,6 +22,8 @@ dependencyResolutionManagement {
                 version('accompanist', '0.28.0')
                 version('zxing', '3.5.1')
                 version('material3', '1.0.1')
+                version('koin-version','3.3.2')
+                library('koin','io.insert-koin','koin-android').versionRef('koin-version')
                 version('lottieVersion', '5.2.0')
 
                 library('compose-material3','androidx.compose.material3' ,'material3').versionRef('material3')
