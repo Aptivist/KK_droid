@@ -26,7 +26,10 @@ import com.kk.designsystem.components.KkTitle
 import com.kk.designsystem.theme.BurntSienna
 
 @Composable
-fun WaitingRoomAdminView() {
+fun WaitingRoomAdminView(
+    onBackCreateRoom : () -> Unit,
+    navigateToStartGameHost : () -> Unit
+) {
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         val (titleLabel, subtitleLabel, codeLabel, qrLabel, qrBox, playersLabel, chipGroup, startButton)
                 = createRefs()
@@ -101,7 +104,7 @@ fun WaitingRoomAdminView() {
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 },
-            onClick = { /*TODO*/ },
+            onClick = { navigateToStartGameHost.invoke() },
             label = stringResource(R.string.stringButton)
         )
     }

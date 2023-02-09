@@ -11,7 +11,9 @@ import androidx.compose.ui.unit.dp
 import com.kk.designsystem.components.*
 
 @Composable
-fun ScreenUserAnswer() {
+fun ScreenUserAnswer(
+    navigateToWaitingPlayers: () -> Unit
+) {
     var answerValue by remember { mutableStateOf("") }
 
     Column(
@@ -43,7 +45,7 @@ fun ScreenUserAnswer() {
         )
         Spacer(modifier = Modifier.size(25.dp))
         KkButton(
-            onClick = { /*TODO*/ },
+            onClick = { navigateToWaitingPlayers.invoke() },
             label = stringResource(R.string.ua_send_answer),
             modifier = Modifier
                 .padding(bottom = 50.dp)

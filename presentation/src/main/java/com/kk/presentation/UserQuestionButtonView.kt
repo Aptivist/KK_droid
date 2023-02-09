@@ -17,7 +17,9 @@ import com.kk.designsystem.components.KkOrangeTitle
 import com.kk.designsystem.components.KkTitle
 
 @Composable
-fun UserQuestionButtonView() {
+fun UserQuestionButtonView(
+    navigateToSendAnswer: () -> Unit
+) {
     val image = painterResource(id = main_button)
     Column(
         modifier = Modifier
@@ -43,7 +45,9 @@ fun UserQuestionButtonView() {
             modifier = Modifier
                 .height(300.dp)
                 .align(Alignment.CenterHorizontally)
-                .clickable { }
+                .clickable {
+                    navigateToSendAnswer.invoke()
+                }
         )
         Spacer(modifier = Modifier.size(50.dp))
         KkBody(

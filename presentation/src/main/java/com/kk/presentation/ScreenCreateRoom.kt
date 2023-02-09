@@ -15,7 +15,10 @@ import com.kk.designsystem.components.KkNumberField
 import com.kk.designsystem.components.KkTitle
 
 @Composable
-fun ScreenCreateRoom() {
+fun ScreenCreateRoom(
+    onBackHome : () -> Unit,
+    navigateToWaitingRoom : () -> Unit
+) {
     var participantValue by remember { mutableStateOf("") }
     var pointValue by remember { mutableStateOf("") }
     var timerValue by remember { mutableStateOf("") }
@@ -73,7 +76,7 @@ fun ScreenCreateRoom() {
 
         Spacer(modifier = Modifier.weight(1f))
         KkButton(
-            onClick = { /*TODO*/ },
+            onClick = { navigateToWaitingRoom.invoke() },
             label = stringResource(R.string.cr_create),
             modifier = Modifier
                 .padding(vertical = 50.dp)
