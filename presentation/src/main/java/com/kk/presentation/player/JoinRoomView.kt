@@ -14,7 +14,10 @@ import com.kk.presentation.R
 
 
 @Composable
-fun JoinRoomView() {
+fun ScreenJoinGroup(
+    onBackHome : () -> Unit,
+    navigateToWaitingRoom : () -> Unit
+) {
     var nameValue by remember { mutableStateOf("") }
     var codeValue by remember { mutableStateOf("") }
 
@@ -63,7 +66,7 @@ fun JoinRoomView() {
 
         Spacer(modifier = Modifier.weight(1f))
         KkButton(
-            onClick = { /*TODO*/ },
+            onClick = { navigateToWaitingRoom.invoke() },
             label = stringResource(R.string.jr_join_room),
             modifier = Modifier
                 .padding(vertical = 50.dp)

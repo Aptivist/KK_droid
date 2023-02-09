@@ -8,10 +8,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.kk.designsystem.components.*
+
 @Composable
-fun UserAnswerView(navController: NavController) {
+fun ScreenUserAnswer(
+    navigateToWaitingPlayers: () -> Unit
+) {
     var answerValue by remember { mutableStateOf("") }
 
     Column(
@@ -43,7 +45,7 @@ fun UserAnswerView(navController: NavController) {
         )
         Spacer(modifier = Modifier.size(25.dp))
         KkButton(
-            onClick = { /*TODO*/ },
+            onClick = { navigateToWaitingPlayers.invoke() },
             label = stringResource(R.string.ua_send_answer),
             modifier = Modifier
                 .padding(bottom = 50.dp)

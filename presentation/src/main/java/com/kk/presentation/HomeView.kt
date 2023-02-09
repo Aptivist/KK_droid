@@ -18,7 +18,10 @@ import com.kk.presentation.R.string.hs_create_room
 import com.kk.presentation.R.string.hs_join_room
 
 @Composable
-fun HomeView(navController: NavController) {
+fun ScreenHome(
+    navigateToCreateRoom : () -> Unit,
+    navigateToJoinRoom: () -> Unit,
+) {
     val image = if (isSystemInDarkTheme()) painterResource(id = R.drawable.logo_dark)
     else painterResource(id = R.drawable.logo_light)
 
@@ -35,7 +38,7 @@ fun HomeView(navController: NavController) {
             modifier = Modifier.padding(start = 50.dp, end = 50.dp, top = 100.dp)
         )
         KkButton(
-            onClick = { /*TODO*/ },
+            onClick = { navigateToCreateRoom.invoke() },
             label = stringResource(hs_create_room),
             modifier = Modifier
                 .padding(top = 170.dp)
@@ -44,7 +47,7 @@ fun HomeView(navController: NavController) {
         )
 
         KkButton(
-            onClick = { /*TODO*/ },
+            onClick = { navigateToJoinRoom.invoke() },
             label = stringResource(hs_join_room),
             modifier = Modifier
                 .padding(top = 25.dp, bottom = 50.dp)

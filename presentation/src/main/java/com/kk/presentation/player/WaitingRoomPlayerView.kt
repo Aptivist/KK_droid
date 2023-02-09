@@ -14,7 +14,10 @@ import com.kk.designsystem.components.KkTitle
 import com.kk.presentation.R
 
 @Composable
-fun WaitingRoomPlayerView() {
+fun WaitingRoomPlayerView(
+    onBackJoinRoom : () -> Unit,
+    navigateToStartGamePlayer : () -> Unit
+) {
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         val (titleLabel, subtitleLabel, chipGroup) = createRefs()
 

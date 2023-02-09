@@ -10,7 +10,11 @@ import androidx.compose.ui.unit.dp
 import com.kk.designsystem.components.*
 
 @Composable
-fun PreStartAdminView(round: String){
+fun PreStartAdminView(
+    navigateToWaitingView : () -> Unit
+){
+    //viewmodel round: String
+    val round = "1"
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier
             .fillMaxWidth()
@@ -26,9 +30,63 @@ fun PreStartAdminView(round: String){
     }
 }
 
+@Composable
+fun AwaitingViewHost(
+    navigateToWaitingAnswerHost: () -> Unit
+){
+    //VIEWMODEL round: String, timeLeft: String, body: String
+    val round = "1"
+    val timeLeft = "43"
+    val body = "dassd"
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier
+            .fillMaxWidth()
+            .padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            KkTitle(label = round)
+        }
+        Box(modifier = Modifier.padding(25.dp)) {
+            KkBody(label = body)
+        }
+        Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+            KkOrangeTitle(label = timeLeft)
+            KkOrangeTitle(label = stringResource(id = R.string.timing))
+        }
+    }
+}
 
 @Composable
-fun ShowWinnerAdminView(round: String, winnerName: String){
+fun AwaitingViewPlayer(
+    navigateToWaitingAnswerPlayer: () -> Unit
+){
+    //VIEWMODEL round: String, timeLeft: String, body: String
+    val round = "1"
+    val timeLeft = "43"
+    val body = "dassd"
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier
+            .fillMaxWidth()
+            .padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            KkTitle(label = round)
+        }
+        Box(modifier = Modifier.padding(25.dp)) {
+            KkBody(label = body)
+        }
+        Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+            KkOrangeTitle(label = timeLeft)
+            KkOrangeTitle(label = stringResource(id = R.string.timing))
+        }
+    }
+}
+
+@Composable
+fun ShowWinnerAdminView(
+    navigateToNextRound: () -> Unit
+){
+    //ViewModel round: String, winnerName: String
+    val round = "1"
+    val winnerName = "Irving"
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier
             .fillMaxWidth()
@@ -49,7 +107,14 @@ fun ShowWinnerAdminView(round: String, winnerName: String){
 }
 
 @Composable
-fun RateAnswerAdminView( round: String, playerAnswer: String, showSkip:Boolean){
+fun RateAnswerAdminView(
+    navigateToEndRoundHost: () -> Unit
+){
+    //VIEWMODEL round: String, playerAnswer: String, showSkip:Boolean
+    val round = "1"
+    val playerAnswer = "bla bla bla"
+    val showSkip = false
+
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier
             .fillMaxWidth()
