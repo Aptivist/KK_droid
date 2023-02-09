@@ -1,4 +1,4 @@
-package com.kk.presentation
+package com.kk.presentation.player
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -11,6 +11,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.kk.designsystem.components.KkBody
 import com.kk.designsystem.components.KkChip
 import com.kk.designsystem.components.KkTitle
+import com.kk.presentation.R
 
 @Composable
 fun WaitingRoomPlayerView() {

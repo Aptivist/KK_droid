@@ -26,23 +26,6 @@ fun PreStartAdminView(round: String){
     }
 }
 
-@Composable
-fun AwaitingView(round: String, timeLeft: String, body: String){
-    Column(modifier = Modifier.fillMaxSize()) {
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            KkTitle(label = round)
-        }
-        Box(modifier = Modifier.padding(25.dp)) {
-            KkBody(label = body)
-        }
-        Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-            KkOrangeTitle(label = timeLeft)
-            KkOrangeTitle(label = stringResource(id = R.string.timing))
-        }
-    }
-}
 
 @Composable
 fun ShowWinnerAdminView(round: String, winnerName: String){

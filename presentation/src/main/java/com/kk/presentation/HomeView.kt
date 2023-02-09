@@ -18,7 +18,7 @@ import com.kk.presentation.R.string.hs_create_room
 import com.kk.presentation.R.string.hs_join_room
 
 @Composable
-fun ScreenHome(navController: NavController) {
+fun HomeView(navController: NavController) {
     val image = if (isSystemInDarkTheme()) painterResource(id = R.drawable.logo_dark)
     else painterResource(id = R.drawable.logo_light)
 

@@ -1,4 +1,4 @@
-package com.kk.presentation
+package com.kk.presentation.player
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -15,6 +15,7 @@ import com.kk.designsystem.R.drawable.main_button
 import com.kk.designsystem.components.KkBody
 import com.kk.designsystem.components.KkOrangeTitle
 import com.kk.designsystem.components.KkTitle
+import com.kk.presentation.R
 
 @Composable
 fun UserQuestionButtonView() {

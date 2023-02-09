@@ -1,4 +1,4 @@
-package com.kk.presentation
+package com.kk.presentation.player
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Surface
@@ -17,6 +17,7 @@ import com.kk.designsystem.theme.KnowledgeKnockoutTheme
 import com.kk.designsystem.theme.RedSalsa
 import com.kk.designsystem.theme.ShamrockGreen
 import com.kk.designsystem.theme.Snow
+import com.kk.presentation.R
 
 @Composable
 fun ResultView(){

@@ -8,10 +8,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.kk.designsystem.components.*
-
 @Composable
-fun ScreenUserAnswer() {
+fun UserAnswerView(navController: NavController) {
     var answerValue by remember { mutableStateOf("") }
 
     Column(
