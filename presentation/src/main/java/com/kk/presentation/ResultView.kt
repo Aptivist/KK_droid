@@ -19,7 +19,9 @@ import com.kk.designsystem.theme.ShamrockGreen
 import com.kk.designsystem.theme.Snow
 
 @Composable
-fun ResultView(){
+fun ResultView(
+    navigateToNextRound: () -> Unit
+){
     //Username playing
     val userId = 2
     //Score of players (username, id, score) (from back-end)
