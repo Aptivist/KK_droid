@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.kk.designsystem.components.*
 
 @Composable
-fun ScreenUserAnswer(
+fun UserAnswerView(
     navigateToWaitingPlayers: () -> Unit
 ) {
     var answerValue by remember { mutableStateOf("") }

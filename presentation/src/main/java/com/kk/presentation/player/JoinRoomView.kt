@@ -14,7 +14,7 @@ import com.kk.presentation.R
 
 
 @Composable
-fun ScreenJoinGroup(
+fun JoinRoomView(
     onBackHome : () -> Unit,
     navigateToWaitingRoom : () -> Unit
 ) {

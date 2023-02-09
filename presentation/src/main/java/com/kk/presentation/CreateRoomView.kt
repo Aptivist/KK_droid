@@ -15,7 +15,7 @@ import com.kk.designsystem.components.KkNumberField
 import com.kk.designsystem.components.KkTitle
 
 @Composable
-fun ScreenCreateRoom(
+fun CreateRoomView(
     onBackHome : () -> Unit,
     navigateToWaitingRoom : () -> Unit
 ) {
