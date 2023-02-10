@@ -1,3 +1,5 @@
+package com.kk.presentation.player.joinroom
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -14,7 +16,7 @@ import com.kk.presentation.R
 
 
 @Composable
-fun ScreenJoinGroup(
+fun JoinRoomView(
     onBackHome : () -> Unit,
     navigateToWaitingRoom : () -> Unit
 ) {

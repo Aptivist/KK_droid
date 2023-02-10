@@ -1,4 +1,4 @@
-package com.kk.presentation
+package com.kk.presentation.player.resultroom
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Surface
@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
@@ -17,6 +18,7 @@ import com.kk.designsystem.theme.KnowledgeKnockoutTheme
 import com.kk.designsystem.theme.RedSalsa
 import com.kk.designsystem.theme.ShamrockGreen
 import com.kk.designsystem.theme.Snow
+import com.kk.presentation.R
 
 @Composable
 fun ResultView(
@@ -130,7 +132,7 @@ fun displayFooter(bottomText: String, gameOver: Boolean) {
     }
     else{
         KkButton(
-            onClick = { /*TODO*/ },
+            onClick = {  },
             label = bottomText
         )
     }
