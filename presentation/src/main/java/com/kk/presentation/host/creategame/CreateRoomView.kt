@@ -1,4 +1,4 @@
-package com.kk.presentation
+package com.kk.presentation.host.creategame
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -13,9 +13,10 @@ import com.kk.designsystem.components.KkBody
 import com.kk.designsystem.components.KkButton
 import com.kk.designsystem.components.KkNumberField
 import com.kk.designsystem.components.KkTitle
+import com.kk.presentation.R
 
 @Composable
-fun ScreenCreateRoom(
+fun CreateRoomView(
     onBackHome : () -> Unit,
     navigateToWaitingRoom : () -> Unit
 ) {
