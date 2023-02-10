@@ -49,7 +49,10 @@ android {
 dependencies {
     implementation libs.bundles.compose
     implementation libs.koin
+    implementation libs.gson
 
     implementation project(":core:designsystem")
     implementation project(":presentation")
+    implementation project(':core:data')
+    implementation project(':core:network')
 }

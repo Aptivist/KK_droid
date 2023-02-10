@@ -26,6 +26,7 @@ dependencyResolutionManagement {
                 version('koin-version','3.3.2')
                 version('lottieVersion', '5.2.0')
                 version('ktorVersion', '1.5.0')
+                version('gsonVersion', '2.10.1')
 
                 library('koin','io.insert-koin','koin-android').versionRef('koin-version')
 
@@ -49,6 +50,8 @@ dependencyResolutionManagement {
                 library('zxing-core', 'com.google.zxing', 'core').versionRef('zxing')
 
                 library('lottie', 'com.airbnb.android', 'lottie-compose').versionRef('lottieVersion')
+
+                library('gson', 'com.google.code.gson', 'gson').versionRef('gsonVersion')
 
                 library('ktor-core', 'io.ktor', 'ktor-client-core').versionRef('ktorVersion')
                 library('ktor-cio', 'io.ktor', 'ktor-client-cio').versionRef('ktorVersion')
