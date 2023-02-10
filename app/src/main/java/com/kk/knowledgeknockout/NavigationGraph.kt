@@ -6,6 +6,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.kk.presentation.*
+import com.kk.presentation.host.creategame.CreateRoomView
+import com.kk.presentation.host.progressgame.*
 import com.kk.presentation.player.resultroom.ResultView
 import com.kk.presentation.player.gameroom.UserQuestionButtonView
 import com.kk.presentation.player.gameroom.UserAnswerView
@@ -74,7 +76,7 @@ fun NavigationGraph(){
             )
         }
         composable(route = AppNavigation.StartRoundHost.route){
-            AwaitingViewHost(
+           AwaitingUsersAnswersHostView(
                 navigateToWaitingAnswerHost = {
                     navController.navigate(AppNavigation.WaitingAnswerHost.route)
                 }
@@ -109,8 +111,8 @@ fun NavigationGraph(){
             )
         }
         composable(route = AppNavigation.WaitingAnswerPlayer.route){
-            AwaitingViewHost(
-                navigateToWaitingAnswerHost = {
+            AwaitingViewPlayer(
+                navigateToWaitingAnswerPlayer = {
                     navController.navigate(AppNavigation.EndRoundPlayer.route)
                 }
             )
