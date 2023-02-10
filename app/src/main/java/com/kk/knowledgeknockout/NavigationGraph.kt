@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.kk.presentation.*
 import com.kk.presentation.host.progressgame.PreStartAdminView
+import com.kk.presentation.host.creategame.CreateRoomView
 
 
 @Composable
@@ -24,7 +25,7 @@ fun NavigationGraph(){
             )
         }
         composable(route = AppNavigation.CreateRoom.route){
-            ScreenCreateRoom(
+            CreateRoomView(
                 onBackHome = {
                     navController.navigate(AppNavigation.ScreenHome.route)
                 },
