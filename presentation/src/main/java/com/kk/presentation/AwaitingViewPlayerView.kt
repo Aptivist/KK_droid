@@ -1,4 +1,4 @@
-package com.kk.presentation.host.progressgame
+package com.kk.presentation
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -9,11 +9,10 @@ import androidx.compose.ui.unit.dp
 import com.kk.designsystem.components.KkBody
 import com.kk.designsystem.components.KkOrangeTitle
 import com.kk.designsystem.components.KkTitle
-import com.kk.presentation.R
 
 @Composable
-fun AwaitingHostView(
-    navigateToWaitingAnswerHost: () -> Unit
+fun AwaitingViewPlayer(
+    navigateToWaitingAnswerPlayer: () -> Unit
 ){
     //VIEWMODEL round: String, timeLeft: String, body: String
     val round = "1"

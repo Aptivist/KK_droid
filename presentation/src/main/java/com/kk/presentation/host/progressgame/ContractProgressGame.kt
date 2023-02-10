@@ -17,10 +17,11 @@ class ContractProgressGame {
 
     sealed class HostState {
         object Idle : HostState()
-        object PreStartHost : HostState()
-        object AwaitingUsersAnswersHost : HostState()
-        object RatingAnswerHost: HostState()
-        object WinnerNameHost: HostState()
+        data class PreStartHost(val round: String) : HostState()
+        data class AwaitingUsersAnswersHost(val round: String, var timeLeft: String, val body: String) : HostState()
+        data class RatingAnswerHost(val round: String, var playerAnswer: String, var skipAnswer: Boolean): HostState()
+        data class WinnerNameHost(val round: String, val winnerName: String): HostState()
+        data class Error(val message: String) : HostState()
         data class Success(val value: Int) : HostState()
     }
 
