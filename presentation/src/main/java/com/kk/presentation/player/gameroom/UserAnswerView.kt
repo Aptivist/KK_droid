@@ -1,4 +1,4 @@
-package com.kk.presentation
+package com.kk.presentation.player.gameroom
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -9,9 +9,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.kk.designsystem.components.*
+import com.kk.presentation.R
 
 @Composable
-fun ScreenUserAnswer(
+fun UserAnswerView(
     navigateToWaitingPlayers: () -> Unit
 ) {
     var answerValue by remember { mutableStateOf("") }

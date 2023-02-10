@@ -1,3 +1,5 @@
+package com.kk.presentation
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -6,20 +8,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.text.isDigitsOnly
 import com.kk.designsystem.components.KkBody
 import com.kk.designsystem.components.KkButton
-import com.kk.designsystem.components.KkTextField
+import com.kk.designsystem.components.KkNumberField
 import com.kk.designsystem.components.KkTitle
-import com.kk.presentation.R
-
 
 @Composable
-fun ScreenJoinGroup(
+fun CreateRoomView(
     onBackHome : () -> Unit,
     navigateToWaitingRoom : () -> Unit
 ) {
-    var nameValue by remember { mutableStateOf("") }
-    var codeValue by remember { mutableStateOf("") }
+    var participantValue by remember { mutableStateOf("") }
+    var pointValue by remember { mutableStateOf("") }
+    var timerValue by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -28,49 +30,58 @@ fun ScreenJoinGroup(
             .padding(horizontal = 30.dp)
     ) {
         KkTitle(
-            label = stringResource(R.string.jg_join_room_title),
+            label = stringResource(R.string.cr_create_room),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(vertical = 40.dp)
         )
-        KkBody(label = stringResource(R.string.jr_name))
+        KkBody(label = stringResource(R.string.cr_participants))
         Spacer(modifier = Modifier.size(10.dp))
-        KkTextField(
-            value = nameValue,
+        KkNumberField(
+            value = participantValue,
             onValueChange = {
-                nameValue = it
+                participantValue = if (it.isDigitsOnly()) it else participantValue
             },
             modifier = Modifier
                 .fillMaxWidth()
+                .height(50.dp)
         )
 
         Spacer(modifier = Modifier.size(20.dp))
-        KkBody(label = stringResource(R.string.jr_code))
+        KkBody(label = stringResource(R.string.cr_points))
         Spacer(modifier = Modifier.size(10.dp))
-        KkTextField(
-            value = codeValue,
+        KkNumberField(
+            value = pointValue,
             onValueChange = {
-                codeValue = it.uppercase()
+                pointValue = if (it.isDigitsOnly()) it else pointValue
             },
             modifier = Modifier
                 .fillMaxWidth()
+                .height(50.dp)
         )
 
-        KkButton(
-            onClick = { /*TODO*/ },
-            label = stringResource(R.string.jr_scan_code),
+        Spacer(modifier = Modifier.size(20.dp))
+        KkBody(label = stringResource(R.string.cr_time))
+        Spacer(modifier = Modifier.size(10.dp))
+        KkNumberField(
+            value = timerValue,
+            onValueChange = {
+                timerValue = if (it.isDigitsOnly()) it else timerValue
+            },
             modifier = Modifier
-                .padding(vertical = 40.dp)
                 .fillMaxWidth()
+                .height(50.dp)
+                .padding(0.dp)
         )
 
         Spacer(modifier = Modifier.weight(1f))
         KkButton(
             onClick = { navigateToWaitingRoom.invoke() },
-            label = stringResource(R.string.jr_join_room),
+            label = stringResource(R.string.cr_create),
             modifier = Modifier
                 .padding(vertical = 50.dp)
                 .fillMaxWidth()
+                .height(50.dp)
         )
     }
 }
