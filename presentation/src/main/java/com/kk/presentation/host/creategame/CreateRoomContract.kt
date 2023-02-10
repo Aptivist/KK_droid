@@ -20,7 +20,7 @@ class CreateRoomContract {
     // View State
     sealed class CreateRoomState {
         object Idle : CreateRoomState()
-        object Error : CreateRoomState()
+        data class Error(val message: String) : CreateRoomState()
         data class Success(val value: Int) : CreateRoomState()
     }
 
