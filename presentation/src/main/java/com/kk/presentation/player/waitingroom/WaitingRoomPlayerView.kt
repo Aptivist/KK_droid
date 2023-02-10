@@ -1,4 +1,4 @@
-package com.kk.presentation.player
+package com.kk.presentation.player.waitingroom
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells

@@ -1,4 +1,4 @@
-package com.kk.presentation.player
+package com.kk.presentation.player.gameroom
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable

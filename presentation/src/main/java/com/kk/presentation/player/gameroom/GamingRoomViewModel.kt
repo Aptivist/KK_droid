@@ -1,4 +1,4 @@
-package com.kk.presentation.player
+package com.kk.presentation.player.gameroom
 
 import com.kk.presentation.baseMVI.BaseViewModel
 
@@ -14,7 +14,7 @@ class GamingRoomViewModel :
     override fun handleEvent(event: GamingRoomContract.Event) {
         when (event) {
             is GamingRoomContract.Event.OnQuestionButtonClicked -> {
-                onQuestionButtonClcik()
+
             }
 
             is GamingRoomContract.Event.OnQuestionSkipButtonClicked -> {
@@ -24,10 +24,6 @@ class GamingRoomViewModel :
                 sendAnswer()
             }
         }
-    }
-
-    private fun onQuestionButtonClcik() {
-        TODO("Not yet implemented")
     }
 
     private fun skipQuestion() {

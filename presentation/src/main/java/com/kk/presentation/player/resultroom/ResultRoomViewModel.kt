@@ -1,4 +1,4 @@
-package com.kk.presentation.player
+package com.kk.presentation.player.resultroom
 
 import com.kk.presentation.baseMVI.BaseViewModel
 
@@ -11,12 +11,10 @@ class ResultRoomViewModel :
     }
 
     override fun handleEvent(event: ResultRoomContract.Event) {
-        when (event){
-            ResultRoomContract.Event.OnGoHomeClicked -> {goHomeView()}
+        when (event) {
+            ResultRoomContract.Event.OnGoHomeClicked -> {
+                ResultRoomContract.ResultRoomState.NavigateToHome
+            }
         }
-    }
-
-    private fun goHomeView() {
-        TODO("Not yet implemented")
     }
 }

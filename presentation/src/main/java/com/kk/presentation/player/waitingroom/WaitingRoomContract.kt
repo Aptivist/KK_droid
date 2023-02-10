@@ -1,4 +1,4 @@
-package com.kk.presentation.player
+package com.kk.presentation.player.waitingroom
 
 import com.kk.presentation.baseMVI.UiEffect
 import com.kk.presentation.baseMVI.UiEvent

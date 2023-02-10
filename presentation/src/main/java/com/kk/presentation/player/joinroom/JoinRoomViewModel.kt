@@ -1,4 +1,4 @@
-package com.kk.presentation.player
+package com.kk.presentation.player.joinroom
 
 import com.kk.presentation.baseMVI.BaseViewModel
 

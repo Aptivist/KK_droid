@@ -1,4 +1,4 @@
-package com.kk.presentation.player
+package com.kk.presentation.player.resultroom
 
 import com.kk.presentation.baseMVI.UiEffect
 import com.kk.presentation.baseMVI.UiEvent
@@ -14,6 +14,7 @@ class ResultRoomContract {
 
     sealed class ResultRoomState {
         object Idle : ResultRoomState()
+        object NavigateToHome : ResultRoomState()
         data class AnswerState(val roundNumber: Int, val text: String)
         data class GameWinnerState(val text: String)
         data class GameLostState(val winners: List<String>)

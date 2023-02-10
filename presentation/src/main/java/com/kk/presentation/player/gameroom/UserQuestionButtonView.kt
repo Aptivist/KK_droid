@@ -1,4 +1,4 @@
-package com.kk.presentation.player
+package com.kk.presentation.player.gameroom
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

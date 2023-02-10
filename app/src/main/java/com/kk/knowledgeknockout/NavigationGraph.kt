@@ -1,14 +1,15 @@
 package com.kk.knowledgeknockout
 
-import JoinRoomView
+import com.kk.presentation.player.joinroom.JoinRoomView
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.kk.presentation.*
-import com.kk.presentation.player.ResultView
-import com.kk.presentation.player.UserQuestionButtonView
-import com.kk.presentation.player.WaitingRoomPlayerView
+import com.kk.presentation.player.resultroom.ResultView
+import com.kk.presentation.player.gameroom.UserQuestionButtonView
+import com.kk.presentation.player.gameroom.UserAnswerView
+import com.kk.presentation.player.waitingroom.WaitingRoomPlayerView
 
 
 @Composable
