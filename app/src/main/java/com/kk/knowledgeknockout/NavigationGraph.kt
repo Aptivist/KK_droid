@@ -1,13 +1,17 @@
 package com.kk.knowledgeknockout
 
-import ScreenJoinGroup
+import com.kk.presentation.player.joinroom.JoinRoomView
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.kk.presentation.*
-import com.kk.presentation.host.progressgame.PreStartAdminView
 import com.kk.presentation.host.creategame.CreateRoomView
+import com.kk.presentation.host.progressgame.*
+import com.kk.presentation.player.resultroom.ResultView
+import com.kk.presentation.player.gameroom.UserQuestionButtonView
+import com.kk.presentation.player.gameroom.UserAnswerView
+import com.kk.presentation.player.waitingroom.WaitingRoomPlayerView
 
 
 @Composable
@@ -15,7 +19,7 @@ fun NavigationGraph(){
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = AppNavigation.ScreenHome.route){
         composable(route = AppNavigation.ScreenHome.route){
-            ScreenHome(
+            HomeView(
                 navigateToCreateRoom = {
                     navController.navigate(AppNavigation.CreateRoom.route)
                 },
@@ -35,7 +39,7 @@ fun NavigationGraph(){
             )
         }
         composable(route = AppNavigation.JoinRoom.route){
-            ScreenJoinGroup(
+            JoinRoomView(
                 onBackHome = {
                     navController.navigate(AppNavigation.ScreenHome.route)
                 },
@@ -72,7 +76,7 @@ fun NavigationGraph(){
             )
         }
         composable(route = AppNavigation.StartRoundHost.route){
-            AwaitingViewHost(
+           AwaitingUsersAnswersHostView(
                 navigateToWaitingAnswerHost = {
                     navController.navigate(AppNavigation.WaitingAnswerHost.route)
                 }
@@ -100,15 +104,15 @@ fun NavigationGraph(){
             )
         }
         composable(route = AppNavigation.SendAnswer.route){
-            ScreenUserAnswer(
+            UserAnswerView(
                 navigateToWaitingPlayers = {
                     navController.navigate(AppNavigation.WaitingAnswerPlayer.route)
                 }
             )
         }
         composable(route = AppNavigation.WaitingAnswerPlayer.route){
-            AwaitingViewHost(
-                navigateToWaitingAnswerHost = {
+            AwaitingViewPlayer(
+                navigateToWaitingAnswerPlayer = {
                     navController.navigate(AppNavigation.EndRoundPlayer.route)
                 }
             )
