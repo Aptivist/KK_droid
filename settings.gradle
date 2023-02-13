@@ -30,7 +30,6 @@ dependencyResolutionManagement {
                 version('androidCompose','3.4.1')
 
                 library('koinAndroid','io.insert-koin','koin-android').versionRef('koin-version')
-                //library('koin-compose','io.insert-koin','koin-compose').versionRef('koin-version')
                 library('koinCore','io.insert-koin','koin-core').versionRef('koin-version')
                 library('koinAndroidCompose','io.insert-koin','koin-androidx-compose').versionRef('androidCompose')
 

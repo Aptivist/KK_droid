@@ -1,14 +1,19 @@
 package com.kk.data
 
-import android.util.Log
-import com.kk.data.model.BaseResponse
+import com.kk.data.utils.constants.CONNECTED
+import com.kk.data.utils.constants.SESSION_CLOSED
+import com.kk.data.utils.exception.NoResponseException
+import com.kk.data.utils.exception.NotActiveException
 import com.kk.domain.models.BaseResult
 import com.kk.network.di.BaseUrl
 import io.ktor.client.*
 import io.ktor.client.features.websocket.*
 import io.ktor.client.request.*
 import io.ktor.http.cio.websocket.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.isActive
 
 class SocketServiceImp(private val httpClient: HttpClient) : ISocketService {
@@ -26,7 +31,7 @@ class SocketServiceImp(private val httpClient: HttpClient) : ISocketService {
             }
 
             if (socket?.isActive == true) {
-                BaseResult.Success("Connected")
+                BaseResult.Success(CONNECTED)
             } else BaseResult.Error(NotActiveException())
 
 
@@ -56,7 +61,7 @@ class SocketServiceImp(private val httpClient: HttpClient) : ISocketService {
     }
 
     override suspend fun closeSocket() {
-        socket?.close(CloseReason(code = CloseReason.Codes.NORMAL, "Closed"))
+        socket?.close(CloseReason(code = CloseReason.Codes.NORMAL, SESSION_CLOSED))
     }
 }
 
@@ -66,6 +71,3 @@ sealed interface UserType {
     object PlayerType : UserType
 }
 
-
-class NotActiveException() : Exception("Error connection")
-class NoResponseException() : Exception("Error response")
