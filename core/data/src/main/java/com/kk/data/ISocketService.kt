@@ -9,7 +9,7 @@ interface ISocketService {
 
     suspend fun requestSocket(request: String)
 
-    fun receiveData(): Flow<BaseResponse<String>>
+    fun receiveData(): Flow<BaseResult<String>>
 
     suspend fun closeSocket()
 }

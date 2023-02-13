@@ -25,9 +25,9 @@ class SocketServiceImp(private val httpClient: HttpClient) : ISocketService {
                 )
             }
 
-            if (socket?.isActive == true){
+            if (socket?.isActive == true) {
                 BaseResult.Success("Connected")
-            }else BaseResult.Error(NotActiveException())
+            } else BaseResult.Error(NotActiveException())
 
 
         } catch (e: Exception) {
@@ -40,19 +40,17 @@ class SocketServiceImp(private val httpClient: HttpClient) : ISocketService {
         socket?.send(request)
     }
 
-    override fun receiveData(): Flow<BaseResponse<String>> {
+    override fun receiveData(): Flow<BaseResult<String>> {
         return try {
             socket?.incoming?.receiveAsFlow()
                 ?.map {
-                    BaseResponse(data = (it as Frame.Text).readText(), status = "")
-                }?.onEach {
-                    Log.e("Socket", it.toString() + "1")
+                    BaseResult.Success(data = (it as Frame.Text).readText())
                 } ?: flow {
-                emit(BaseResponse(data = "Nada", status = ""))
+                emit(BaseResult.Error(NoResponseException()))
             }
         } catch (e: Exception) {
             flow {
-                emit(BaseResponse(data = "Error", status = ""))
+                emit(BaseResult.Error(e))
             }
         }
     }
@@ -69,4 +67,5 @@ sealed interface UserType {
 }
 
 
-class NotActiveException(): Exception("Error connection")
+class NotActiveException() : Exception("Error connection")
+class NoResponseException() : Exception("Error response")
