@@ -2,4 +2,7 @@
 <resources>
     <string name="hs_create_room">Crear partida</string>
     <string name="hs_join_room">Unirse a partida</string>
+    <string name="hs_error_title">Error</string>
+    <string name="hs_error_message">Error de conexión</string>
+    <string name="hs_text_confirm_button">Aceptar</string>
 </resources>

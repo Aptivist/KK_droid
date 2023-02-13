@@ -14,15 +14,19 @@ import com.kk.designsystem.components.KkButton
 import com.kk.designsystem.components.KkNumberField
 import com.kk.designsystem.components.KkTitle
 import com.kk.presentation.R
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun CreateRoomView(
     onBackHome : () -> Unit,
-    navigateToWaitingRoom : () -> Unit
+    navigateToWaitingRoom : () -> Unit,
 ) {
+    val viewModel = koinViewModel<CreateRoomViewModel>()
     var participantValue by remember { mutableStateOf("") }
     var pointValue by remember { mutableStateOf("") }
     var timerValue by remember { mutableStateOf("") }
+
+    val uiState = viewModel.uiState.collectAsState()
 
     Column(
         modifier = Modifier
@@ -77,7 +81,9 @@ fun CreateRoomView(
 
         Spacer(modifier = Modifier.weight(1f))
         KkButton(
-            onClick = { navigateToWaitingRoom.invoke() },
+            onClick = {
+                viewModel.rec()
+                viewModel.createRoom() },
             label = stringResource(R.string.cr_create),
             modifier = Modifier
                 .padding(vertical = 50.dp)

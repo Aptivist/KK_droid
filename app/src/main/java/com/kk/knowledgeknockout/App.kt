@@ -1,6 +1,9 @@
 package com.kk.knowledgeknockout
 
 import android.app.Application
+import com.kk.data.di.socketServiceModule
+import com.kk.network.di.networkModuleKtor
+import com.kk.presentation.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
@@ -13,7 +16,7 @@ class App : Application() {
             androidLogger()
             androidContext(this@App)
 
-            modules()
+            modules(socketServiceModule, networkModuleKtor, viewModelModule)
         }
     }
 }

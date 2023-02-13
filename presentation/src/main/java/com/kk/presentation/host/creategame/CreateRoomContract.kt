@@ -21,9 +21,9 @@ class CreateRoomContract {
     sealed class CreateRoomState {
         object Idle : CreateRoomState()
         data class Error(val message: String) : CreateRoomState()
-        data class Success(val value: Int) : CreateRoomState()
+        data class Success(val value: String) : CreateRoomState()
     }
 
     // Side Effect
-    sealed class Effect : UiEffect { object Nav : Effect() }
+    sealed class Effect : UiEffect { object Navigate : Effect() }
 }

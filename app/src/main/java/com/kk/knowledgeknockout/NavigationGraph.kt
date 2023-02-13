@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.kk.presentation.*
+import com.kk.presentation.home.HomeView
 import com.kk.presentation.host.creategame.CreateRoomView
 import com.kk.presentation.host.progressgame.*
 import com.kk.presentation.player.resultroom.ResultView
@@ -18,13 +19,19 @@ import com.kk.presentation.player.waitingroom.WaitingRoomPlayerView
 fun NavigationGraph(){
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = AppNavigation.ScreenHome.route){
+
         composable(route = AppNavigation.ScreenHome.route){
+
             HomeView(
                 navigateToCreateRoom = {
-                    navController.navigate(AppNavigation.CreateRoom.route)
+                    navController.navigate(AppNavigation.CreateRoom.route){
+                        popUpTo(AppNavigation.ScreenHome.route)
+                    }
+
                 },
                 navigateToJoinRoom = {
                     navController.navigate(AppNavigation.JoinRoom.route)
+
                 }
             )
         }
