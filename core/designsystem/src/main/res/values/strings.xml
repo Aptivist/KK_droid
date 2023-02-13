@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_on_back_pressed">Knowledge Knockout</string>
+    <string name="message_on_back_pressed">"If you confirm, you will exit the game.</string>
+    <string name="confirm_button_on_back_pressed">Confirm</string>
+    <string name="cancel_button_on_back_pressed">Cancel</string>
+</resources>

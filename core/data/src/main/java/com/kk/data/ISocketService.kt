@@ -1,15 +1,15 @@
 package com.kk.data
 
-import com.kk.data.model.BaseResult
-import io.ktor.http.cio.websocket.*
+import com.kk.data.model.BaseResponse
+import com.kk.domain.models.BaseResult
 import kotlinx.coroutines.flow.Flow
 
 interface ISocketService {
-    suspend fun connectSocket()
+    suspend fun connectSocket(userType: UserType): BaseResult<String>
 
     suspend fun requestSocket(request: String)
 
-    suspend fun receiveData(): Flow<BaseResult<String>>
+    fun receiveData(): Flow<BaseResponse<String>>
 
     suspend fun closeSocket()
 }

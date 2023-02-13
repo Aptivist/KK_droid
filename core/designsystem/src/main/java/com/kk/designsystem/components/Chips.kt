@@ -5,12 +5,12 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.kk.designsystem.theme.BurntSienna
 import com.kk.designsystem.theme.KkTypography
 
 @Composable
@@ -19,7 +19,7 @@ fun KkChip(
     modifier: Modifier = Modifier,
 ){
     Box(
-        Modifier
+        modifier = modifier
             .border(2.dp, MaterialTheme.colorScheme.onPrimary, RoundedCornerShape(20.dp))
             .clip(RoundedCornerShape(20.dp))
             .background(MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.3f))

@@ -15,34 +15,18 @@ import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.lifecycle.lifecycleScope
-import com.google.gson.Gson
-import com.kk.data.SocketServicePlayerImp
 import com.kk.data.model.*
 import com.kk.designsystem.components.*
 import com.kk.designsystem.theme.KnowledgeKnockoutTheme
-import com.kk.presentation.ScreenCreateRoom
-import kotlinx.coroutines.flow.SharingStarted
+import com.kk.presentation.host.creategame.CreateRoomView
+
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
-    val socketServicePlayer: SocketServicePlayerImp by inject()
-    var data: StateFlow<BaseResult<String>>? = null
+    var data: StateFlow<BaseResponse<String>>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        lifecycleScope.launch {
-            socketServicePlayer.connectSocket()
-
-            data = socketServicePlayer.receiveData().stateIn(
-                scope = lifecycleScope,
-                started = SharingStarted.WhileSubscribed(5000),
-                initialValue = BaseResult(data = "", status = ""))
-        }
 
         setContent {
             KnowledgeKnockoutTheme {
@@ -55,26 +39,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    //NavigationGraph()
-                    ScreenCreateRoom(){
-                        lifecycleScope.launch {
-                            socketServicePlayer.requestSocket(
-                                Gson().toJson(
-                                    PlayerUser(
-                                        "2",
-                                        "diegobm",
-                                        null,
-                                        "1234"
-                                    )
+                    NavigationGraph()
 
-                                    /*CreateGameRequest(
-                                        HostUser(null),
-                                        Rules(5, 5, 45)
-                                    )*/
-                                )
-                            )
-                        }
-                    }
                 }
             }
         }

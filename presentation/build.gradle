@@ -39,6 +39,10 @@ android {
 dependencies {
     implementation libs.bundles.compose
     implementation libs.bundles.accompanist
+    implementation libs.bundles.koin
+    implementation libs.gson
     implementation project(':core:designsystem')
+    implementation project(':core:data')
+    implementation project(':core:domain')
     implementation libs.lottie
 }

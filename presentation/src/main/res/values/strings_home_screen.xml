@@ -2,4 +2,8 @@
 <resources>
     <string name="hs_create_room">Create room</string>
     <string name="hs_join_room">Join room</string>
+    <string name="hs_error_title">Error</string>
+    <string name="hs_error_message">Connection Error</string>
+    <string name="hs_text_confirm_button">Accept</string>
+
 </resources>

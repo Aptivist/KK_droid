@@ -6,10 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.kk.designsystem.theme.BurntSienna
 import com.kk.designsystem.theme.KkTypography
-import com.kk.designsystem.theme.RedSalsa
-import com.kk.designsystem.theme.ShamrockGreen
 import java.util.*
 
 @Composable
