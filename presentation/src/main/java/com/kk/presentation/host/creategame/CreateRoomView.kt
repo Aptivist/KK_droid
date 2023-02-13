@@ -82,7 +82,6 @@ fun CreateRoomView(
         Spacer(modifier = Modifier.weight(1f))
         KkButton(
             onClick = {
-                viewModel.rec()
                 viewModel.createRoom() },
             label = stringResource(R.string.cr_create),
             modifier = Modifier
