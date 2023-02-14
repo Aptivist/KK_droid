@@ -13,7 +13,10 @@ class ContractProgressGame {
         object NextRound : Event()
     }
 
-    data class State(val hostState: HostState): UiState
+    data class State(
+        val error: String? = null,
+        val isLoading: Boolean = false,
+        ): UiState
 
     sealed class HostState {
         object Idle : HostState()
@@ -25,5 +28,7 @@ class ContractProgressGame {
         data class Success(val value: Int) : HostState()
     }
 
-    sealed class Effect : UiEffect { }
+    sealed class Effect : UiEffect {
+        object NavigateWaitingAnswerHost : Effect()
+    }
 }

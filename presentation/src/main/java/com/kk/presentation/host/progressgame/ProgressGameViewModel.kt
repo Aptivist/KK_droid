@@ -4,11 +4,10 @@ import com.kk.presentation.baseMVI.BaseViewModel
 import com.kk.presentation.baseMVI.UiEvent
 import com.kk.presentation.baseMVI.UiState
 
-class ProgressGameViewModel : BaseViewModel<ContractProgressGame.Event, ContractProgressGame.State, ContractProgressGame.Effect>()  {
+class ProgressGameViewModel :
+    BaseViewModel<ContractProgressGame.Event, ContractProgressGame.State, ContractProgressGame.Effect>()  {
     override fun createInitialState(): ContractProgressGame.State {
-        return ContractProgressGame.State(
-            ContractProgressGame.HostState.Idle
-        )
+        return ContractProgressGame.State(isLoading = false)
     }
 
     override fun handleEvent(event: ContractProgressGame.Event) {

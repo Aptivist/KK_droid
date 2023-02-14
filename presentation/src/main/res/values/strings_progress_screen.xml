@@ -4,9 +4,13 @@
     <string name="next_button">next</string>
     <string name="timing">seconds</string>
     <string name="question_to_ask">Ask your question</string>
+    <string name="awaiting_body">Waiting for players response…</string>
     <string name="start_round">Start Round</string>
     <string name="player_answer">Answer</string>
     <string name="correct_answer_button">Correct</string>
     <string name="incorrect_answer_button">Incorrect</string>
+    <string name="pg_error_title">Error</string>
+    <string name="pg_error_message">Connection Error</string>
+    <string name="pg_text_confirm_button">Accept</string>
     <string name="skip">skip</string>
 </resources>
