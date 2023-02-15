@@ -1,17 +1,9 @@
 package com.kk.data.mappers
 
-import com.kk.data.model.CreateGameRequest
-import com.kk.data.model.HostUser
-import com.kk.data.model.KKTimer
-import com.kk.data.model.PlayerUser
-import com.kk.data.model.Rules
-import com.kk.domain.models.CreateGameRequestDomain
-import com.kk.domain.models.HostUserDomain
-import com.kk.domain.models.KKTimerDomain
-import com.kk.domain.models.PlayerUserDomain
-import com.kk.domain.models.RulesDomain
+import com.kk.data.model.*
+import com.kk.domain.models.*
 
-
+/*
 fun KKTimer.toDomainTimer() : KKTimerDomain = KKTimerDomain(
     this.time
 )
@@ -33,10 +25,22 @@ fun Rules.toDomainRules() : RulesDomain = RulesDomain(
     this.timerSeconds
 )
 
-fun CreateGameRequest.toDomainGameRequest() : CreateGameRequestDomain = CreateGameRequestDomain(
-    this.host.toDomainHost(),
-    this.rules.toDomainRules()
+
+
+fun GameRoom.toDomain() : GameRoomDomain= GameRoomDomain(
+    code = code,
+    host = host.toDomainHost(),
+    rules = rules.toDomainRules(),
+    players = players.map { it.toDomainPlayer() }
+)
+*/
+
+fun RulesDomain.toRulesDTO() : Rules = Rules(
+    this.maxPlayers,
+    this.points,
+    this.timerSeconds
 )
 
-
-
+fun  CreateGameRequestDomain.toGameRequestDTO() : CreateGameRequest = CreateGameRequest(
+    this.rules.toRulesDTO()
+)

@@ -1,14 +1,14 @@
 package com.kk.presentation.home
 
 import androidx.lifecycle.viewModelScope
-import com.kk.data.ISocketService
-import com.kk.data.UserType
+import com.kk.data.repository.HomeRepository
 import com.kk.domain.models.BaseResult
+import com.kk.domain.models.UserType
 import com.kk.presentation.baseMVI.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HomeVieModel(private val socketService: ISocketService) :
+class HomeVieModel(private val homeRepository: HomeRepository ) :
     BaseViewModel<HomeContract.Event, HomeContract.State, HomeContract.Effect>() {
 
     override fun createInitialState(): HomeContract.State {
@@ -34,7 +34,7 @@ class HomeVieModel(private val socketService: ISocketService) :
 
     private fun connectSocket(userType: UserType) {
         viewModelScope.launch(Dispatchers.IO) {
-            when (val result = socketService.connectSocket(userType)) {
+            when (val result = homeRepository.connectSession(userType)) {
                 is BaseResult.Error -> {
                     setState {
                         HomeContract.State(
