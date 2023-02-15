@@ -2,11 +2,7 @@ package com.kk.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -77,22 +73,21 @@ fun WaitingRoomAdminView(
             }, label = stringResource(R.string.stringPlayers)
         )
 
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(3),
-            modifier = Modifier
-                .constrainAs(chipGroup) {
-                    top.linkTo(playersLabel.bottom, 20.dp)
-                    bottom.linkTo(startButton.top)
-                    start.linkTo(parent.start,20.dp)
-                    end.linkTo(parent.end,20.dp)
-                },
-
-            content = {
-                items(6){ i ->
-                    KkChip(label = "Name")
-                }
+        Box(modifier = Modifier
+            .padding(start = 25.dp, end = 25.dp)
+            .constrainAs(chipGroup) {
+                top.linkTo(playersLabel.bottom, 20.dp)
             }
-        )
+        ){
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(3),
+                content = {
+                    items(5){
+                        KkChip(label = "Name")
+                    }
+                }
+            )
+        }
 
         KkButton(
             modifier = Modifier
