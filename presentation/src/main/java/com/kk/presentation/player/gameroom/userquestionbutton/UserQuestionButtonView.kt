@@ -1,4 +1,4 @@
-package com.kk.presentation.player.gameroom
+package com.kk.presentation.player.gameroom.userquestionbutton
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -6,6 +6,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -16,11 +19,16 @@ import com.kk.designsystem.components.KkBody
 import com.kk.designsystem.components.KkOrangeTitle
 import com.kk.designsystem.components.KkTitle
 import com.kk.presentation.R
+import kotlinx.coroutines.flow.collectLatest
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun UserQuestionButtonView(
-    navigateToSendAnswer: () -> Unit
+    navigateToSendAnswer: () -> Unit,
+    navigateToWaitingPlayers: () -> Unit,
+    viewModel: UserQuestionButtonViewModel = koinViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsState()
     val image = painterResource(id = main_button)
     Column(
         modifier = Modifier
@@ -36,7 +44,7 @@ fun UserQuestionButtonView(
         )
         Spacer(modifier = Modifier.size(50.dp))
         KkOrangeTitle(
-            label = stringResource(R.string.uqb_time),
+            label = uiState.baseResponseDomain.data.time.toString(),
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Spacer(modifier = Modifier.size(40.dp))
@@ -47,7 +55,9 @@ fun UserQuestionButtonView(
                 .height(300.dp)
                 .align(Alignment.CenterHorizontally)
                 .clickable {
-                    navigateToSendAnswer.invoke()
+                    viewModel.handleEvent(
+                        UserQuestionButtonContract.Event.OnMainButtonClicked()
+                    )
                 }
         )
         Spacer(modifier = Modifier.size(50.dp))
@@ -55,9 +65,20 @@ fun UserQuestionButtonView(
             label = stringResource(R.string.uqb_skip),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .clickable() { }
+                .clickable() {
+                    viewModel.handleEvent(UserQuestionButtonContract.Event.OnSkipButtonClicked)
+                }
         )
         Spacer(modifier = Modifier.size(30.dp))
+
+        LaunchedEffect(key1 = Unit) {
+            viewModel.effect.collectLatest { effect ->
+                when (effect) {
+                    UserQuestionButtonContract.Effect.NavigateToSendPlayerAnswer -> navigateToSendAnswer()
+                    UserQuestionButtonContract.Effect.NavigateToWaitingPlayers -> navigateToWaitingPlayers()
+                }
+            }
+        }
 
     }
 }
