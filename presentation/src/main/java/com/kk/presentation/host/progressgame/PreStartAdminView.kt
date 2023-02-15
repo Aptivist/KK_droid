@@ -20,20 +20,22 @@ fun PreStartAdminView(
     viewModel: ProgressGameViewModel = koinViewModel()
 ){
     //viewmodel round: String
-    val round = "1"
     val uiState by viewModel.uiState.collectAsState()
     KKBox(isLoading = uiState.isLoading) {
         Column(modifier = Modifier.fillMaxSize()) {
             Column(modifier = Modifier
                 .fillMaxWidth()
                 .padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                KkTitle(label = round)
+                KkTitle(label = viewModel.round)
             }
             Box(modifier = Modifier.padding(25.dp)) {
                 KkBody(label = stringResource(id = R.string.question_to_ask))
             }
             Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                KkOrangeTitle(label = stringResource(id = R.string.start_round))
+                KkOrangeTitle(
+                    label = stringResource(id = R.string.start_round),
+                    onClick = { viewModel.setEvent(ContractProgressGame.Event.StartRound) }
+                )
             }
         }
     }

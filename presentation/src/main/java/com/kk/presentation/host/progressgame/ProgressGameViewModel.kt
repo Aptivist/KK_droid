@@ -6,6 +6,11 @@ import com.kk.presentation.baseMVI.UiState
 
 class ProgressGameViewModel :
     BaseViewModel<ContractProgressGame.Event, ContractProgressGame.State, ContractProgressGame.Effect>()  {
+
+    lateinit var round: String
+    lateinit var timeLeft: String
+    lateinit var playersAnswers: Map<String, String>
+    lateinit var playersNames: Map<String, String>
     override fun createInitialState(): ContractProgressGame.State {
         return ContractProgressGame.State(isLoading = false)
     }

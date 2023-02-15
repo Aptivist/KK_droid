@@ -31,7 +31,7 @@ fun ShowWinnerAdminView(
             Column(modifier = Modifier
                 .fillMaxWidth()
                 .padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                KkTitle(label = round)
+                KkTitle(label = viewModel.round)
             }
             Column(modifier = Modifier
                 .fillMaxWidth()
@@ -44,7 +44,9 @@ fun ShowWinnerAdminView(
                 .padding(30.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Bottom) {
-                KkButton(onClick = { }, label = stringResource(id = R.string.next_button), modifier = Modifier.fillMaxWidth())
+                KkButton(onClick = { viewModel.setEvent(ContractProgressGame.Event.NextRound) },
+                    label = stringResource(id = R.string.next_button),
+                    modifier = Modifier.fillMaxWidth())
             }
         }
     }
