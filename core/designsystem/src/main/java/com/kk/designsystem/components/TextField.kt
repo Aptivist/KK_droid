@@ -35,7 +35,8 @@ fun KkTextField(
 fun KkNumberField(
     value: String,
     onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
 ){
     TextField(
         modifier = modifier,
@@ -49,7 +50,7 @@ fun KkNumberField(
             unfocusedIndicatorColor = Color.Transparent
         ),
         shape = RoundedCornerShape(6.dp),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+        keyboardOptions = keyboardOptions
     )
 }
 
