@@ -5,4 +5,5 @@
     <string name="cr_points">Points</string>
     <string name="cr_time">Timer (seconds)</string>
     <string name="cr_create">Create</string>
+    <string name="cr_error_connection">Connection Error</string>
 </resources>

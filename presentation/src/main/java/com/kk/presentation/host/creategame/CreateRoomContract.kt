@@ -9,20 +9,20 @@ class CreateRoomContract {
     // Events that user performed
     sealed class Event : UiEvent {
         object OnCreateRoom : Event()
-        object OnChangePlayers: Event()
-        object OnChangePoints: Event()
-        object OnChangeTime: Event()
+        data class OnChangePlayers(val players: String): Event()
+        data class OnChangePoints(val points: String): Event()
+        data class OnChangeTime(val time: String ): Event()
     }
-
-    // UI View States
-    data class State(val createRoomState : CreateRoomState): UiState
 
     // View State
-    sealed class CreateRoomState {
-        object Idle : CreateRoomState()
-        data class Error(val message: String) : CreateRoomState()
-        data class Success(val value: String) : CreateRoomState()
-    }
+    data class State(
+        val players: Int = 0,
+        val time: Int = 0,
+        val points : Int = 0,
+        val data: String = "",
+        val error: String? = null,
+        val isLoading: Boolean = false,
+    ) : UiState
 
     // Side Effect
     sealed class Effect : UiEffect { object Navigate : Effect() }

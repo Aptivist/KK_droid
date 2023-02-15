@@ -9,7 +9,6 @@ import org.koin.dsl.module
 
 
 val viewModelModule = module {
-
-    viewModelOf(::CreateRoomViewModel)
     viewModelOf(::HomeVieModel)
+    viewModelOf(::CreateRoomViewModel)
 }
