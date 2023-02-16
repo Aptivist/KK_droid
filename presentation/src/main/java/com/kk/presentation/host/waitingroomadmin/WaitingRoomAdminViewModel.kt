@@ -1,5 +1,6 @@
 package com.kk.presentation.host.waitingroomadmin
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.WaitingRoomAdminRepository
 import com.kk.domain.models.BaseResult
@@ -18,7 +19,6 @@ class WaitingRoomAdminViewModel (private val waitingRoomAdminRepository: Waiting
     init {
         observeData()
     }
-
     override fun createInitialState(): WaitingRoomAdminContract.State {
         return WaitingRoomAdminContract.State()
     }
@@ -28,7 +28,10 @@ class WaitingRoomAdminViewModel (private val waitingRoomAdminRepository: Waiting
             waitingRoomAdminRepository.receivePlayers().collect{ result ->
                 when (result){
                     is BaseResult.Error -> setState { copy(error = stringProvider.getString(R.string.wr_error_connection)) }
-                    is BaseResult.Success -> setEffect { WaitingRoomAdminContract.Effect.Navigate }
+                    is BaseResult.Success ->{
+                        Log.e("data",result.toString())
+                        setState { copy(players = result.data.data) }
+                    }
                 }
             }
         }

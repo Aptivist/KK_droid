@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.iteneum.core.ui.components.camera.GKCameraScannerView
 import com.kk.designsystem.components.KKBox
 import com.kk.designsystem.components.KkBody
 import com.kk.designsystem.components.KkButton
@@ -77,7 +78,12 @@ fun WaitingRoomAdminView(
                         end.linkTo(parent.end)
                     },
                 shape = RoundedCornerShape(5.dp)
-            ) {}
+            ) {
+GKCameraScannerView(modifier = Modifier.fillMaxSize()){
+
+}
+
+            }
 
             KkBody(
                 modifier = Modifier.constrainAs(playersLabel) {

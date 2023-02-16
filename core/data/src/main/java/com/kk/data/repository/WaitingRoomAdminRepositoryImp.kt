@@ -1,11 +1,8 @@
 package com.kk.data.repository
 
 import com.kk.data.utils.extensions.mapResponse
-import com.kk.domain.models.BaseResponseDomain
 import com.google.gson.Gson
-import com.kk.domain.models.BaseResult
-import com.kk.domain.models.EventRequestDomain
-import com.kk.domain.models.PlayerUserDomain
+import com.kk.domain.models.*
 import com.kk.network.service.ISocketService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,9 +14,9 @@ class WaitingRoomAdminRepositoryImp(
     private val gson: Gson
 ) : WaitingRoomAdminRepository {
 
-    override fun receivePlayers(): Flow<BaseResult<BaseResponseDomain<List<PlayerUserDomain>>>> {
+    override fun receivePlayers(): Flow<BaseResult<PlayersResponse>> {
         return try {
-            socketService.receiveData().mapResponse(gson)
+            socketService.receiveData().map { BaseResult.Success(gson.fromJson(it,PlayersResponse::class.java)) }
         } catch (ex: Exception) {
             flow { emit(BaseResult.Error(ex)) }
         }

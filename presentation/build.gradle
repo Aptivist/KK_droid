@@ -8,7 +8,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        minSdk 24
+        minSdk 28
         targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -41,6 +41,7 @@ dependencies {
     implementation libs.bundles.accompanist
     implementation libs.bundles.koin
     implementation libs.gson
+    implementation libs.iteneumCoreDroid
     implementation project(':core:designsystem')
     implementation project(':core:data')
     implementation project(':core:domain')
