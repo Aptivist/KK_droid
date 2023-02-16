@@ -1,5 +1,6 @@
 package com.kk.data.di
 
+import com.kk.data.repository.*
 import com.kk.data.repository.CreateRoomRepository
 import com.kk.data.repository.CreateRoomRepositoryImp
 import com.kk.data.repository.HomeRepository
@@ -17,6 +18,9 @@ val repositoryModule = module {
     }
     singleOf(::HomeRepositoryImp){
         bind<HomeRepository>()
+    }
+    singleOf(::PlayerWaitingRoomImp){
+        bind<PlayerWaitingRoomRepository>()
     }
     singleOf(::WaitingRoomAdminRepositoryImp){
         bind<WaitingRoomAdminRepository>()
