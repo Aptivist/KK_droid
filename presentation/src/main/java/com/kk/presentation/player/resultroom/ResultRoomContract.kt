@@ -1,5 +1,6 @@
 package com.kk.presentation.player.resultroom
 
+import com.kk.domain.models.GameResultDomain
 import com.kk.presentation.baseMVI.UiEffect
 import com.kk.presentation.baseMVI.UiEvent
 import com.kk.presentation.baseMVI.UiState
@@ -10,16 +11,14 @@ class ResultRoomContract {
         object OnGoHomeClicked : Event()
     }
 
-    data class State(val resultRoomState: ResultRoomState) : UiState
+    data class State(
+        val status: String? = null,
+        val data: GameResultDomain = GameResultDomain(),
+        val error: String? = null
+    ): UiState
 
-    sealed class ResultRoomState {
-        object Idle : ResultRoomState()
-        object NavigateToHome : ResultRoomState()
-        data class AnswerState(val roundNumber: Int, val text: String)
-        data class GameWinnerState(val text: String)
-        data class GameLostState(val winners: List<String>)
+    sealed class Effect : UiEffect {
+        object Navigate : Effect()
     }
-
-    sealed class Effect : UiEffect
 
 }
