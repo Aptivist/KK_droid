@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -24,10 +25,12 @@ import com.kk.designsystem.components.KkOrangeTitle
 import com.kk.designsystem.components.KkTitle
 import com.kk.designsystem.theme.BurntSienna
 import com.kk.presentation.R
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun WaitingRoomAdminView(
+    codeRoom: String = "No code",
     onBackCreateRoom : () -> Unit,
     navigateToStartGameHost : () -> Unit,
     waitingRoomAdminViewModel: WaitingRoomAdminViewModel = koinViewModel()
@@ -53,7 +56,7 @@ fun WaitingRoomAdminView(
                 top.linkTo(subtitleLabel.bottom, 20.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
-            }, label = "XAWFF")
+            }, label = codeRoom)
 
             KkBody(modifier = Modifier.constrainAs(qrLabel) {
                 top.linkTo(codeLabel.bottom, 20.dp)
@@ -109,9 +112,17 @@ fun WaitingRoomAdminView(
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                     },
-                onClick = { navigateToStartGameHost.invoke() },
+                onClick = {waitingRoomAdminViewModel.handleEvent(WaitingRoomAdminContract.Event.OnStartGame)},
                 label = stringResource(R.string.stringButton)
             )
+        }
+    }
+
+    LaunchedEffect(key1 = Unit){
+        waitingRoomAdminViewModel.effect.collectLatest {
+            when(it){
+                WaitingRoomAdminContract.Effect.Navigate -> navigateToStartGameHost.invoke()
+            }
         }
     }
 }

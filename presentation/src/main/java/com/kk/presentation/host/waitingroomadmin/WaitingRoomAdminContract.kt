@@ -8,7 +8,7 @@ import com.kk.presentation.host.creategame.CreateRoomContract
 
 class WaitingRoomAdminContract {
     sealed class Event : UiEvent{
-        object showPlayers : Event()
+        object OnStartGame : Event()
     }
 
     data class State(val players : List<PlayerUserDomain> = emptyList(), val error : String? = null) : UiState

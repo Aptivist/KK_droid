@@ -14,6 +14,11 @@ class WaitingRoomAdminRepositoryImp(
     private val gson: Gson
 ) : WaitingRoomAdminRepository {
 
+
+    override suspend fun sendRequest(eventRequestDomain: EventRequestDomain) {
+        socketService.requestSocket(gson.toJson(eventRequestDomain))
+    }
+
     override fun receivePlayers(): Flow<BaseResult<PlayersResponse>> {
         return try {
             socketService.receiveData().map { BaseResult.Success(gson.fromJson(it,PlayersResponse::class.java)) }
