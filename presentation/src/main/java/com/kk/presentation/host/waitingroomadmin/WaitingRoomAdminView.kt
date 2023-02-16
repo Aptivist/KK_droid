@@ -1,11 +1,10 @@
-package com.kk.presentation
+package com.kk.presentation.host.waitingroomadmin
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -15,10 +14,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.iteneum.core.ui.components.camera.GKCameraScannerView
 import com.kk.designsystem.components.KKBox
 import com.kk.designsystem.components.KkBody
 import com.kk.designsystem.components.KkButton
@@ -26,7 +23,7 @@ import com.kk.designsystem.components.KkChip
 import com.kk.designsystem.components.KkOrangeTitle
 import com.kk.designsystem.components.KkTitle
 import com.kk.designsystem.theme.BurntSienna
-import com.kk.presentation.host.waitingroomadmin.WaitingRoomAdminViewModel
+import com.kk.presentation.R
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -76,9 +73,6 @@ fun WaitingRoomAdminView(
                     },
                 shape = RoundedCornerShape(5.dp)
             ) {
-GKCameraScannerView(modifier = Modifier.fillMaxSize()){
-
-}
 
             }
 
