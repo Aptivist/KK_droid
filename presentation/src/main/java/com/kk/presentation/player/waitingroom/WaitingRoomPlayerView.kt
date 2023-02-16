@@ -3,7 +3,9 @@ package com.kk.presentation.player.waitingroom
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -14,6 +16,7 @@ import com.kk.designsystem.components.KkBody
 import com.kk.designsystem.components.KkChip
 import com.kk.designsystem.components.KkTitle
 import com.kk.presentation.R
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -50,11 +53,19 @@ fun WaitingRoomPlayerView(
                     },
 
                 content = {
-                    items(6){ i ->
-                        KkChip(label = "Name")
+                    items(uiState.value.playerList){ player ->
+                        KkChip(label = player.name)
                     }
                 }
             )
+        }
+    }
+
+    LaunchedEffect(key1 = Unit){
+        waitingRoomViewModel.effect.collectLatest {
+            when(it){
+                WaitingRoomContract.Effect.Navigate -> navigateToStartGamePlayer.invoke()
+            }
         }
     }
 }

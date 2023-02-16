@@ -28,8 +28,16 @@ class WaitingRoomViewModel(private val repository: PlayerWaitingRoomRepository):
                     is BaseResult.Error -> setState {
                         copy(error = result.toString())
                     }
-                    is BaseResult.Success -> setState {
-                        copy(playerList = result.data.data)
+                    is BaseResult.Success -> {
+                        setState {
+                            copy(playerList = result.data.data)
+                        }
+
+                        if(result.data.status == "INITIALIZED"){
+                            setEffect {
+                                WaitingRoomContract.Effect.Navigate
+                            }
+                        }
                     }
                 }
             }

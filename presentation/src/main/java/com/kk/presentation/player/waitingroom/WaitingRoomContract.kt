@@ -10,6 +10,8 @@ class WaitingRoomContract {
 
     data class State(val playerList: List<PlayerUserDomain> = emptyList(), val error: String? = null) : UiState
 
-    sealed class Effect : UiEffect
+    sealed class Effect : UiEffect{
+        object Navigate: Effect()
+    }
 
 }
