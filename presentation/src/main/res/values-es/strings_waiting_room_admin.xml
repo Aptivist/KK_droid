@@ -5,4 +5,5 @@
     <item name="stringQR" type="string">Ó escanea el QR</item>
     <item name="stringPlayers" type="string">Jugadores conectados</item>
     <item name="stringButton" type="string">COMENZAR</item>
+    <string name="wr_error_connection">Error de conexión</string>
 </resources>
