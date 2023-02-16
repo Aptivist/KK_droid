@@ -4,49 +4,57 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.kk.designsystem.components.KKBox
 import com.kk.designsystem.components.KkBody
 import com.kk.designsystem.components.KkChip
 import com.kk.designsystem.components.KkTitle
 import com.kk.presentation.R
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun WaitingRoomPlayerView(
     onBackJoinRoom : () -> Unit,
-    navigateToStartGamePlayer : () -> Unit
+    navigateToStartGamePlayer : () -> Unit,
+    waitingRoomViewModel: WaitingRoomViewModel = koinViewModel()
 ) {
-    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-        val (titleLabel, subtitleLabel, chipGroup) = createRefs()
+    var uiState = waitingRoomViewModel.uiState.collectAsState()
 
-        KkTitle(modifier = Modifier.constrainAs(titleLabel) {
-            top.linkTo(parent.top, 25.dp)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
-        }, label = stringResource(R.string.waiting_room_title))
+    KKBox {
+        ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+            val (titleLabel, subtitleLabel, chipGroup) = createRefs()
 
-        KkBody(modifier = Modifier.constrainAs(subtitleLabel) {
-            top.linkTo(titleLabel.bottom, 20.dp)
-            start.linkTo(parent.start, 25.dp)
-        }, label = stringResource(R.string.waiting_room_subtitle))
+            KkTitle(modifier = Modifier.constrainAs(titleLabel) {
+                top.linkTo(parent.top, 25.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            }, label = stringResource(R.string.waiting_room_title))
 
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(3),
-            modifier = Modifier
-                .constrainAs(chipGroup) {
-                    top.linkTo(subtitleLabel.bottom)
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(parent.start,20.dp)
-                    end.linkTo(parent.end,20.dp)
-                },
+            KkBody(modifier = Modifier.constrainAs(subtitleLabel) {
+                top.linkTo(titleLabel.bottom, 20.dp)
+                start.linkTo(parent.start, 25.dp)
+            }, label = stringResource(R.string.waiting_room_subtitle))
 
-            content = {
-                items(6){ i ->
-                    KkChip(label = "Name")
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(3),
+                modifier = Modifier
+                    .constrainAs(chipGroup) {
+                        top.linkTo(subtitleLabel.bottom)
+                        bottom.linkTo(parent.bottom)
+                        start.linkTo(parent.start,20.dp)
+                        end.linkTo(parent.end,20.dp)
+                    },
+
+                content = {
+                    items(6){ i ->
+                        KkChip(label = "Name")
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 }
