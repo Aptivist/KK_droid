@@ -30,6 +30,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun WaitingRoomAdminView(
+    codeRoom: String = "No code",
     onBackCreateRoom : () -> Unit,
     navigateToStartGameHost : () -> Unit,
     waitingRoomAdminViewModel: WaitingRoomAdminViewModel = koinViewModel()
@@ -55,7 +56,7 @@ fun WaitingRoomAdminView(
                 top.linkTo(subtitleLabel.bottom, 20.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
-            }, label = "XAWFF")
+            }, label = codeRoom)
 
             KkBody(modifier = Modifier.constrainAs(qrLabel) {
                 top.linkTo(codeLabel.bottom, 20.dp)

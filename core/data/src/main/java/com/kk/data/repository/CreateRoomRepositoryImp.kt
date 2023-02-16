@@ -2,14 +2,13 @@ package com.kk.data.repository
 
 import com.google.gson.Gson
 import com.kk.data.mappers.toGameRequestDTO
+import com.kk.data.utils.extensions.fromJson
 import com.kk.data.utils.extensions.mapResponse
-import com.kk.domain.models.BaseResponseDomain
-import com.kk.domain.models.BaseResult
-import com.kk.domain.models.CreateGameRequestDomain
-import com.kk.domain.models.GameRoomDomain
+import com.kk.domain.models.*
 import com.kk.network.service.ISocketService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 
 /**
  * If you need to use onEach to save data in local you should infer the type of the Flow like in the next line
@@ -22,9 +21,9 @@ class CreateRoomRepositoryImp(private val socketService: ISocketService, private
         socketService.requestSocket(gson.toJson(createGameRequestDomain.toGameRequestDTO()))
     }
 
-    override fun receiveData(): Flow<BaseResult<BaseResponseDomain<GameRoomDomain>>> {
+    override fun receiveData(): Flow<BaseResult<GameRoomCodeResponse>> {
         return try {
-            socketService.receiveData().mapResponse(gson)
+            socketService.receiveData().map { BaseResult.Success( gson.fromJson(it, GameRoomCodeResponse::class.java) ) }
         } catch (e: Exception) {
             flow { emit(BaseResult.Error(e)) }
         }

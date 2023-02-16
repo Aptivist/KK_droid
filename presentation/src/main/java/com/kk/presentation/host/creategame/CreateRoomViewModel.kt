@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 class CreateRoomViewModel(private val createRoomRepository: CreateRoomRepository, private val stringProvider: StringProvider) :
     BaseViewModel<CreateRoomContract.Event, CreateRoomContract.State, CreateRoomContract.Effect>() {
-    var job: Job? = null
+    private var job: Job? = null
     init {
         observeData()
     }
@@ -65,7 +65,7 @@ class CreateRoomViewModel(private val createRoomRepository: CreateRoomRepository
                 when (result) {
                     is BaseResult.Error -> setState { copy(error = stringProvider.getString(R.string.cr_error_connection)) }
                     is BaseResult.Success ->{
-                        Log.e("ResponseCreate",result.toString())
+                        setState { copy(code= result.data.data.code) }
                         setEffect { CreateRoomContract.Effect.Navigate }
                         job?.cancel()
                     }
