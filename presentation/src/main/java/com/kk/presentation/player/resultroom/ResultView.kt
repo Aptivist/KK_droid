@@ -3,13 +3,14 @@ package com.kk.presentation.player.resultroom
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
@@ -18,12 +19,17 @@ import com.kk.designsystem.theme.KnowledgeKnockoutTheme
 import com.kk.designsystem.theme.RedSalsa
 import com.kk.designsystem.theme.ShamrockGreen
 import com.kk.designsystem.theme.Snow
+import com.kk.presentation.GameStatus
 import com.kk.presentation.R
+import com.kk.presentation.getStatus
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ResultView(
-    navigateToNextRound: () -> Unit
+    navigateToNextRound: () -> Unit,
+    viewModel: ResultRoomViewModel = koinViewModel()
 ){
+    val uiState by viewModel.uiState.collectAsState()
     //Username playing
     val userId = 2
     //Score of players (username, id, score) (from back-end)
@@ -57,10 +63,10 @@ fun ResultView(
     var viewMessage = ""
     var bottomText = ""
 
-    if(!gameOver){
+    if(getStatus(uiState.status) is GameStatus.GameFinish){
         viewTitle = stringResource(R.string.round_n)+roundNumber
         bottomText = stringResource(R.string.waiting_for_host)
-        if(roundWinner == userId){
+        if(getStatus(uiState.status) is GameStatus.GameFinish){
             viewColor = ShamrockGreen
             viewAnimation = correctAnswerComposition
             viewMessage = stringResource(R.string.correct_answer)
@@ -120,6 +126,9 @@ fun ResultView(
                 }
             }
         }
+    }
+    LaunchedEffect(Unit){
+
     }
 }
 

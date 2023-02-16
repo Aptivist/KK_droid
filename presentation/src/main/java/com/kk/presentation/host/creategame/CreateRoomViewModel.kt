@@ -60,7 +60,9 @@ class CreateRoomViewModel(private val createRoomRepository: CreateRoomRepository
         viewModelScope.launch(Dispatchers.IO) {
             createRoomRepository.receiveData().collect { result ->
                 when (result) {
-                    is BaseResult.Error -> setState { copy(error = stringProvider.getString(R.string.cr_error_connection)) }
+                    is BaseResult.Error -> setState {
+                        copy(error = stringProvider.getString(R.string.cr_error_connection))
+                    }
                     is BaseResult.Success -> setEffect { CreateRoomContract.Effect.Navigate }
 
                     /**
