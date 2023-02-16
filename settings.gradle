@@ -28,11 +28,12 @@ dependencyResolutionManagement {
                 version('ktorVersion', '1.5.0')
                 version('gsonVersion', '2.10.1')
                 version('androidCompose','3.4.1')
+                version('dataStore', '1.0.0')
+                version('dataStore-Core', '1.0.0')
 
-                library('koinAndroid','io.insert-koin','koin-android').versionRef('koin-version')
                 library('koinCore','io.insert-koin','koin-core').versionRef('koin-version')
                 library('koinAndroidCompose','io.insert-koin','koin-androidx-compose').versionRef('androidCompose')
-
+                library('koinAndroid','io.insert-koin','koin-android').versionRef('koin-version')
 
                 library('compose-material3','androidx.compose.material3' ,'material3').versionRef('material3')
                 library('compose-windows','androidx.compose.material3', 'material3-window-size-class').versionRef('material3')
@@ -43,7 +44,6 @@ dependencyResolutionManagement {
                 library('compose-activity', 'androidx.activity', 'activity-compose').versionRef('compose')
                 library('compose-view-model', 'androidx.lifecycle', 'lifecycle-viewmodel-compose').versionRef('viewmodelCompose')
                 library('compose-constraints','androidx.constraintlayout','constraintlayout-compose').versionRef('constraintsCompose')
-
 
                 library('camera','androidx.camera','camera-camera2').versionRef('camerax')
                 library('camera-lifecycle','androidx.camera','camera-lifecycle').versionRef('camerax')
@@ -64,12 +64,16 @@ dependencyResolutionManagement {
                 library('ktor-jvm', 'io.ktor', 'ktor-client-logging-jvm').versionRef('ktorVersion')
                 library('ktor-websockets', 'io.ktor', 'ktor-client-websockets').versionRef('ktorVersion')
 
+                library('dataStore', 'androidx.datastore', 'datastore-preferences').versionRef('dataStore')
+                library('dataStore-Core', 'androidx.datastore', 'datastore-preferences-core').versionRef('dataStore-Core')
+
                 bundle('compose', ['compose-material3', 'compose-windows', 'compose-activity', 'compose-view-model', 'compose-constraints','compose-tooling','compose-tooling-prev','compose-navigation'])
                 bundle('koin',['koinAndroid', 'koinCore','koinAndroidCompose'])
                 bundle('camerax', ['camera','camera-lifecycle','camera-view'])
                 bundle('accompanist', ['accompanist-permisions'])
                 bundle('zxing', ['zxing-core'])
                 bundle('ktor', ['ktor-core', 'ktor-cio', 'ktor-android', 'ktor-serialization', 'ktor-jvm', 'ktor-websockets'])
+                bundle('dataStoreBundle', ['dataStore', 'dataStore-Core'])
             }
         }
     }
@@ -82,3 +86,4 @@ include ':core:domain'
 include ':core:network'
 include ':core:designsystem'
 include ':presentation'
+include ':local'
