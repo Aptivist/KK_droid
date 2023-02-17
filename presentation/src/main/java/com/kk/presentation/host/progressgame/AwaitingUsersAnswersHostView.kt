@@ -22,28 +22,28 @@ fun AwaitingUsersAnswersHostView(
     //VIEWMODEL round: String, timeLeft: String, body: String
     val uiState by viewModel.uiState.collectAsState()
 
-    KKBox(isLoading = uiState.isLoading) {
+    KKBox {
         Column(modifier = Modifier.fillMaxSize()) {
             Column(modifier = Modifier
                 .fillMaxWidth()
                 .padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                KkTitle(label = viewModel.round)
+                KkTitle(label = "")
             }
             Box(modifier = Modifier.padding(25.dp)) {
                 KkBody(label = stringResource(id = R.string.awaiting_body))
             }
             Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                KkOrangeTitle(label = viewModel.timeLeft)
+                KkOrangeTitle(label = "")
                 KkOrangeTitle(label = stringResource(id = R.string.timing))
             }
         }
     }
     
-    LaunchedEffect(key1 = Unit){
+    /*LaunchedEffect(key1 = Unit){
         viewModel.effect.collectLatest { effect ->
             when(effect){
                 ContractProgressGame.Effect.NavigateWaitingAnswerHost -> navigateToWaitingAnswerHost()
             }
         }
-    }
+    }*/
 }

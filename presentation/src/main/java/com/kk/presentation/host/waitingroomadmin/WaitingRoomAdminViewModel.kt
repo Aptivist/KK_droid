@@ -30,8 +30,7 @@ class WaitingRoomAdminViewModel (private val waitingRoomAdminRepository: Waiting
         when(event){
             WaitingRoomAdminContract.Event.OnStartGame -> {
                 sendEvent()
-                setEffect { WaitingRoomAdminContract.Effect.Navigate }
-                job?.cancel()
+
             }
         }
     }
@@ -50,6 +49,10 @@ class WaitingRoomAdminViewModel (private val waitingRoomAdminRepository: Waiting
                     is BaseResult.Error -> setState { copy(error = stringProvider.getString(R.string.wr_error_connection)) }
                     is BaseResult.Success ->{
                         setState { copy(players = result.data.data) }
+                        if (result.data.status =="INITIALIZED"){
+                            setEffect { WaitingRoomAdminContract.Effect.Navigate }
+                            job?.cancel()
+                        }
                     }
                 }
             }

@@ -17,19 +17,20 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun PreStartAdminView(
-    navigateToWaitingView : () -> Unit,
+    navigateToRateAnswerAdminView : () -> Unit,
     viewModel: ProgressGameViewModel = koinViewModel()
 ){
 
     val uiState by viewModel.uiState.collectAsState()
+
     KKBox {
         Column(modifier = Modifier.fillMaxSize()) {
             Column(modifier = Modifier
                 .fillMaxWidth()
                 .padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                KkTitle(label = viewModel.round.toString() + "° Round")
+                KkTitle(label = uiState.round.toString() +  "° Round")
             }
-            AnimatedVisibility(visible = viewModel.preStartState) {
+            AnimatedVisibility(visible = uiState.preStartState) {
                 Box(modifier = Modifier.padding(25.dp)) {
                     KkBody(label = stringResource(id = R.string.question_to_ask))
                 }
@@ -40,17 +41,19 @@ fun PreStartAdminView(
                 }
             }
 
-            AnimatedVisibility(visible = viewModel.preStartState) {
+            AnimatedVisibility(visible = uiState.preStartState) {
                 Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                     KkOrangeTitle(
                         label = stringResource(id = R.string.start_round),
-                        onClick = { viewModel.setEvent(ContractProgressGame.Event.StartRound) }
+                        onClick = {
+                            viewModel.setEvent(ContractProgressGame.Event.StartRound)
+                        }
                     )
                 }
             }
             AnimatedVisibility(visible = uiState.timeLeft.isNotEmpty()) {
                 Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                    KkOrangeTitle(label = viewModel.timeLeft)
+                    KkOrangeTitle(label = uiState.timeLeft)
                     KkOrangeTitle(label = stringResource(id = R.string.timing))
                 }
             }
@@ -61,7 +64,7 @@ fun PreStartAdminView(
     LaunchedEffect(key1 = Unit){
         viewModel.effect.collectLatest { effect ->
             when(effect){
-                ContractProgressGame.Effect.NavigateWaitingAnswerHost -> navigateToWaitingView()
+                ContractProgressGame.Effect.Navigate -> navigateToRateAnswerAdminView()
             }
         }
     }

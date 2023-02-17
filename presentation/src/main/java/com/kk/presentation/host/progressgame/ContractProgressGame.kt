@@ -8,12 +8,15 @@ import com.kk.presentation.baseMVI.UiState
 class ContractProgressGame {
     sealed class Event : UiEvent {
         object StartRound : Event()
-
+        object RateAnswers: Event()
     }
 
     data class State(
         val error: String? = null,
-        val timeLeft: String = ""
+        val timeLeft: String = "",
+        val round: Int = 1,
+        val preStartState: Boolean = false,
+        val awaitingAnswersState: Boolean = false
         ): UiState
 
     sealed class Effect : UiEffect { object Navigate : Effect() }
