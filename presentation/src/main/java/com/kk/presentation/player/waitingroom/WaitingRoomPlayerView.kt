@@ -26,6 +26,7 @@ fun WaitingRoomPlayerView(
     waitingRoomViewModel: WaitingRoomViewModel = koinViewModel()
 ) {
     var uiState = waitingRoomViewModel.uiState.collectAsState()
+    waitingRoomViewModel.handleEvent(WaitingRoomContract.Event.ShowPlayers)
 
     KKBox {
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
