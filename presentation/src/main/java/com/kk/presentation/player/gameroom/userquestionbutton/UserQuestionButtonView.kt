@@ -44,7 +44,7 @@ fun UserQuestionButtonView(
         )
         Spacer(modifier = Modifier.size(50.dp))
         KkOrangeTitle(
-            label = uiState.baseResponseDomain.data.time.toString(),
+            label = uiState.timer.toString(),
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Spacer(modifier = Modifier.size(40.dp))

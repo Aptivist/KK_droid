@@ -23,6 +23,7 @@ class UserQuestionButtonContract {
         ),
         val error: String? = null,
         val isLoading: Boolean = false,
+        val timer: Int = -1,
     ) : UiState
 
     // Side Effect
