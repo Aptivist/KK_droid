@@ -15,13 +15,13 @@ dependencyResolutionManagement {
             url = uri("https://maven.pkg.github.com/Aptivist/IteneumBase")
             credentials {
                 username "Aptivist"
-                password "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"
+                password "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"
             }
         }
 
         versionCatalogs{
             libs {
-                version('iteneum','0.0.26')
+                version('iteneum','0.0.30')
                 version('compose', '1.3.1')
                 version('activityCompose', '1.6.1')
                 version('viewmodelCompose', '2.5.1')
