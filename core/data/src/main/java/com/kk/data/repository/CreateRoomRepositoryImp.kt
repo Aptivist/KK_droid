@@ -21,9 +21,10 @@ class CreateRoomRepositoryImp(private val socketService: ISocketService, private
         socketService.requestSocket(gson.toJson(createGameRequestDomain.toGameRequestDTO()))
     }
 
-    override fun receiveData(): Flow<BaseResult<GameRoomCodeResponse>> {
+    override fun receiveData(): Flow<BaseResult<BaseResponseDomain<GameRoomDomain>>> {
         return try {
-            socketService.receiveData().map { BaseResult.Success( gson.fromJson(it, GameRoomCodeResponse::class.java) ) }
+            socketService.receiveData().map { BaseResult.Success(gson.fromJson(it)) }
+
         } catch (e: Exception) {
             flow { emit(BaseResult.Error(e)) }
         }

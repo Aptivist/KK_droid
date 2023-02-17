@@ -2,7 +2,7 @@ package com.kk.presentation.player.resultroom
 
 import androidx.lifecycle.viewModelScope
 import com.kk.domain.models.BaseResult
-import com.kk.domain.repository.ResultGameRepository
+import com.kk.data.repository.ResultGameRepository
 import com.kk.presentation.R
 import com.kk.presentation.baseMVI.BaseViewModel
 import com.kk.presentation.di.StringProvider
