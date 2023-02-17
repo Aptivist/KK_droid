@@ -1,6 +1,5 @@
 package com.kk.presentation.host.waitingroomadmin
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.WaitingRoomAdminRepository
 import com.kk.domain.models.BaseResult

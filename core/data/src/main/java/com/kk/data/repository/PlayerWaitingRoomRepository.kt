@@ -4,7 +4,7 @@ import com.kk.domain.models.*
 import kotlinx.coroutines.flow.Flow
 
 interface PlayerWaitingRoomRepository {
-    fun retrievePlayers(): Flow<BaseResult<PlayersResponse>>
+    fun retrievePlayers(): Flow<BaseResult<BaseResponseDomain<List<PlayerUserDomain>>>>
 
     suspend fun showPlayers(eventRequestDomain: EventRequestDomain)
 }

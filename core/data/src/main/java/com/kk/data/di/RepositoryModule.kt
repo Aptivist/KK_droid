@@ -1,7 +1,7 @@
 package com.kk.data.di
 
 import com.kk.data.repository.*
-import com.kk.domain.repository.ResultGameRepository
+import com.kk.data.repository.ResultGameRepository
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
