@@ -2,6 +2,7 @@ package com.kk.presentation.di
 
 import com.kk.presentation.home.HomeVieModel
 import com.kk.presentation.host.creategame.CreateRoomViewModel
+import com.kk.presentation.host.progressgame.ProgressGameViewModel
 import com.kk.presentation.host.waitingroomadmin.WaitingRoomAdminViewModel
 import com.kk.presentation.player.resultroom.ResultRoomViewModel
 import com.kk.presentation.player.waitingroom.WaitingRoomViewModel
@@ -16,6 +17,7 @@ val viewModelModule = module {
     viewModelOf(::CreateRoomViewModel)
     viewModelOf(::WaitingRoomViewModel)
     viewModelOf(::WaitingRoomAdminViewModel)
+    viewModelOf(::ProgressGameViewModel)
     viewModelOf(::UserQuestionButtonViewModel)
     viewModelOf(::ResultRoomViewModel)
     viewModelOf(::JoinRoomViewModel)

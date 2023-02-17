@@ -32,4 +32,16 @@ val repositoryModule = module {
     singleOf(::JoinRoomRepositoryImp){
         bind<JoinRoomRepository>()
     }
+
+
+
+
+
+
+
+
+
+    singleOf(::ProgressGameRepositoryImp){
+        bind<ProgressGameRepository>()
+    }
 }

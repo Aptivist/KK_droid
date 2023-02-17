@@ -3,8 +3,6 @@ package com.kk.knowledgeknockout
 import android.util.Log
 import com.kk.presentation.player.joinroom.JoinRoomView
 import androidx.compose.runtime.Composable
-import androidx.core.os.bundleOf
-import androidx.navigation.NavArgument
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -14,6 +12,7 @@ import com.kk.presentation.*
 import com.kk.presentation.home.HomeView
 import com.kk.presentation.host.creategame.CreateRoomView
 import com.kk.presentation.host.progressgame.*
+import com.kk.presentation.host.progressgame.rateanswers.RateAnswerAdminView
 import com.kk.presentation.host.waitingroomadmin.WaitingRoomAdminView
 import com.kk.presentation.player.resultroom.ResultView
 import com.kk.presentation.player.gameroom.userquestionbutton.UserQuestionButtonView
@@ -61,7 +60,10 @@ fun NavigationGraph(){
                 }
             )
         }
-        composable(route = AppNavigation.WaitingRoomHost.route+"/{code}",arguments = listOf(navArgument("code") { type = NavType.StringType })){
+        composable(
+            route = AppNavigation.WaitingRoomHost.route+"/{code}",
+            arguments = listOf(navArgument("code") { type = NavType.StringType })
+        ){
             val code  = it.arguments?.getString("code","")
             WaitingRoomAdminView(
                 codeRoom = code?:"NO CODE",
@@ -85,14 +87,7 @@ fun NavigationGraph(){
         }
         composable(route = AppNavigation.PrestartGameHost.route){
             PreStartAdminView(
-                navigateToWaitingView = {
-                    navController.navigate(AppNavigation.StartRoundHost.route)
-                }
-            )
-        }
-        composable(route = AppNavigation.StartRoundHost.route){
-           AwaitingUsersAnswersHostView(
-                navigateToWaitingAnswerHost = {
+                navigateToRateAnswerAdminView = {
                     navController.navigate(AppNavigation.WaitingAnswerHost.route)
                 }
             )
