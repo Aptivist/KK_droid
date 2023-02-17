@@ -6,5 +6,7 @@ import com.kk.domain.models.BaseResult
 import java.util.concurrent.Flow
 
 interface UserAnswerRepository {
-    fun sendAnswer() : Flow<BaseResult<BaseResponseDomain<AnswerDomain>>>
+    suspend fun sendAnswer(requestAnswer : AnswerDomain)
+
+    fun receiveData(): kotlinx.coroutines.flow.Flow<BaseResult<BaseResponseDomain<AnswerDomain>>>
 }
