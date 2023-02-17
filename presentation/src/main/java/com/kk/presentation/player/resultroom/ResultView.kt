@@ -3,6 +3,7 @@ package com.kk.presentation.player.resultroom
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,22 +19,18 @@ import com.kk.designsystem.theme.KnowledgeKnockoutTheme
 import com.kk.designsystem.theme.RedSalsa
 import com.kk.designsystem.theme.ShamrockGreen
 import com.kk.designsystem.theme.Snow
+import com.kk.domain.models.PlayerUserDomain
+import com.kk.presentation.GameStatus
 import com.kk.presentation.R
+import com.kk.presentation.getStatus
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ResultView(
-    navigateToNextRound: () -> Unit
+    navigateToNextRound: () -> Unit,
+    viewModel: ResultRoomViewModel = koinViewModel()
 ){
-    //Username playing
-    val userId = 2
-    //Score of players (username, id, score) (from back-end)
-    val score = mutableListOf(Triple("gciadiego", 1, 3), Triple("droldan", 2, 1))
-    //Number of round
-    val roundNumber = 3
-    //True if the game is over, false if the game continues
-    val gameOver = true
-    //ID of player who won the round
-    val roundWinner = 1
+    val uiState by viewModel.uiState.collectAsState()
 
     val correctAnswerComposition by rememberLottieComposition(
         LottieCompositionSpec
@@ -57,107 +54,117 @@ fun ResultView(
     var viewMessage = ""
     var bottomText = ""
 
-    if(!gameOver){
-        viewTitle = stringResource(R.string.round_n)+roundNumber
-        bottomText = stringResource(R.string.waiting_for_host)
-        if(roundWinner == userId){
+    when(uiState.status){
+        "NO_WINNER_ROUND" -> {
+
+        }
+        "WINNER_ROUND" -> {
             viewColor = ShamrockGreen
             viewAnimation = correctAnswerComposition
             viewMessage = stringResource(R.string.correct_answer)
             animationSize = 400.dp
-        }else{
+        }
+        "ROUND_FINISHED" -> {
             viewColor = RedSalsa
             viewAnimation = wrongAnswerComposition
-            viewMessage = stringResource(R.string.round_winner, score.filter { it.second == roundWinner }.map { it.first })
+            uiState.data.roundPlayerWon?.name.let {
+                viewMessage = stringResource(R.string.round_winner, it.toString())
+            }
             animationSize = 400.dp
         }
-    }else{
-        viewTitle = stringResource(R.string.results)
-        bottomText = stringResource(R.string.home)
-        if(score.sortedBy { it.third }.last().second == userId){
-            viewColor = ShamrockGreen
-            viewAnimation = winnerComposition
-            viewMessage = stringResource(R.string.you_won)
-            animationSize = 400.dp
-        }else{
-            viewColor = RedSalsa
-            viewAnimation = null
-            viewMessage = stringResource(R.string.you_lose)
-            animationSize = 200.dp
-        }
-    }
-
-    KnowledgeKnockoutTheme {
-        Surface(
-            modifier = Modifier
-                .fillMaxSize(),
-            color = viewColor.copy(alpha = 0.2F)
-        ) {
-            Column(
-                verticalArrangement = Arrangement.SpaceBetween,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    KkTitle(
-                        label = viewTitle,
-                        modifier = Modifier
-                            .padding(vertical = 40.dp)
-                    )
-
-                    Box(modifier = Modifier.height(animationSize)) {
-                        LottieAnimation(composition = viewAnimation, iterations = 1)
-                    }
-
-                    displayMessage(viewMessage, viewColor, score)
-                }
-
-                Row(
-                    modifier = Modifier
-                        .padding(40.dp)
-                        .weight(1f, false)
-                ) {
-                    displayFooter(bottomText, gameOver)
-                }
+        "GAME_FINISHED" -> {
+            viewTitle = stringResource(R.string.results)
+            bottomText = stringResource(R.string.home)
+            val winner = uiState.data.listPlayers?.first()
+            if (winner?.name == "Irving"){
+                viewColor = ShamrockGreen
+                viewAnimation = winnerComposition
+                viewMessage = stringResource(R.string.you_won)
+                animationSize = 400.dp
+            } else {
+                viewColor = RedSalsa
+                viewAnimation = null
+                viewMessage = stringResource(R.string.you_lose)
+                animationSize = 200.dp
             }
         }
-    }
-}
-
-@Composable
-fun displayFooter(bottomText: String, gameOver: Boolean) {
-    if(!gameOver){
-        KkBody(
-            label = bottomText
-        )
-    }
-    else{
-        KkButton(
-            onClick = {  },
-            label = bottomText
-        )
-    }
-}
-
-@Composable
-fun displayMessage(message: String, color: Color, players: MutableList<Triple<String, Int, Int>>) {
-    if(color == ShamrockGreen){
-        KkCorrectTitle(
-            label = message
-        )
-    }
-    else{
-        KkIncorrectTitle(
-            label = message
-        )
-
-        if(message == stringResource(R.string.you_lose)){
-            for(player in players){
-                KkBody(
-                    label = stringResource(
-                        R.string.player_and_score, player.first, player.third
-                    )
-                )
-            }
+        else -> {
+            viewTitle = stringResource(R.string.round_n, "1")
+            bottomText = stringResource(R.string.waiting_for_host)
         }
     }
+
+//    KnowledgeKnockoutTheme {
+//        Surface(
+//            modifier = Modifier
+//                .fillMaxSize(),
+//            color = viewColor.copy(alpha = 0.2F)
+//        ) {
+//            Column(
+//                verticalArrangement = Arrangement.SpaceBetween,
+//                horizontalAlignment = Alignment.CenterHorizontally
+//            ) {
+//                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+//                    KkTitle(
+//                        label = viewTitle,
+//                        modifier = Modifier
+//                            .padding(vertical = 40.dp)
+//                    )
+//
+//                    Box(modifier = Modifier.height(animationSize)) {
+//                        LottieAnimation(composition = viewAnimation, iterations = 1)
+//                    }
+//
+//                    displayMessage(viewMessage, viewColor, uiState.data.listPlayers)
+//                }
+//
+//                Row(
+//                    modifier = Modifier
+//                        .padding(40.dp)
+//                        .weight(1f, false)
+//                ) {
+//                    displayFooter(bottomText, false)
+//                }
+//            }
+//        }
+//    }
 }
+
+//@Composable
+//fun displayFooter(bottomText: String, gameOver: Boolean) {
+//    if(!gameOver){
+//        KkBody(
+//            label = bottomText
+//        )
+//    }
+//    else{
+//        KkButton(
+//            onClick = {  },
+//            label = bottomText
+//        )
+//    }
+//}
+//
+//@Composable
+//fun displayMessage(message: String, color: Color, players: List<PlayerUserDomain>?) {
+//    if(color == ShamrockGreen){
+//        KkCorrectTitle(
+//            label = message
+//        )
+//    }
+//    else{
+//        KkIncorrectTitle(
+//            label = message
+//        )
+//
+//        if(message == stringResource(R.string.you_lose)){
+//            for(player in players){
+//                KkBody(
+//                    label = stringResource(
+//                        R.string.player_and_score, player.first, player.third
+//                    )
+//                )
+//            }
+//        }
+//    }
+//}

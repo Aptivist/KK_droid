@@ -32,4 +32,14 @@ android {
 
 dependencies {
 
+
+
+
+
+
+    
+    implementation libs.bundles.ktor
+    implementation libs.koinAndroid
+    implementation libs.gson
+    implementation project(':core:network')
 }

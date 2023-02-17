@@ -16,6 +16,7 @@ class CreateRoomContract {
 
     // View State
     data class State(
+        var code: String = "",
         val players: Int = 0,
         val time: Int = 0,
         val points : Int = 0,

@@ -44,3 +44,10 @@ fun RulesDomain.toRulesDTO() : Rules = Rules(
 fun  CreateGameRequestDomain.toGameRequestDTO() : CreateGameRequest = CreateGameRequest(
     this.rules.toRulesDTO()
 )
+
+fun  JoinRoomDomain.toJoinRequestDTO() : JoinGameRequest = JoinGameRequest(
+    this.name,
+    this.code
+)
+
+
