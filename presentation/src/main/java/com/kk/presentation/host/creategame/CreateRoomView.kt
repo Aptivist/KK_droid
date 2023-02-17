@@ -19,7 +19,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun CreateRoomView(
     onBackHome : () -> Unit,
-    navigateToWaitingRoom : () -> Unit,
+    navigateToWaitingRoom : (code: String) -> Unit,
     viewModel: CreateRoomViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -96,7 +96,7 @@ fun CreateRoomView(
     LaunchedEffect(Unit){
         viewModel.effect.collectLatest {
             when(it){
-                CreateRoomContract.Effect.Navigate -> navigateToWaitingRoom()
+                CreateRoomContract.Effect.Navigate -> navigateToWaitingRoom(uiState.code)
             }
         }
     }

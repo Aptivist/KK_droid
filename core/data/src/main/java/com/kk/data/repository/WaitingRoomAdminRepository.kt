@@ -4,5 +4,6 @@ import com.kk.domain.models.*
 import kotlinx.coroutines.flow.Flow
 
 interface WaitingRoomAdminRepository {
-    fun receivePlayers() : Flow<BaseResult<PlayersResponse>>
+    suspend fun sendRequest(eventRequestDomain: EventRequestDomain)
+    fun receivePlayers() : Flow<BaseResult<BaseResponseDomain<List<PlayerUserDomain>>>>
 }

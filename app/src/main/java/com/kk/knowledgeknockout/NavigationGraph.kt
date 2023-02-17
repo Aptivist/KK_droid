@@ -2,9 +2,13 @@ package com.kk.knowledgeknockout
 
 import com.kk.presentation.player.joinroom.JoinRoomView
 import androidx.compose.runtime.Composable
+import androidx.core.os.bundleOf
+import androidx.navigation.NavArgument
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.kk.presentation.*
 import com.kk.presentation.home.HomeView
 import com.kk.presentation.host.creategame.CreateRoomView
@@ -42,7 +46,7 @@ fun NavigationGraph(){
                     navController.navigate(AppNavigation.ScreenHome.route)
                 },
                 navigateToWaitingRoom = {
-                    navController.navigate(AppNavigation.WaitingRoomHost.route)
+                    navController.navigate(AppNavigation.WaitingRoomHost.route+"/$it")
                 }
             )
         }
@@ -52,12 +56,14 @@ fun NavigationGraph(){
                     navController.navigate(AppNavigation.ScreenHome.route)
                 },
                 navigateToWaitingRoom = {
-                    navController.navigate(AppNavigation.WaitingRoomHost.route)
+                    navController.navigate(AppNavigation.WaitingRoomPlayer.route)
                 }
             )
         }
-        composable(route = AppNavigation.WaitingRoomHost.route){
+        composable(route = AppNavigation.WaitingRoomHost.route+"/{code}",arguments = listOf(navArgument("code") { type = NavType.StringType })){
+            val code  = it.arguments?.getString("code","")
             WaitingRoomAdminView(
+                codeRoom = code?:"NO CODE",
                 onBackCreateRoom = {
                     navController.navigate(AppNavigation.CreateRoom.route)
                 },
