@@ -1,6 +1,7 @@
 package com.kk.data.repository
 
 import com.google.gson.Gson
+import com.kk.data.utils.extensions.fromJson
 import com.kk.domain.models.AnswerDomain
 import com.kk.domain.models.BaseResponseDomain
 import com.kk.domain.models.BaseResult
@@ -12,14 +13,14 @@ import kotlinx.coroutines.flow.map
 class UserAnswerRepositoryImp(private val socketService: ISocketService, private val gson: Gson) :
     UserAnswerRepository {
     override suspend fun sendAnswer(requestAnswer: AnswerDomain) {
-        TODO("Not yet implemented")
+        socketService.requestSocket(gson.toJson(requestAnswer))
     }
 
     override fun receiveData(): Flow<BaseResult<BaseResponseDomain<AnswerDomain>>> {
         return try {
             socketService.receiveData().map { BaseResult.Success(gson.fromJson(it)) }
-        } catch (ex: Exception){
-            flow { emit(BaseResult.Error(ex)) }
+        }catch (ex : Exception){
+            flow{emit(BaseResult.Error(ex))}
         }
     }
 }
