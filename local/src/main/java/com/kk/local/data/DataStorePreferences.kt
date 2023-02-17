@@ -6,11 +6,10 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.kk.local.domain.PreferencesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class SettingDataStore(private val context: Context): PreferencesRepository {
+class DataStorePreferences(private val context: Context) {
 
     companion object{
         private const val gameCode: String = "gameCode"
@@ -23,30 +22,10 @@ class SettingDataStore(private val context: Context): PreferencesRepository {
         preferences[GAME_CODE] ?: ""
     }
 
-    override suspend fun saveCode(code: String){
+    suspend fun saveCode(code: String){
         context.dataStore.edit { preferences ->
             preferences[GAME_CODE] = code
         }
-    }
-
-    override suspend fun getCode() {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun saveGameCode(gCode: String) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getGameCode() {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun savePlayerId(playerId: String) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getPlayerId() {
-        TODO("Not yet implemented")
     }
 }
 
