@@ -1,5 +1,6 @@
 package com.kk.presentation.host.progressgame
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,24 +20,41 @@ fun PreStartAdminView(
     navigateToWaitingView : () -> Unit,
     viewModel: ProgressGameViewModel = koinViewModel()
 ){
-    //viewmodel round: String
+
     val uiState by viewModel.uiState.collectAsState()
-    KKBox(isLoading = uiState.isLoading) {
+    KKBox {
         Column(modifier = Modifier.fillMaxSize()) {
             Column(modifier = Modifier
                 .fillMaxWidth()
                 .padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                KkTitle(label = viewModel.round)
+                KkTitle(label = viewModel.round.toString() + "° Round")
             }
-            Box(modifier = Modifier.padding(25.dp)) {
-                KkBody(label = stringResource(id = R.string.question_to_ask))
+            AnimatedVisibility(visible = viewModel.preStartState) {
+                Box(modifier = Modifier.padding(25.dp)) {
+                    KkBody(label = stringResource(id = R.string.question_to_ask))
+                }
             }
-            Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                KkOrangeTitle(
-                    label = stringResource(id = R.string.start_round),
-                    onClick = { viewModel.setEvent(ContractProgressGame.Event.StartRound) }
-                )
+            AnimatedVisibility(visible = uiState.timeLeft.isNotEmpty()) {
+                Box(modifier = Modifier.padding(25.dp)) {
+                    KkBody(label = stringResource(id = R.string.awaiting_body))
+                }
             }
+
+            AnimatedVisibility(visible = viewModel.preStartState) {
+                Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                    KkOrangeTitle(
+                        label = stringResource(id = R.string.start_round),
+                        onClick = { viewModel.setEvent(ContractProgressGame.Event.StartRound) }
+                    )
+                }
+            }
+            AnimatedVisibility(visible = uiState.timeLeft.isNotEmpty()) {
+                Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                    KkOrangeTitle(label = viewModel.timeLeft)
+                    KkOrangeTitle(label = stringResource(id = R.string.timing))
+                }
+            }
+
         }
     }
 
