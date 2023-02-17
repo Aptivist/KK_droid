@@ -14,10 +14,10 @@ import com.kk.presentation.R
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun RateAnswerAdminView(/*
+fun RateAnswerAdminView(
     navigateToEndRoundHost: () -> Unit,
-    viewModel: ProgressGameViewModel = koinViewModel()*/
-){/*
+    viewModel: RateAnswerHostViewModel = koinViewModel()
+){
     //VIEWMODEL round: String, playerAnswer: String, showSkip:Boolean
     val playerAnswer = "bla bla bla"
     val showSkip = false
@@ -58,5 +58,5 @@ fun RateAnswerAdminView(/*
                 }
             }
         }
-    }*/
+    }
 }
