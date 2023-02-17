@@ -6,7 +6,9 @@ import com.kk.presentation.baseMVI.UiEvent
 import com.kk.presentation.baseMVI.UiState
 
 class WaitingRoomContract {
-    sealed class Event : UiEvent
+    sealed class Event : UiEvent{
+        object ShowPlayers: Event()
+    }
 
     data class State(val playerList: List<PlayerUserDomain> = emptyList(), val error: String? = null) : UiState
 

@@ -1,11 +1,10 @@
 package com.kk.data.repository
 
-import com.kk.domain.models.BaseResponseDomain
-import com.kk.domain.models.BaseResult
-import com.kk.domain.models.PlayerUserDomain
-import com.kk.domain.models.PlayersResponse
+import com.kk.domain.models.*
 import kotlinx.coroutines.flow.Flow
 
 interface PlayerWaitingRoomRepository {
-    fun showPlayers(): Flow<BaseResult<PlayersResponse>>
+    fun retrievePlayers(): Flow<BaseResult<PlayersResponse>>
+
+    suspend fun showPlayers(eventRequestDomain: EventRequestDomain)
 }
