@@ -26,12 +26,12 @@ fun ShowWinnerAdminView(
 
     val uiState by viewModel.uiState.collectAsState()
 
-    KKBox(isLoading = uiState.isLoading) {
+    KKBox{
         Column(modifier = Modifier.fillMaxSize()) {
             Column(modifier = Modifier
                 .fillMaxWidth()
                 .padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                KkTitle(label = viewModel.round)
+                KkTitle(label = round/*viewModel.round*/)
             }
             Column(modifier = Modifier
                 .fillMaxWidth()
@@ -44,7 +44,7 @@ fun ShowWinnerAdminView(
                 .padding(30.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Bottom) {
-                KkButton(onClick = { viewModel.setEvent(ContractProgressGame.Event.NextRound) },
+                KkButton(onClick = { /*viewModel.setEvent(ContractProgressGame.Event.NextRound)*/ },
                     label = stringResource(id = R.string.next_button),
                     modifier = Modifier.fillMaxWidth())
             }
