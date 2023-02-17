@@ -28,4 +28,8 @@ val repositoryModule = module {
     singleOf(::JoinRoomRepositoryImp){
         bind<JoinRoomRepository>()
     }
+
+    singleOf(::UserAnswerRepositoryImp){
+        bind<UserAnswerRepository>()
+    }
 }
