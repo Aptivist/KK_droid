@@ -1,4 +1,4 @@
-package com.kk.presentation.host.progressgame
+package com.kk.presentation.host.progressgame.rateanswers
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
@@ -14,10 +14,10 @@ import com.kk.presentation.R
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun RateAnswerAdminView(
+fun RateAnswerAdminView(/*
     navigateToEndRoundHost: () -> Unit,
-    viewModel: ProgressGameViewModel = koinViewModel()
-){
+    viewModel: ProgressGameViewModel = koinViewModel()*/
+){/*
     //VIEWMODEL round: String, playerAnswer: String, showSkip:Boolean
     val playerAnswer = "bla bla bla"
     val showSkip = false
@@ -58,5 +58,5 @@ fun RateAnswerAdminView(
                 }
             }
         }
-    }
+    }*/
 }

@@ -11,6 +11,7 @@ import com.kk.presentation.*
 import com.kk.presentation.home.HomeView
 import com.kk.presentation.host.creategame.CreateRoomView
 import com.kk.presentation.host.progressgame.*
+import com.kk.presentation.host.progressgame.rateanswers.RateAnswerAdminView
 import com.kk.presentation.host.waitingroomadmin.WaitingRoomAdminView
 import com.kk.presentation.player.resultroom.ResultView
 import com.kk.presentation.player.gameroom.UserQuestionButtonView
