@@ -1,5 +1,6 @@
 package com.kk.knowledgeknockout
 
+import android.util.Log
 import com.kk.presentation.player.joinroom.JoinRoomView
 import androidx.compose.runtime.Composable
 import androidx.core.os.bundleOf
@@ -113,14 +114,17 @@ fun NavigationGraph(){
         composable(route = AppNavigation.StartGamePlayer.route){
             UserQuestionButtonView(
                 navigateToSendAnswer = {
-                    navController.navigate(AppNavigation.SendAnswer.route)
+                    navController.navigate(AppNavigation.SendAnswer.route+"/$it")
                 },
                 navigateToWaitingPlayers = {
                     navController.navigate(AppNavigation.WaitingAnswerPlayer.route)
                 }
             )
         }
-        composable(route = AppNavigation.SendAnswer.route){
+        composable(route = AppNavigation.SendAnswer.route+"/{timeStamp}",arguments = listOf(navArgument("timeStamp") { type = NavType.IntType })){
+            // timeStamp is the system time when the user push the main button
+//            val timeStamp  = it.arguments?.getInt("timeStamp",0)
+//            Log.e("timeStamp", "timeStamp -> $timeStamp")
             UserAnswerView(
                 navigateToWaitingPlayers = {
                     navController.navigate(AppNavigation.WaitingAnswerPlayer.route)

@@ -24,7 +24,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun UserQuestionButtonView(
-    navigateToSendAnswer: () -> Unit,
+    navigateToSendAnswer: (timeStamp: Int) -> Unit,
     navigateToWaitingPlayers: () -> Unit,
     viewModel: UserQuestionButtonViewModel = koinViewModel()
 ) {
@@ -74,7 +74,9 @@ fun UserQuestionButtonView(
         LaunchedEffect(key1 = Unit) {
             viewModel.effect.collectLatest { effect ->
                 when (effect) {
-                    UserQuestionButtonContract.Effect.NavigateToSendPlayerAnswer -> navigateToSendAnswer()
+                    UserQuestionButtonContract.Effect.NavigateToSendPlayerAnswer -> navigateToSendAnswer(
+                        uiState.timeStamp
+                    )
                     UserQuestionButtonContract.Effect.NavigateToWaitingPlayers -> navigateToWaitingPlayers()
                 }
             }

@@ -20,7 +20,8 @@ class UserQuestionButtonViewModel(
     var job: Job? = null
 
     init {
-        observeData()
+        // pending testing to get the current timer from host for example 45 seconds
+//        observeData()
     }
 
     override fun createInitialState(): UserQuestionButtonContract.State {
@@ -31,6 +32,7 @@ class UserQuestionButtonViewModel(
         when (event) {
             is UserQuestionButtonContract.Event.OnMainButtonClicked -> {
                 setState { copy(timeStamp = System.currentTimeMillis().toInt()) }
+                setEffect { UserQuestionButtonContract.Effect.NavigateToSendPlayerAnswer }
             }
             is UserQuestionButtonContract.Event.OnSkipButtonClicked -> {}
         }
@@ -49,5 +51,4 @@ class UserQuestionButtonViewModel(
             }
         }
     }
-
 }
