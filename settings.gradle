@@ -35,8 +35,11 @@ dependencyResolutionManagement {
                 version('koin-version','3.3.2')
                 version('lottieVersion', '5.2.0')
                 version('ktorVersion', '1.5.0')
+                version('serializationVersion', '1.7.0')
                 version('gsonVersion', '2.10.1')
                 version('androidCompose','3.4.1')
+                version('dataStore', '1.0.0')
+                version('dataStore-Core', '1.0.0')
 
 
                 //library('iteneumCoreDroid', 'com.iteneum.core', 'droid-ui').versionRef('iteneum')
@@ -76,12 +79,17 @@ dependencyResolutionManagement {
                 library('ktor-jvm', 'io.ktor', 'ktor-client-logging-jvm').versionRef('ktorVersion')
                 library('ktor-websockets', 'io.ktor', 'ktor-client-websockets').versionRef('ktorVersion')
 
+                library('dataStore', 'androidx.datastore', 'datastore-preferences').versionRef('dataStore')
+                library('dataStore-Core', 'androidx.datastore', 'datastore-preferences-core').versionRef('dataStore-Core')
+                library('serialization', 'org.jetbrains.kotlin', 'kotlin-serialization').versionRef('serializationVersion')
+
                 bundle('compose', ['compose-material3', 'compose-windows', 'compose-activity', 'compose-view-model', 'compose-constraints','compose-tooling','compose-tooling-prev','compose-navigation'])
                 bundle('koin',['koinAndroid', 'koinCore','koinAndroidCompose'])
                 bundle('camerax', ['camera','camera-lifecycle','camera-view'])
                 bundle('accompanist', ['accompanist-permisions'])
                 bundle('zxing', ['zxing-core'])
                 bundle('ktor', ['ktor-core', 'ktor-cio', 'ktor-android', 'ktor-serialization', 'ktor-jvm', 'ktor-websockets'])
+                bundle('dataStoreBundle', ['dataStore', 'dataStore-Core'])
             }
         }
     }
@@ -94,3 +102,4 @@ include ':core:domain'
 include ':core:network'
 include ':core:designsystem'
 include ':presentation'
+include ':core:local'

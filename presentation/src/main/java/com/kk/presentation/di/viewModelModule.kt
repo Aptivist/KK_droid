@@ -10,6 +10,7 @@ import com.kk.presentation.player.resultroom.ResultRoomViewModel
 import com.kk.presentation.player.waitingroom.WaitingRoomViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
+import com.kk.presentation.player.gameroom.userquestionbutton.UserQuestionButtonViewModel
 
 
 val viewModelModule = module {
@@ -17,15 +18,8 @@ val viewModelModule = module {
     viewModelOf(::CreateRoomViewModel)
     viewModelOf(::WaitingRoomViewModel)
     viewModelOf(::WaitingRoomAdminViewModel)
-
-
-
-
-
-
-
-
     viewModelOf(::ProgressGameViewModel)
+    viewModelOf(::UserQuestionButtonViewModel)
     viewModelOf(::RateAnswerHostViewModel)
     viewModelOf(::ResultRoomViewModel)
     viewModelOf(::JoinRoomViewModel)
