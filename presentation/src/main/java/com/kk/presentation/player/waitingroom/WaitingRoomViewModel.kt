@@ -4,30 +4,28 @@ import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.PlayerWaitingRoomRepository
 import com.kk.domain.models.BaseResult
 import com.kk.domain.models.EventRequestDomain
-import com.kk.presentation.baseMVI.BaseViewModel
+import com.kk.presentation.baseMVI.BaseViewModelNoEvents
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class WaitingRoomViewModel(private val repository: PlayerWaitingRoomRepository): BaseViewModel<WaitingRoomContract.Event, WaitingRoomContract.State, WaitingRoomContract.Effect>() {
+class WaitingRoomViewModel(private val repository: PlayerWaitingRoomRepository): BaseViewModelNoEvents<WaitingRoomContract.State, WaitingRoomContract.Effect>() {
     private var job: Job? = null
 
     init{
         observe()
+        showPlayers()
     }
 
     override fun createInitialState(): WaitingRoomContract.State {
         return WaitingRoomContract.State()
     }
 
-    override fun handleEvent(event: WaitingRoomContract.Event) {
-        when(event){
-            WaitingRoomContract.Event.ShowPlayers -> {
-                viewModelScope.launch {
-                    repository.showPlayers(EventRequestDomain("SHOW_PLAYERS"))
-                }
-            }
+
+
+    private fun showPlayers(){
+        viewModelScope.launch {
+            repository.showPlayers(EventRequestDomain("SHOW_PLAYERS"))
         }
     }
 

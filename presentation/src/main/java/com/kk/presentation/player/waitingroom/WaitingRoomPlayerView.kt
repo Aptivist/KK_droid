@@ -25,8 +25,7 @@ fun WaitingRoomPlayerView(
     navigateToStartGamePlayer : () -> Unit,
     waitingRoomViewModel: WaitingRoomViewModel = koinViewModel()
 ) {
-    var uiState = waitingRoomViewModel.uiState.collectAsState()
-    waitingRoomViewModel.handleEvent(WaitingRoomContract.Event.ShowPlayers)
+    val uiState = waitingRoomViewModel.uiState.collectAsState()
 
     KKBox {
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
