@@ -10,48 +10,54 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.kk.designsystem.components.*
 import com.kk.presentation.R
+import com.kk.presentation.player.gameroom.answer.UserAnswerViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun UserAnswerView(
-    navigateToWaitingPlayers: () -> Unit
+    navigateToWaitingPlayers: () -> Unit,
+    viewModel: UserAnswerViewModel = koinViewModel()
 ) {
-    var answerValue by remember { mutableStateOf("") }
+    val uiState by viewModel.uiState.collectAsState()
 
-    Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .fillMaxSize()
-            .padding(horizontal = 30.dp)
-    ) {
-        KkTitle(
-            label = stringResource(R.string.ua_title),
+    KKBox {
+        var answerValue by remember { mutableStateOf("") }
+
+        Column(
             modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(top = 40.dp)
-        )
-        Spacer(modifier = Modifier.size(20.dp))
-        KkOrangeTitle(
-            label = stringResource(R.string.ua_time),
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
-        Spacer(modifier = Modifier.size(15.dp))
-        KkBody(label = stringResource(R.string.ua_user_answer))
-        Spacer(modifier = Modifier.size(10.dp))
-        KkTextField(
-            value = answerValue,
-            onValueChange = { answerValue = it },
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.size(25.dp))
-        KkButton(
-            onClick = { navigateToWaitingPlayers.invoke() },
-            label = stringResource(R.string.ua_send_answer),
-            modifier = Modifier
-                .padding(bottom = 50.dp)
-                .fillMaxWidth()
-        )
+                .verticalScroll(rememberScrollState())
+                .fillMaxSize()
+                .padding(horizontal = 30.dp)
+        ) {
+            KkTitle(
+                label = stringResource(R.string.ua_title),
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 40.dp)
+            )
+            Spacer(modifier = Modifier.size(20.dp))
+            KkOrangeTitle(
+                label = stringResource(R.string.ua_time),
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+            Spacer(modifier = Modifier.size(15.dp))
+            KkBody(label = stringResource(R.string.ua_user_answer))
+            Spacer(modifier = Modifier.size(10.dp))
+            KkTextField(
+                value = answerValue,
+                onValueChange = { answerValue = it },
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.size(25.dp))
+            KkButton(
+                onClick = { navigateToWaitingPlayers.invoke() },
+                label = stringResource(R.string.ua_send_answer),
+                modifier = Modifier
+                    .padding(bottom = 50.dp)
+                    .fillMaxWidth()
+            )
+        }
     }
-
 }
