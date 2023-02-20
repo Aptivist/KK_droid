@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.JoinRoomRepository
 import com.kk.domain.models.BaseResult
 import com.kk.domain.models.JoinRoomDomain
+import com.kk.local.domain.PreferencesRepository
 import com.kk.presentation.R
 import com.kk.presentation.baseMVI.BaseViewModel
 import com.kk.presentation.di.StringProvider
@@ -14,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, private val stringProvider: StringProvider) : BaseViewModel<JoinRoomContract.Event, JoinRoomContract.State, JoinRoomContract.Effect>() {
+class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, private val stringProvider: StringProvider,private val dataStoreRepository: PreferencesRepository) : BaseViewModel<JoinRoomContract.Event, JoinRoomContract.State, JoinRoomContract.Effect>() {
 
     private var job: Job? = null
 
@@ -49,10 +50,12 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
     private fun observeData() {
 
         job = viewModelScope.launch(Dispatchers.IO) {
+
             joinRoomRepository.receiveData().collect { result ->
                 when (result) {
                     is BaseResult.Error -> setState { copy(error = stringProvider.getString(R.string.cr_error_connection)) }
                     is BaseResult.Success ->{
+                        dataStoreRepository.saveGameCode(uiState.value.code)
                         setEffect { JoinRoomContract.Effect.Navigate }
                         job?.cancel()
                     }
@@ -76,8 +79,8 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
                     name = uiState.value.name,
                     code = uiState.value.code,
                 )
-
             joinRoomRepository.joinRoom(createJoinRoomRequest)
+
         }
     }
 

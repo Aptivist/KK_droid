@@ -3,6 +3,7 @@ package com.kk.knowledgeknockout
 import android.app.Application
 import com.kk.data.di.gsonModule
 import com.kk.data.di.repositoryModule
+import com.kk.local.di.dataStoreModule
 import com.kk.network.di.socketServiceModule
 import com.kk.network.di.networkModuleKtor
 import com.kk.presentation.di.stringModule
@@ -25,7 +26,8 @@ class App : Application() {
                 viewModelModule,
                 repositoryModule,
                 gsonModule,
-                stringModule
+                stringModule,
+                dataStoreModule
             )
         }
     }
