@@ -4,5 +4,6 @@ import com.kk.domain.models.*
 import kotlinx.coroutines.flow.Flow
 
 interface UserQuestionButtonRepository {
-    fun receiveData(): Flow<BaseResult<UserQuestionButtonResponse>>
+    fun receiveData(): Flow<BaseResult<ResponseTimerStatusOk>>
+    fun receiveDataStatusInitialized(): Flow<BaseResult<ResponseStatusInitialized>>
 }

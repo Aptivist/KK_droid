@@ -9,7 +9,7 @@ import com.kk.presentation.baseMVI.UiState
 class UserQuestionButtonContract {
     // Events that user performed
     sealed class Event : UiEvent {
-        data class OnMainButtonClicked(val timeStamp: Long = 0) : Event()
+        object OnMainButtonClicked : Event()
         object OnSkipButtonClicked : Event()
     }
 
@@ -17,13 +17,10 @@ class UserQuestionButtonContract {
     data class State(
         val round: Int = 0,
         val timeStamp: Int = 0,
-        val baseResponseDomain: BaseResponseDomain<KKTimerDomain> = BaseResponseDomain(
-            status = "IDLE",
-            KKTimerDomain(0)
-        ),
-        val error: String? = null,
-        val isLoading: Boolean = false,
         val timer: Int = -1,
+        val error: String? = null,
+        val roundStarted: Boolean = false,
+        val zIndex: Float = 0f
     ) : UiState
 
     // Side Effect

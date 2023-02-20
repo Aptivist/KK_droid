@@ -18,14 +18,16 @@ class UserQuestionButtonViewModel(
     BaseViewModel<UserQuestionButtonContract.Event, UserQuestionButtonContract.State, UserQuestionButtonContract.Effect>() {
 
     var job: Job? = null
+    var jobStatusInitialized: Job? = null
 
     init {
         // pending testing to get the current timer from host for example 45 seconds
-//        observeData()
+        receiveDataStatusInitialized()
+        observeData()
     }
 
     override fun createInitialState(): UserQuestionButtonContract.State {
-        return UserQuestionButtonContract.State(isLoading = false)
+        return UserQuestionButtonContract.State(roundStarted = false)
     }
 
     override fun handleEvent(event: UserQuestionButtonContract.Event) {
@@ -33,19 +35,36 @@ class UserQuestionButtonViewModel(
             is UserQuestionButtonContract.Event.OnMainButtonClicked -> {
                 setState { copy(timeStamp = System.currentTimeMillis().toInt()) }
                 setEffect { UserQuestionButtonContract.Effect.NavigateToSendPlayerAnswer }
+                job?.cancel()
             }
             is UserQuestionButtonContract.Event.OnSkipButtonClicked -> {}
+        }
+    }
+
+    private fun receiveDataStatusInitialized() {
+        jobStatusInitialized = viewModelScope.launch(Dispatchers.IO) {
+            userQuestionButtonRepository.receiveDataStatusInitialized().collect { result ->
+                when (result) {
+                    is BaseResult.Error -> setState { copy(error = stringProvider.getString(R.string.cr_error_connection)) }
+                    is BaseResult.Success -> {
+                        setState { copy(roundStarted = false) }
+                        jobStatusInitialized?.cancel()
+                    }
+                }
+            }
         }
     }
 
     private fun observeData() {
         job = viewModelScope.launch(Dispatchers.IO) {
             userQuestionButtonRepository.receiveData().collect { result ->
+                Log.e("log", result.toString())
                 when (result) {
                     is BaseResult.Error -> setState { copy(error = stringProvider.getString(R.string.cr_error_connection)) }
                     is BaseResult.Success -> {
-                        Log.e("Timer", result.toString())
+                        setState { copy(zIndex = 2f) }
                         setState { copy(timer = result.data.data.time) }
+                        setState { copy(roundStarted = true) }
                     }
                 }
             }

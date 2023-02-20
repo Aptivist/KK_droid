@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="uqb_title">1st Round</string>
-    <string name="uqb_time">45 seconds</string>
+    <string name="uqb_title">Round</string>
+    <string name="uqb_time">seconds</string>
     <string name="uqb_skip">Skip</string>
     <string name="uqb_main_button">Main button</string>
+    <string name="uqb_st">st</string>
+    <string name="uqb_nd">nd</string>
+    <string name="uqb_rd">rd</string>
 </resources>
