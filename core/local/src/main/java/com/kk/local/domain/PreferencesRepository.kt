@@ -5,4 +5,5 @@ interface PreferencesRepository {
     suspend fun getGameCode() : String
     suspend fun savePlayerId(playerId: String)
     suspend fun getPlayerId(): String
+    suspend fun clearPreferences()
 }
