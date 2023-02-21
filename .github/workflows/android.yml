@@ -20,7 +20,7 @@ jobs:
     
     - name: Access ITENEUM_KEY
       env:
-        ITENEUM_KEY: ${{ secrets.ITENEUM_KEY }}
+        ITENEUM_KEY: $ITENEUM_KEY
       run: echo ITENEUM_KEY=\"$ITENEUM_KEY\" > ./secure.properties
       
     - name: Check secure.properties
