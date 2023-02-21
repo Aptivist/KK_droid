@@ -1,3 +1,5 @@
+
+
 pluginManagement {
     repositories {
         google()
@@ -5,9 +7,36 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+
+       // def props = new Properties()
+        //def propsFile =  props.load(new FileInputStream(rootProject.absolutePath + '/local.properties')) //.file(""./local.properties')
+       /* def props = new Properties()
+        props.load(new FileInputStream(propsFile))
+        def version =  props.getProperty('ITENEUM_KEY')
+        */
+        /*def props = new Properties()
+        props.load(new FileInputStream(rootProject.projectDir.absolutePath + '/local.properties'))
+        def version = properties['ITENEUM_KEY']*/
+
+        //print(version + " maldita sea")
+
+        Properties properties = new Properties()
+        properties.load(new File(rootDir.absolutePath + "/secure.properties").newDataInputStream())
+        def externalModuleDir = properties.getProperty('ITENEUM_KEY', null)
+
+        print(externalModuleDir + " maldita sea")
+
+        /*def url = rootProject.projectDir.absolutePath + "/local.properties"
+        def propFile = rootProject.file(url)
+        def properties = new Properties()
+        properties.load(new FileInputStream(propFile))
+        return properties['APOD_API_KEY']
+        print(properties['APOD_API_KEY'] + " maldita sea")*/
         google()
         mavenCentral()
         maven {
@@ -15,7 +44,7 @@ dependencyResolutionManagement {
             url = uri("https://maven.pkg.github.com/Aptivist/IteneumBase")
             credentials {
                 username "Aptivist"
-                password "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"
+                password externalModuleDir
             }
         }
 
@@ -94,3 +123,5 @@ include ':core:domain'
 include ':core:network'
 include ':core:designsystem'
 include ':presentation'
+
+
