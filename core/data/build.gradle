@@ -36,4 +36,5 @@ dependencies {
     implementation libs.gson
     implementation project(':core:network')
     implementation project(':core:domain')
+    implementation libs.bundles.zxing
 }
