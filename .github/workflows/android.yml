@@ -18,7 +18,10 @@ jobs:
     - name: Access ITENEUM_KEY
       env:
         ITENEUM_KEY: $
-      run: echo ITENEUM_KEY=\"$ITENEUM_KEY\" > ./secure2.properties
+      run: echo ITENEUM_KEY=\"$ITENEUM_KEY\" > ./secure.properties
+      
+    - name: Check secure.properties
+      run: cat local.properties
 
     - name: Setup JDK
       uses: actions/setup-java@v1
