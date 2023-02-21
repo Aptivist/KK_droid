@@ -44,4 +44,8 @@ val repositoryModule = module {
     singleOf(::ProgressGameRepositoryImp){
         bind<ProgressGameRepository>()
     }
+
+    singleOf(::RateAnswersRepositoryImp){
+        bind<RateAnswerRepository>()
+    }
 }

@@ -1,5 +1,6 @@
 package com.kk.presentation.host.progressgame
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.ProgressGameRepository
 import com.kk.domain.models.AddPointRequestDomain
@@ -17,14 +18,13 @@ class ProgressGameViewModel(private val progressGameRepository: ProgressGameRepo
                             private val stringProvider: StringProvider)  :
     BaseViewModel<ContractProgressGame.Event, ContractProgressGame.State, ContractProgressGame.Effect>()  {
 
-    var job: Job? = null
+    private var job: Job? = null
 
 
     init {
         observeData()
     }
     override fun createInitialState(): ContractProgressGame.State {
-
         return ContractProgressGame.State(preStartState = true)
     }
 
@@ -57,14 +57,15 @@ class ProgressGameViewModel(private val progressGameRepository: ProgressGameRepo
                     is BaseResult.Error -> setState { copy(error = stringProvider.getString(R.string.pg_error_message)) }
                     is BaseResult.Success -> {
                         setState { copy(timeLeft = result.data.data.time.toString()) }
-                        if(uiState.value.timeLeft.toInt() < 1){
-                            setEffect { ContractProgressGame.Effect.Navigate }
-                            job?.cancel()
+                        if(result.data.status == "OK"){
+                            if(uiState.value.timeLeft.toInt() < 1){
+                                setEffect { ContractProgressGame.Effect.Navigate }
+                                job?.cancel()
+                            }
                         }
                     }
                 }
             }
         }
     }
-
 }

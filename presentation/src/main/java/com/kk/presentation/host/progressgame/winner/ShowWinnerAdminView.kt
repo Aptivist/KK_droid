@@ -22,7 +22,7 @@ fun ShowWinnerAdminView(
 ){
     //ViewModel round: String, winnerName: String
     val round = "1"
-    val winnerName = "Irving"
+    val winnerName = "TESTING"
 
     val uiState by viewModel.uiState.collectAsState()
 

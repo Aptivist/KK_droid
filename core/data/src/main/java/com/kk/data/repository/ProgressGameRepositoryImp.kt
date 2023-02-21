@@ -20,6 +20,7 @@ class ProgressGameRepositoryImp(
 
     override fun receiveData(): Flow<BaseResult<BaseResponseDomain<KKTimerDomain>>> {
         return  try {
+
             socketService.receiveData().map {
                 BaseResult.Success(gson.fromJson(it))
             }
