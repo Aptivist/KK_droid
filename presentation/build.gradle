@@ -41,7 +41,7 @@ dependencies {
     implementation libs.bundles.accompanist
     implementation libs.bundles.koin
     implementation libs.gson
-    //implementation libs.iteneumCoreDroid
+    implementation libs.iteneumCoreDroid
     implementation project(':core:designsystem')
     implementation project(':core:data')
     implementation project(':core:domain')
