@@ -3,10 +3,7 @@ package com.kk.presentation.host.progressgame.rateanswers
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.RateAnswerRepository
-import com.kk.domain.models.AddPointRequestDomain
-import com.kk.domain.models.BaseResult
-import com.kk.domain.models.EventRequestDomain
-import com.kk.domain.models.PointsDomain
+import com.kk.domain.models.*
 import com.kk.presentation.R
 import com.kk.presentation.baseMVI.BaseViewModel
 import com.kk.presentation.di.StringProvider
@@ -19,6 +16,8 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
     BaseViewModel<ContractRateAnswerHost.Event, ContractRateAnswerHost.State, ContractRateAnswerHost.Effect>(){
 
     private var job: Job? = null
+    private lateinit var answerList : Array<PlayerAnswerDomain>
+    private var currentAnswerIndex = 0
     init {
         observeData()
         showAnswers()
@@ -29,21 +28,23 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
 
     override fun handleEvent(event: ContractRateAnswerHost.Event) {
         when (event) {
-            is ContractRateAnswerHost.Event.ReceiveAnswers -> {
-
-            }
-            is ContractRateAnswerHost.Event.NoAnswers -> {
-                noPoints()
-            }
             is ContractRateAnswerHost.Event.CorrectAnswer -> {
                 Log.e("CHECKING....","Correct answer")
-                setState { copy(correctAnswer = true, incorrectAnswer = false) }
                 correctAnswer()
             }
             is ContractRateAnswerHost.Event.IncorrectAnswer -> {
                 Log.e("CHECKING....","Incorrect answer")
-                setState { copy(correctAnswer = false, incorrectAnswer = true) }
+                incorrectAnswer()
             }
+        }
+    }
+
+    private fun incorrectAnswer() {
+        currentAnswerIndex++
+        if(currentAnswerIndex < answerList.size){
+            setState { copy(playerAnswer = answerList[currentAnswerIndex].answer) }
+        }else{
+            noPoints()
         }
     }
 
@@ -53,16 +54,13 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
                 when (result){
                     is BaseResult.Error -> setState { copy(error = stringProvider.getString(R.string.pg_error_message)) }
                     is BaseResult.Success -> {
-                        setState { copy(answers = result.data.data) }
-                        if (result.data.status == "OK"){
-                            if(rateAnswersList()){
-                                //setEffect { ContractRateAnswerHost.Effect.Navigate }
-                                //job?.cancel()
+                        when (result.data.status){
+                            "OK" -> {
+                                answerList = result.data.data.toTypedArray()
+                                setState { copy(playerAnswer = answerList[currentAnswerIndex].answer) }
                             }
-                        }
-                        if (result.data.status == "NO_ANSWERS"){
-                            setEffect { ContractRateAnswerHost.Effect.Navigate }
-                            job?.cancel()
+                            "NO_ANSWERS" -> { setEffect { ContractRateAnswerHost.Effect.Navigate }}
+                            else -> {}
                         }
                     }
                 }
@@ -70,31 +68,18 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
         }
     }
 
-    private fun rateAnswersList(): Boolean{
-        val answers = uiState.value.answers
-        var isAnyCorrectAns = false
-        for (userAnswer in answers){
-            setState { copy(idWinner = userAnswer.playerId, playerAnswer = userAnswer.answer) }
-            if (uiState.value.correctAnswer and !uiState.value.incorrectAnswer){
-                isAnyCorrectAns = true
-                break
-            }
-            if (!uiState.value.correctAnswer and uiState.value.incorrectAnswer){
-                setState { copy(idWinner = "") }
-            }
-        }
-        return isAnyCorrectAns
-    }
+
 
     private fun correctAnswer(){
         viewModelScope.launch {
             val correctAnswerRequest = AddPointRequestDomain(
                 PointsDomain(
-                    uiState.value.idWinner,
+                    answerList[currentAnswerIndex].playerId,
                     "ADD_POINT"
                 )
             )
             rateAnswerRepository.addPoint(correctAnswerRequest)
+            setEffect { ContractRateAnswerHost.Effect.Navigate }
         }
     }
 
@@ -104,6 +89,7 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
                 "NO_POINTS"
             )
             rateAnswerRepository.noPoints(noPointsRequest)
+            setEffect { ContractRateAnswerHost.Effect.Navigate }
         }
     }
 

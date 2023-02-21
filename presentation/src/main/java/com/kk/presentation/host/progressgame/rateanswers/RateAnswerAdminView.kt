@@ -38,13 +38,8 @@ fun RateAnswerAdminView(
             Row(modifier = Modifier
                 .fillMaxSize()
                 .padding(20.dp, 30.dp), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.Bottom) {
-                AnimatedVisibility(visible = uiState.skipAnswer) {
-                    KkButton(onClick = {
-                                       viewModel.setEvent(ContractRateAnswerHost.Event.NoAnswers)
-                                       },
-                        label = stringResource(id = R.string.skip))
-                }
-                AnimatedVisibility(visible = !uiState.skipAnswer) {
+
+
                     KkIncorrectButton(
                         onClick = {
                                   viewModel.setEvent(ContractRateAnswerHost.Event.IncorrectAnswer)
@@ -52,15 +47,15 @@ fun RateAnswerAdminView(
                         label = stringResource(id = R.string.incorrect_answer_button)
                     )
 
-                }
-                AnimatedVisibility(visible = !uiState.skipAnswer) {
+
+
                     KkCorrectButton(
                         onClick = {
                                   viewModel.setEvent(ContractRateAnswerHost.Event.CorrectAnswer)
                                   },
                         label = stringResource(id = R.string.correct_answer_button)
                     )
-                }
+
             }
         }
     }
