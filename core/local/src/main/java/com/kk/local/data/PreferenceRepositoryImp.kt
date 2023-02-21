@@ -52,4 +52,10 @@ class PreferencesRepositoryImpl(private val context: Context) : PreferencesRepos
         }
     }
 
+    override suspend fun clearPreferences() {
+        context.dataStore.edit { preferences ->
+            preferences.clear()
+        }
+    }
+
 }
