@@ -1,12 +1,12 @@
 package com.kk.presentation.host.creategame
 
-import android.util.Log
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.CreateRoomRepository
 import com.kk.domain.models.BaseResult
 import com.kk.domain.models.CreateGameRequestDomain
 import com.kk.domain.models.RulesDomain
+import com.kk.local.domain.PreferencesRepository
 import com.kk.presentation.R
 import com.kk.presentation.baseMVI.BaseViewModel
 import com.kk.presentation.di.StringProvider
@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class CreateRoomViewModel(private val createRoomRepository: CreateRoomRepository, private val stringProvider: StringProvider) :
+class CreateRoomViewModel(private val createRoomRepository: CreateRoomRepository, private val stringProvider: StringProvider,private val dataStoreRepository: PreferencesRepository) :
     BaseViewModel<CreateRoomContract.Event, CreateRoomContract.State, CreateRoomContract.Effect>() {
     private var job: Job? = null
     init {
@@ -65,6 +65,7 @@ class CreateRoomViewModel(private val createRoomRepository: CreateRoomRepository
                 when (result) {
                     is BaseResult.Error -> setState { copy(error = stringProvider.getString(R.string.cr_error_connection)) }
                     is BaseResult.Success ->{
+                        dataStoreRepository.saveGameCode(result.data.data.code)
                         setState { copy(code= result.data.data.code) }
                         setEffect { CreateRoomContract.Effect.Navigate }
                         job?.cancel()
