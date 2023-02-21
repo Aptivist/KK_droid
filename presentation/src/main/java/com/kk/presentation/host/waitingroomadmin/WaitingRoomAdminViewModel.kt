@@ -2,6 +2,7 @@ package com.kk.presentation.host.waitingroomadmin
 
 import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.WaitingRoomAdminRepository
+import com.kk.domain.models.QRGenerator
 import com.kk.domain.models.BaseResult
 import com.kk.domain.models.EventRequestDomain
 import com.kk.local.domain.PreferencesRepository
@@ -14,7 +15,8 @@ import kotlinx.coroutines.launch
 
 class WaitingRoomAdminViewModel (private val waitingRoomAdminRepository: WaitingRoomAdminRepository,
                                  private val stringProvider: StringProvider,
-                                 private val dataStoreRepository : PreferencesRepository
+                                 private val dataStoreRepository : PreferencesRepository,
+                                 private val qrGenerator: QRGenerator
 ) : BaseViewModel<
         WaitingRoomAdminContract.Event,
         WaitingRoomAdminContract.State,
@@ -22,6 +24,7 @@ class WaitingRoomAdminViewModel (private val waitingRoomAdminRepository: Waiting
 
     private var job: Job? = null
     init {
+        getQRCode()
         observeData()
     }
     override fun createInitialState(): WaitingRoomAdminContract.State {
@@ -58,6 +61,14 @@ class WaitingRoomAdminViewModel (private val waitingRoomAdminRepository: Waiting
                     }
                 }
             }
+        }
+    }
+
+    private fun getQRCode(){
+        viewModelScope.launch (Dispatchers.IO){
+            val gameCode = dataStoreRepository.getGameCode()
+            val qrCode = qrGenerator.encodeString(gameCode)
+            setState { copy(codeQR = qrCode) }
         }
     }
 

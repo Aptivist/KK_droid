@@ -30,6 +30,7 @@ dependencyResolutionManagement {
                 version('camerax', '1.2.1')
                 version('accompanist', '0.28.0')
                 version('zxing', '3.5.1')
+                version('zxingQR','4.3.0')
                 version('material3', '1.0.1')
                 version('composeNavigation','2.5.3')
                 version('koin-version','3.3.2')
@@ -67,6 +68,7 @@ dependencyResolutionManagement {
                 library('accompanist-permisions', 'com.google.accompanist', 'accompanist-permissions').versionRef('accompanist')
 
                 library('zxing-core', 'com.google.zxing', 'core').versionRef('zxing')
+                library('zxing-QR','com.journeyapps','zxing-android-embedded').versionRef('zxingQR')
 
                 library('lottie', 'com.airbnb.android', 'lottie-compose').versionRef('lottieVersion')
 
@@ -87,7 +89,7 @@ dependencyResolutionManagement {
                 bundle('koin',['koinAndroid', 'koinCore','koinAndroidCompose'])
                 bundle('camerax', ['camera','camera-lifecycle','camera-view'])
                 bundle('accompanist', ['accompanist-permisions'])
-                bundle('zxing', ['zxing-core'])
+                bundle('zxing', ['zxing-core','zxing-QR'])
                 bundle('ktor', ['ktor-core', 'ktor-cio', 'ktor-android', 'ktor-serialization', 'ktor-jvm', 'ktor-websockets'])
                 bundle('dataStoreBundle', ['dataStore', 'dataStore-Core'])
             }

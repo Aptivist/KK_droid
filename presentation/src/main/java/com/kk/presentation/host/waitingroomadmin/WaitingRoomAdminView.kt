@@ -1,5 +1,6 @@
 package com.kk.presentation.host.waitingroomadmin
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -14,6 +15,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -65,9 +67,6 @@ fun WaitingRoomAdminView(
             //QR
             Card(
                 modifier = Modifier
-                    .height(230.dp)
-                    .width(230.dp)
-                    .background(color = Color.White)
                     .border(2.dp, BurntSienna, RoundedCornerShape(5.dp))
                     .constrainAs(qrBox) {
                         top.linkTo(qrLabel.bottom, 20.dp)
@@ -76,7 +75,12 @@ fun WaitingRoomAdminView(
                     },
                 shape = RoundedCornerShape(5.dp)
             ) {
-
+                uiState.codeQR?.let {
+                    Image(
+                        bitmap = it.asImageBitmap(),
+                        contentDescription = stringResource(R.string.accesibility_QR)
+                    )
+                }
             }
 
             KkBody(
