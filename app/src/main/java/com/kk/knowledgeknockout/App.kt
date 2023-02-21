@@ -6,6 +6,7 @@ import com.kk.data.di.repositoryModule
 import com.kk.local.di.dataStoreModule
 import com.kk.network.di.socketServiceModule
 import com.kk.network.di.networkModuleKtor
+import com.kk.presentation.di.qrModule
 import com.kk.presentation.di.stringModule
 import com.kk.presentation.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -27,7 +28,8 @@ class App : Application() {
                 repositoryModule,
                 gsonModule,
                 stringModule,
-                dataStoreModule
+                dataStoreModule,
+                qrModule
             )
         }
     }

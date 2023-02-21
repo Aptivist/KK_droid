@@ -1,3 +1,5 @@
+
+
 pluginManagement {
     repositories {
         google()
@@ -5,23 +7,30 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+
+        Properties properties = new Properties()
+        properties.load(new File(rootDir.absolutePath + "/secure.properties").newDataInputStream())
+        def iteneumProperty = properties.getProperty('ITENEUM_KEY', null)
+
         google()
         mavenCentral()
-        /*maven {
+        maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/Aptivist/IteneumBase")
             credentials {
                 username "Aptivist"
-                password "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"
+                password iteneumProperty
             }
-        }*/
+        }
 
         versionCatalogs{
             libs {
-                //version('iteneum','0.0.26')
+                version('iteneum','0.0.30')
                 version('compose', '1.3.1')
                 version('activityCompose', '1.6.1')
                 version('viewmodelCompose', '2.5.1')
@@ -30,6 +39,7 @@ dependencyResolutionManagement {
                 version('camerax', '1.2.1')
                 version('accompanist', '0.28.0')
                 version('zxing', '3.5.1')
+                version('zxingQR','4.3.0')
                 version('material3', '1.0.1')
                 version('composeNavigation','2.5.3')
                 version('koin-version','3.3.2')
@@ -42,7 +52,7 @@ dependencyResolutionManagement {
                 version('dataStore-Core', '1.0.0')
 
 
-                //library('iteneumCoreDroid', 'com.iteneum.core', 'droid-ui').versionRef('iteneum')
+                library('iteneumCoreDroid', 'com.iteneum.core', 'droid-ui').versionRef('iteneum')
 
                 library('koinAndroid','io.insert-koin','koin-android').versionRef('koin-version')
                 library('koinCore','io.insert-koin','koin-core').versionRef('koin-version')
@@ -67,6 +77,7 @@ dependencyResolutionManagement {
                 library('accompanist-permisions', 'com.google.accompanist', 'accompanist-permissions').versionRef('accompanist')
 
                 library('zxing-core', 'com.google.zxing', 'core').versionRef('zxing')
+                library('zxing-QR','com.journeyapps','zxing-android-embedded').versionRef('zxingQR')
 
                 library('lottie', 'com.airbnb.android', 'lottie-compose').versionRef('lottieVersion')
 
@@ -87,7 +98,7 @@ dependencyResolutionManagement {
                 bundle('koin',['koinAndroid', 'koinCore','koinAndroidCompose'])
                 bundle('camerax', ['camera','camera-lifecycle','camera-view'])
                 bundle('accompanist', ['accompanist-permisions'])
-                bundle('zxing', ['zxing-core'])
+                bundle('zxing', ['zxing-core','zxing-QR'])
                 bundle('ktor', ['ktor-core', 'ktor-cio', 'ktor-android', 'ktor-serialization', 'ktor-jvm', 'ktor-websockets'])
                 bundle('dataStoreBundle', ['dataStore', 'dataStore-Core'])
             }

@@ -41,9 +41,13 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
             is JoinRoomContract.Event.OnChangeName -> {
                 setState { copy(name = event.name) }
             }
+            is JoinRoomContract.Event.OnClickShowQR -> {
+                setState { copy(show = event.show) }
+            }
             JoinRoomContract.Event.OnJoinRoom -> {
 
             }
+
         }
     }
 
