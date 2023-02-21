@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.iteneum.core.ui.components.camera.GKCameraScannerView
 import com.kk.designsystem.components.*
 import com.kk.presentation.R
 import com.kk.presentation.host.creategame.CreateRoomContract
@@ -18,8 +19,8 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun JoinRoomView(
-    onBackHome : () -> Unit,
-    navigateToWaitingRoom : () -> Unit,
+    onBackHome: () -> Unit,
+    navigateToWaitingRoom: () -> Unit,
     viewModel: JoinRoomViewModel = koinViewModel()
 ) {
 
@@ -59,14 +60,29 @@ fun JoinRoomView(
                 modifier = Modifier
                     .fillMaxWidth()
             )
+            if (!viewModel.uiState.value.show ?: false) {
+                KkButton(
+                    onClick = {
+                        viewModel.handleEvent(JoinRoomContract.Event.OnClickShowQR(true))
+                    },
+                    label = stringResource(R.string.jr_scan_code),
+                    modifier = Modifier
+                        .padding(vertical = 40.dp)
+                        .fillMaxWidth()
+                )
+            } else {
 
-            KkButton(
-                onClick = { /*TODO*/ },
-                label = stringResource(R.string.jr_scan_code),
-                modifier = Modifier
+                GKCameraScannerView(modifier =
+                Modifier
                     .padding(vertical = 40.dp)
                     .fillMaxWidth()
-            )
+                    .height(300.dp),
+                    onResult = {
+                        viewModel.handleEvent(JoinRoomContract.Event.OnClickShowQR(false))
+                        viewModel.handleEvent(JoinRoomContract.Event.OnChangeCode(it))
+                    }
+                )
+            }
 
             Spacer(modifier = Modifier.weight(1f))
             KkButton(
@@ -78,9 +94,9 @@ fun JoinRoomView(
             )
         }
     }
-    LaunchedEffect(Unit){
+    LaunchedEffect(Unit) {
         viewModel.effect.collectLatest {
-            when(it){
+            when (it) {
                 JoinRoomContract.Effect.Navigate -> navigateToWaitingRoom()
             }
         }

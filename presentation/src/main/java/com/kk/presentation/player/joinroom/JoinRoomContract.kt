@@ -10,6 +10,7 @@ class JoinRoomContract {
         object OnJoinRoom : Event()
         data class OnChangeName(val name: String): Event()
         data class OnChangeCode(val code: String): Event()
+        data class OnClickShowQR(val show : Boolean): Event()
         object OnScanQRCodeButtonClicked : Event()
         object OnJoinButtonClicked : Event()
     }
@@ -17,6 +18,7 @@ class JoinRoomContract {
     data class State(
         val name: String = "",
         val code: String = "",
+        val show: Boolean = false,
         val error: String? = null,
     ) : UiState
 
