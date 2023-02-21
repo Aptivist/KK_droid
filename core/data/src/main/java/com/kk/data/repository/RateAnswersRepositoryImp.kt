@@ -1,5 +1,6 @@
 package com.kk.data.repository
 
+import android.util.Log
 import com.google.gson.Gson
 import com.kk.data.utils.extensions.fromJson
 import com.kk.domain.models.*
@@ -18,6 +19,10 @@ class RateAnswersRepositoryImp(
 
     override suspend fun noPoints(noPointsRequest: EventRequestDomain) {
         socketService.requestSocket(gson.toJson(noPointsRequest))
+    }
+
+    override suspend fun showAnswers(showAnswersRequest: EventRequestDomain) {
+        socketService.requestSocket(gson.toJson(showAnswersRequest))
     }
 
     override fun receiveAnswers(): Flow<BaseResult<BaseResponseDomain<List<PlayerAnswerDomain>>>> {

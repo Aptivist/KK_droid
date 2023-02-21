@@ -21,6 +21,7 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
     private var job: Job? = null
     init {
         observeData()
+        showAnswers()
     }
     override fun createInitialState(): ContractRateAnswerHost.State {
         return ContractRateAnswerHost.State()
@@ -28,18 +29,20 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
 
     override fun handleEvent(event: ContractRateAnswerHost.Event) {
         when (event) {
-            is ContractRateAnswerHost.Event.ReceiveAnswers -> {}
+            is ContractRateAnswerHost.Event.ReceiveAnswers -> {
+
+            }
             is ContractRateAnswerHost.Event.NoAnswers -> {
                 noPoints()
             }
             is ContractRateAnswerHost.Event.CorrectAnswer -> {
-                uiState.value.correctAnswer = true
-                uiState.value.incorrectAnswer = false
+                Log.e("CHECKING....","Correct answer")
+                setState { copy(correctAnswer = true, incorrectAnswer = false) }
                 correctAnswer()
             }
             is ContractRateAnswerHost.Event.IncorrectAnswer -> {
-                uiState.value.correctAnswer = false
-                uiState.value.incorrectAnswer = true
+                Log.e("CHECKING....","Incorrect answer")
+                setState { copy(correctAnswer = false, incorrectAnswer = true) }
             }
         }
     }
@@ -51,12 +54,10 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
                     is BaseResult.Error -> setState { copy(error = stringProvider.getString(R.string.pg_error_message)) }
                     is BaseResult.Success -> {
                         setState { copy(answers = result.data.data) }
-                        Log.e("CHECKING......", result.data.data.toString())
-                        Log.e("CHECKING......", result.data.status)
                         if (result.data.status == "OK"){
                             if(rateAnswersList()){
-                                setEffect { ContractRateAnswerHost.Effect.Navigate }
-                                job?.cancel()
+                                //setEffect { ContractRateAnswerHost.Effect.Navigate }
+                                //job?.cancel()
                             }
                         }
                         if (result.data.status == "NO_ANSWERS"){
@@ -73,13 +74,14 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
         val answers = uiState.value.answers
         var isAnyCorrectAns = false
         for (userAnswer in answers){
-            uiState.value.playerAnswer = userAnswer.answer
-            uiState.value.idWinner = userAnswer.id
+            setState { copy(idWinner = userAnswer.playerId, playerAnswer = userAnswer.answer) }
             if (uiState.value.correctAnswer and !uiState.value.incorrectAnswer){
                 isAnyCorrectAns = true
                 break
             }
-
+            if (!uiState.value.correctAnswer and uiState.value.incorrectAnswer){
+                setState { copy(idWinner = "") }
+            }
         }
         return isAnyCorrectAns
     }
@@ -102,6 +104,12 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
                 "NO_POINTS"
             )
             rateAnswerRepository.noPoints(noPointsRequest)
+        }
+    }
+
+    private fun showAnswers(){
+        viewModelScope.launch {
+            rateAnswerRepository.showAnswers(EventRequestDomain("SHOW_ANSWERS"))
         }
     }
 }

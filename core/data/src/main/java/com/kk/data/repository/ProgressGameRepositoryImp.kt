@@ -22,7 +22,6 @@ class ProgressGameRepositoryImp(
         return  try {
 
             socketService.receiveData().map {
-                Log.e("YA DIOSITO PLOX....",it)
                 BaseResult.Success(gson.fromJson(it))
             }
         } catch (e: Exception) {
