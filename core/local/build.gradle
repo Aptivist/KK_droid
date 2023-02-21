@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.kk.presentation'
+    namespace 'com.kk.local'
     compileSdk 33
 
     defaultConfig {
-        minSdk 28
+        minSdk 24
         targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -28,23 +28,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures {
-        compose true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.2.0"
-    }
 }
 
 dependencies {
-    implementation libs.bundles.compose
-    implementation libs.bundles.accompanist
     implementation libs.bundles.koin
     implementation libs.gson
-    implementation libs.iteneumCoreDroid
-    implementation project(':core:designsystem')
+    implementation libs.bundles.dataStoreBundle
+
     implementation project(':core:data')
     implementation project(':core:domain')
-    implementation project(':core:local')
-    implementation libs.lottie
+    implementation project(':core:network')
 }
