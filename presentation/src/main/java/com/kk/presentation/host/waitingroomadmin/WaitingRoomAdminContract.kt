@@ -11,7 +11,11 @@ class WaitingRoomAdminContract {
         object OnStartGame : Event()
     }
 
-    data class State(val players : List<PlayerUserDomain> = emptyList(), val error : String? = null) : UiState
+    data class State(
+        val players: List<PlayerUserDomain> = emptyList(),
+        val codeQR: String,
+        val error: String? = null
+    ) : UiState
 
     sealed class Effect : UiEffect { object Navigate : Effect() }
 }
