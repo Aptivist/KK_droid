@@ -7,4 +7,5 @@
     <string name="uqb_st">ra</string>
     <string name="uqb_nd">da</string>
     <string name="uqb_rd">ra</string>
+    <string name="uqb_waiting_host">Esperando al host…</string>
 </resources>

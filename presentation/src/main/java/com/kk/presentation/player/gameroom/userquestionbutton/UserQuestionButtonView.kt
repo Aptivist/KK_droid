@@ -1,21 +1,22 @@
 package com.kk.presentation.player.gameroom.userquestionbutton
 
-import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.internal.isLiveLiteralsEnabled
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import com.kk.designsystem.R.drawable.main_button
 import com.kk.designsystem.components.KKBox
@@ -38,52 +39,62 @@ fun UserQuestionButtonView(
     KKBox() {
         Column(
             modifier = Modifier
-                .verticalScroll(rememberScrollState())
                 .fillMaxSize()
-                .padding(horizontal = 30.dp)
+                .verticalScroll(rememberScrollState())
+                .zIndex(uiState.zIndex)
+                .background(MaterialTheme.colorScheme.background),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(modifier = Modifier.size(30.dp))
             KkTitle(
                 label = "" + round + stringResource(id = R.string.uqb_st) + " " + stringResource(
                     id = R.string.uqb_title
-                ),
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(vertical = 40.dp)
+                )
             )
             Spacer(modifier = Modifier.size(50.dp))
-            Box {
-                Column(modifier = Modifier.zIndex(uiState.zIndex)) {
-                    KkOrangeTitle(
-                        label = uiState.timer.toString() + " " + stringResource(id = R.string.uqb_time),
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
-                    )
-                    Spacer(modifier = Modifier.size(40.dp))
-                    Image(
-                        painter = image,
-                        contentDescription = stringResource(R.string.uqb_main_button),
-                        modifier = Modifier
-                            .height(300.dp)
-                            .align(Alignment.CenterHorizontally)
-                            .clickable(enabled = uiState.roundStarted) {
-                                viewModel.handleEvent(
-                                    UserQuestionButtonContract.Event.OnMainButtonClicked
-                                )
-                            }
-                    )
-                    Spacer(modifier = Modifier.size(50.dp))
-                    KkBody(
-                        label = stringResource(R.string.uqb_skip),
-                        modifier = Modifier
-                            .align(Alignment.CenterHorizontally)
-                            .clickable() {
-                                viewModel.handleEvent(UserQuestionButtonContract.Event.OnSkipButtonClicked)
-                            }
-                    )
-                    Spacer(modifier = Modifier.size(30.dp))
-                }
-                Text(text = "Esperando al host...", modifier = Modifier.zIndex(1f))
-            }
 
+            KkOrangeTitle(
+                label = uiState.timer.toString() + " " + stringResource(id = R.string.uqb_time),
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+            Spacer(modifier = Modifier.size(40.dp))
+            Image(
+                painter = image,
+                contentDescription = stringResource(R.string.uqb_main_button),
+                modifier = Modifier
+                    .height(300.dp)
+                    .align(Alignment.CenterHorizontally)
+                    .clickable(enabled = uiState.roundStarted) {
+                        viewModel.handleEvent(
+                            UserQuestionButtonContract.Event.OnMainButtonClicked
+                        )
+                    }
+            )
+            Spacer(modifier = Modifier.size(50.dp))
+            KkBody(
+                label = stringResource(R.string.uqb_skip),
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .clickable() {
+                        viewModel.handleEvent(UserQuestionButtonContract.Event.OnSkipButtonClicked)
+                    }
+            )
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .zIndex(1f)
+                .background(MaterialTheme.colorScheme.background)
+                .alpha(0.4f),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = stringResource(R.string.uqb_waiting_host),
+                color = MaterialTheme.colorScheme.onBackground,
+                fontWeight = FontWeight.Bold,
+                fontSize = 30.sp,
+                textAlign = TextAlign.Center
+            )
         }
     }
 

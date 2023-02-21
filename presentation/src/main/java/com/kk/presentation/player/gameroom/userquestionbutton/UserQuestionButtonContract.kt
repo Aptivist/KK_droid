@@ -17,7 +17,7 @@ class UserQuestionButtonContract {
     data class State(
         val round: Int = 0,
         val timeStamp: Int = 0,
-        val timer: Int = -1,
+        val timer: Int = 0,
         val error: String? = null,
         val roundStarted: Boolean = false,
         val zIndex: Float = 0f

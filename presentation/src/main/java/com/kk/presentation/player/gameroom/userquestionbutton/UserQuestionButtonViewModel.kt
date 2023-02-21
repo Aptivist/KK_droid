@@ -18,11 +18,8 @@ class UserQuestionButtonViewModel(
     BaseViewModel<UserQuestionButtonContract.Event, UserQuestionButtonContract.State, UserQuestionButtonContract.Effect>() {
 
     var job: Job? = null
-    var jobStatusInitialized: Job? = null
 
     init {
-        // pending testing to get the current timer from host for example 45 seconds
-        receiveDataStatusInitialized()
         observeData()
     }
 
@@ -41,20 +38,6 @@ class UserQuestionButtonViewModel(
         }
     }
 
-    private fun receiveDataStatusInitialized() {
-        jobStatusInitialized = viewModelScope.launch(Dispatchers.IO) {
-            userQuestionButtonRepository.receiveDataStatusInitialized().collect { result ->
-                when (result) {
-                    is BaseResult.Error -> setState { copy(error = stringProvider.getString(R.string.cr_error_connection)) }
-                    is BaseResult.Success -> {
-                        setState { copy(roundStarted = false) }
-                        jobStatusInitialized?.cancel()
-                    }
-                }
-            }
-        }
-    }
-
     private fun observeData() {
         job = viewModelScope.launch(Dispatchers.IO) {
             userQuestionButtonRepository.receiveData().collect { result ->
@@ -62,9 +45,17 @@ class UserQuestionButtonViewModel(
                 when (result) {
                     is BaseResult.Error -> setState { copy(error = stringProvider.getString(R.string.cr_error_connection)) }
                     is BaseResult.Success -> {
-                        setState { copy(zIndex = 2f) }
-                        setState { copy(timer = result.data.data.time) }
-                        setState { copy(roundStarted = true) }
+                        if (result.data.data.time > 0) {
+                            setState { copy(zIndex = 2f) }
+                            setState { copy(timer = result.data.data.time) }
+                            setState { copy(roundStarted = true) }
+                        } else if (result.data.data.time == 0) {
+                            setState { copy(zIndex = 0f) }
+                            setState { copy(timer = 0) }
+                            setState { copy(roundStarted = false) }
+                            setEffect { UserQuestionButtonContract.Effect.NavigateToWaitingPlayers }
+                            job?.cancel()
+                        }
                     }
                 }
             }
