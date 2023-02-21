@@ -15,7 +15,7 @@ dependencyResolutionManagement {
 
         Properties properties = new Properties()
         properties.load(new File(rootDir.absolutePath + "/secure.properties").newDataInputStream())
-        def externalModuleDir = properties.getProperty('ITENEUM_KEY', null)
+        def iteneumProperty = properties.getProperty('ITENEUM_KEY', null)
 
         google()
         mavenCentral()
@@ -24,7 +24,7 @@ dependencyResolutionManagement {
             url = uri("https://maven.pkg.github.com/Aptivist/IteneumBase")
             credentials {
                 username "Aptivist"
-                password externalModuleDir
+                password iteneumProperty
             }
         }
 
