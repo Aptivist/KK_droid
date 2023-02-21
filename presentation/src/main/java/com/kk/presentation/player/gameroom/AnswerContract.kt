@@ -13,7 +13,7 @@ class AnswerContract {
     // UI View States
     data class State(
         val error: String? = null,
-        val isLoading: Boolean = false,
+        val timer: String = ""
     ) : UiState
 
     // Side Effect
