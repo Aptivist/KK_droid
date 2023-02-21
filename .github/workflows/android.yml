@@ -20,8 +20,8 @@ jobs:
     
     - name: Access ITENEUM_KEY
       env:
-        ITENEUM_KEY: ${{ secrets.APOD_API_KEY }}      
-      run: echo ITENEUM_KEY=${{ APOD_API_KEY }} > ./secure.properties
+        ITENEUM_KEY: ${{ secrets.ITENEUM_KEY }}      
+      run: echo ITENEUM_KEY=$ITENEUM_KEY > ./secure.properties
       
     - name: Check secure.properties
       run: cat ./secure.properties
