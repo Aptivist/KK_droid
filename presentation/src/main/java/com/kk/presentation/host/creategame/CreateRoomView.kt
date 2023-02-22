@@ -2,6 +2,7 @@ package com.kk.presentation.host.creategame
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -10,6 +11,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.kk.designsystem.components.*
 import com.kk.presentation.R
@@ -18,13 +21,13 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun CreateRoomView(
-    onBackHome : () -> Unit,
+    navigateToHome : () -> Unit,
     navigateToWaitingRoom : (code: String) -> Unit,
     viewModel: CreateRoomViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    KKBox {
+    KKBox (onClickConfirm = {viewModel.handleEvent(CreateRoomContract.Event.CloseSession)}){
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
@@ -74,6 +77,7 @@ fun CreateRoomView(
                     .fillMaxWidth()
                     .height(50.dp)
                     .padding(0.dp)
+            , keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done)
             )
 
             // TODO (This line is just for example Delete comment)
@@ -97,6 +101,7 @@ fun CreateRoomView(
         viewModel.effect.collectLatest {
             when(it){
                 CreateRoomContract.Effect.Navigate -> navigateToWaitingRoom(uiState.code)
+                CreateRoomContract.Effect.NavigateToHome -> navigateToHome()
             }
         }
     }

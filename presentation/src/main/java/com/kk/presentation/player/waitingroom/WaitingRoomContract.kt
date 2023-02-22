@@ -7,13 +7,14 @@ import com.kk.presentation.baseMVI.UiState
 
 class WaitingRoomContract {
     sealed class Event : UiEvent{
-        object ShowPlayers: Event()
+        object CloseSession: Event()
     }
 
     data class State(val playerList: List<PlayerUserDomain> = emptyList(), val error: String? = null) : UiState
 
     sealed class Effect : UiEffect{
         object Navigate: Effect()
+        object NavigateToHome: Effect()
     }
 
 }

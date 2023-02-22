@@ -27,4 +27,8 @@ class UserQuestionButtonRepositoryImp(
             flow { emit(BaseResult.Error(e)) }
         }
     }
+
+    override suspend fun closeSession() {
+        socketService.closeSocket()
+    }
 }

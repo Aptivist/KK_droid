@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserQuestionButtonRepository {
     fun receiveData(): Flow<BaseResult<ResponseTimerStatusOk>>
+    suspend fun closeSession()
 }

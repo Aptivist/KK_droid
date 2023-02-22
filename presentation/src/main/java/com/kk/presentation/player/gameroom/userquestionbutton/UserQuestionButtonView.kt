@@ -30,13 +30,14 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun UserQuestionButtonView(
     round: Int = 1,
-    navigateToSendAnswer: (timeStamp: Int) -> Unit,
+    navigateToHome: () -> Unit,
+    navigateToSendAnswer: (timeStamp: Long) -> Unit,
     navigateToWaitingPlayers: () -> Unit,
     viewModel: UserQuestionButtonViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val image = painterResource(id = main_button)
-    KKBox() {
+    KKBox(onClickConfirm = {viewModel.handleEvent(UserQuestionButtonContract.Event.CloseSession)}) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -105,6 +106,7 @@ fun UserQuestionButtonView(
                     uiState.timeStamp
                 )
                 UserQuestionButtonContract.Effect.NavigateToWaitingPlayers -> navigateToWaitingPlayers()
+                UserQuestionButtonContract.Effect.NavigateToHome -> navigateToHome()
             }
         }
     }

@@ -8,5 +8,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface AnswerRepository {
     suspend fun sendAnswer(eventAnswerRequestDomain: EventAnswerRequestDomain)
+    suspend fun closeSession()
     fun receiveData() : Flow<BaseResult<BaseResponseDomain<KKTimerDomain>>>
 }

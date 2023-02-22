@@ -12,6 +12,7 @@ class CreateRoomContract {
         data class OnChangePlayers(val players: String): Event()
         data class OnChangePoints(val points: String): Event()
         data class OnChangeTime(val time: String ): Event()
+        object CloseSession: Event()
     }
 
     // View State
@@ -26,5 +27,8 @@ class CreateRoomContract {
     ) : UiState
 
     // Side Effect
-    sealed class Effect : UiEffect { object Navigate : Effect() }
+    sealed class Effect : UiEffect {
+        object Navigate : Effect()
+        object NavigateToHome: Effect()
+    }
 }

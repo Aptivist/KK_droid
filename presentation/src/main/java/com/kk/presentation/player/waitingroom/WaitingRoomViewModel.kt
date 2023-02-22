@@ -4,12 +4,12 @@ import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.PlayerWaitingRoomRepository
 import com.kk.domain.models.BaseResult
 import com.kk.domain.models.EventRequestDomain
-import com.kk.presentation.baseMVI.BaseViewModelNoEvents
+import com.kk.presentation.baseMVI.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class WaitingRoomViewModel(private val repository: PlayerWaitingRoomRepository): BaseViewModelNoEvents<WaitingRoomContract.State, WaitingRoomContract.Effect>() {
+class WaitingRoomViewModel(private val repository: PlayerWaitingRoomRepository): BaseViewModel<WaitingRoomContract.Event,WaitingRoomContract.State, WaitingRoomContract.Effect>() {
     private var job: Job? = null
 
     init{
@@ -21,11 +21,24 @@ class WaitingRoomViewModel(private val repository: PlayerWaitingRoomRepository):
         return WaitingRoomContract.State()
     }
 
-
+    override fun handleEvent(event: WaitingRoomContract.Event) {
+        when(event){
+            WaitingRoomContract.Event.CloseSession -> {
+                closeSession()
+                setEffect { WaitingRoomContract.Effect.NavigateToHome }
+            }
+        }
+    }
 
     private fun showPlayers(){
         viewModelScope.launch {
             repository.showPlayers(EventRequestDomain("SHOW_PLAYERS"))
+        }
+    }
+
+    private fun closeSession(){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.closeSession()
         }
     }
 

@@ -5,6 +5,7 @@ import com.kk.presentation.host.creategame.CreateRoomViewModel
 import com.kk.presentation.host.progressgame.ProgressGameViewModel
 import com.kk.presentation.host.progressgame.rateanswers.RateAnswerHostViewModel
 import com.kk.presentation.host.waitingroomadmin.WaitingRoomAdminViewModel
+import com.kk.presentation.player.gameroom.AnswerViewModel
 import com.kk.presentation.player.joinroom.JoinRoomViewModel
 import com.kk.presentation.player.resultroom.ResultRoomViewModel
 import com.kk.presentation.player.waitingroom.WaitingRoomViewModel
@@ -23,4 +24,5 @@ val viewModelModule = module {
     viewModelOf(::RateAnswerHostViewModel)
     viewModelOf(::ResultRoomViewModel)
     viewModelOf(::JoinRoomViewModel)
+    viewModelOf(::AnswerViewModel)
 }

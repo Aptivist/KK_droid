@@ -1,8 +1,8 @@
 package com.kk.domain.models
 
 data class AnswerDomain(
-    val answer: String?,
+    val answer: String = "",
     val timeStamp: Long,
     val gameCode: String,
-    var playerId: String?
+    var playerId: String =""
 )

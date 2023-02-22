@@ -40,7 +40,10 @@ class CreateRoomViewModel(private val createRoomRepository: CreateRoomRepository
             CreateRoomContract.Event.OnCreateRoom -> {
                 createRoom()
             }
-
+            CreateRoomContract.Event.CloseSession -> {
+                closeSession()
+                setEffect { CreateRoomContract.Effect.NavigateToHome }
+            }
         }
     }
 
@@ -82,6 +85,12 @@ class CreateRoomViewModel(private val createRoomRepository: CreateRoomRepository
             }
         }
 
+    }
+
+    private fun closeSession(){
+        viewModelScope.launch(Dispatchers.IO){
+            createRoomRepository.closeSession()
+        }
     }
 
 }

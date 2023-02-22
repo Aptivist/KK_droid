@@ -1,6 +1,5 @@
 package com.kk.presentation.player.joinroom
 
-import android.util.Log
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.JoinRoomRepository
@@ -10,7 +9,6 @@ import com.kk.local.domain.PreferencesRepository
 import com.kk.presentation.R
 import com.kk.presentation.baseMVI.BaseViewModel
 import com.kk.presentation.di.StringProvider
-import com.kk.presentation.host.creategame.toSafeIntDigit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -47,7 +45,10 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
             JoinRoomContract.Event.OnJoinRoom -> {
 
             }
-
+            JoinRoomContract.Event.CloseSession -> {
+                closeSession()
+                setEffect { JoinRoomContract.Effect.NavigateToHome }
+            }
         }
     }
 
@@ -59,7 +60,9 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
                 when (result) {
                     is BaseResult.Error -> setState { copy(error = stringProvider.getString(R.string.cr_error_connection)) }
                     is BaseResult.Success ->{
-                        dataStoreRepository.saveGameCode(uiState.value.code)
+                        val dataResponse = result.data.data
+                        dataStoreRepository.saveGameCode(dataResponse.code)
+                        dataStoreRepository.savePlayerId(dataResponse.id)
                         setEffect { JoinRoomContract.Effect.Navigate }
                         job?.cancel()
                     }
@@ -85,6 +88,12 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
                 )
             joinRoomRepository.joinRoom(createJoinRoomRequest)
 
+        }
+    }
+
+    private fun closeSession(){
+        viewModelScope.launch(Dispatchers.IO) {
+            joinRoomRepository.closeSession()
         }
     }
 

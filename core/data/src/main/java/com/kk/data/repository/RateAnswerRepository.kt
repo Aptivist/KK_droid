@@ -7,5 +7,5 @@ interface RateAnswerRepository {
     suspend fun addPoint(addPointRequest: AddPointRequestDomain)
     suspend fun noPoints(noPointsRequest: EventRequestDomain)
     suspend fun showAnswers(showAnswersRequest: EventRequestDomain)
-    fun receiveAnswers(): Flow<BaseResult<BaseResponseDomain<List<PlayerAnswerDomain>>>>
+    fun receiveAnswers(): Flow<BaseResult<BaseResponseDomain<List<AnswerDomain>>>>
 }
