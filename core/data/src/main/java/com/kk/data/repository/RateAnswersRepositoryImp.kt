@@ -1,5 +1,6 @@
 package com.kk.data.repository
 
+import android.util.Log
 import com.google.gson.Gson
 import com.kk.data.utils.extensions.fromJson
 import com.kk.domain.models.*
@@ -27,6 +28,7 @@ class RateAnswersRepositoryImp(
     override fun receiveAnswers(): Flow<BaseResult<BaseResponseDomain<List<AnswerDomain>>>> {
         return try {
             socketService.receiveData().map {
+                Log.e("ANSWERS RECEIVED....",it.toString())
                 BaseResult.Success(gson.fromJson(it))
             }
         } catch (ex: Exception){

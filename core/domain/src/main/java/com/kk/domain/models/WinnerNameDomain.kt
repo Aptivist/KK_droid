@@ -8,7 +8,7 @@ data class WinnerNameDomain(
 ): UserDomain()
 
 data class WinnerDomain(
-    val listPlayers: List<Any>,
+    val listPlayers: List<Any>?,
     val roundPlayerWon: roundPlayerWon,
 )
 
@@ -16,5 +16,5 @@ data class roundPlayerWon(
     val id: String,
     val name: String,
     val points: Int,
-    override val gameCode: String?
-): UserDomain()
+    val code: String?
+)

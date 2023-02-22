@@ -14,7 +14,8 @@ class ContractShowWinnerAdmin {
         val error: String? = null,
         val round: Int = 1,
         val anyWinner: Boolean = false,
-        val noWinner: Boolean =false,
+        val noWinner: Boolean = false,
+        val gameWinner: Boolean = false,
         val winnerName: String = ""
     ) : UiState
 

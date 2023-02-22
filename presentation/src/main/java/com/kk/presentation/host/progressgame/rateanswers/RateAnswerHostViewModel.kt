@@ -34,6 +34,9 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
             is ContractRateAnswerHost.Event.IncorrectAnswer -> {
                 incorrectAnswer()
             }
+            is ContractRateAnswerHost.Event.SkipAnswers -> {
+                noPoints()
+            }
         }
     }
 
@@ -58,10 +61,8 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
                                 setState { copy(playerAnswer = answerList[currentAnswerIndex].answer) }
                             }
                             "NO_ANSWERS" -> {
-                                setEffect { ContractRateAnswerHost.Effect.Navigate }
-                                job?.cancel()
+                                setState { copy(skipAnswers = true) }
                             }
-                            else -> {}
                         }
                     }
                 }
@@ -74,10 +75,9 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
     private fun correctAnswer(){
         viewModelScope.launch {
             val correctAnswerRequest = AddPointRequestDomain(
-                PointsDomain(
                     answerList[currentAnswerIndex].playerId?:"",
                     "ADD_POINT"
-                )
+
             )
             rateAnswerRepository.addPoint(correctAnswerRequest)
             setEffect { ContractRateAnswerHost.Effect.Navigate }

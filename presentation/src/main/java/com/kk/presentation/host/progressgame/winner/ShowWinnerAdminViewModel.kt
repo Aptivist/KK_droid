@@ -30,7 +30,17 @@ BaseViewModel<ContractShowWinnerAdmin.Event, ContractShowWinnerAdmin.State, Cont
             is ContractShowWinnerAdmin.Event.ShowWinnerName -> {}
             is ContractShowWinnerAdmin.Event.NextGame -> {
                 nextRound()
+                setEffect { ContractShowWinnerAdmin.Effect.Navigate }
             }
+        }
+    }
+
+    private fun nextRound() {
+        viewModelScope.launch {
+            val nextRoundRequest = EventRequestDomain(
+                "NEXT_ROUND"
+            )
+            winnerAdminRepository.startNextGame(nextRoundRequest)
         }
     }
 
@@ -40,34 +50,28 @@ BaseViewModel<ContractShowWinnerAdmin.Event, ContractShowWinnerAdmin.State, Cont
                 when (result){
                     is BaseResult.Error -> setState { copy(error = stringProvider.getString(R.string.pg_error_message)) }
                     is BaseResult.Success -> {
-                        Log.e("CHECKING......", result.data.status.toString())
                         when (result.data.status){
                             "ROUND_FINISHED" -> {
-                                setState { copy(anyWinner = true, winnerName = result.data.data.name) }
+                                if(result.data.data.listPlayers.isNullOrEmpty()){
+                                    setState { copy(anyWinner = true, winnerName = result.data.data.roundPlayerWon.name) }
+                                    job?.cancel()
+                                }
+                                if(!result.data.data.listPlayers.isNullOrEmpty()){
+
+                                }
+                            }
+                            "GAME_FINISHED" -> {
+                                setState { copy(gameWinner = true, winnerName = result.data.data.roundPlayerWon.name) }
                                 job?.cancel()
                             }
-                            "INITIALIZED" -> {
-                                setEffect { ContractShowWinnerAdmin.Effect.Navigate }
-                                job?.cancel()
-                            }
-                            else -> {
-                                setState { copy(anyWinner = false, noWinner = true) }
+                            "NO_WINNER_ROUND" -> {
+                                setState { copy(noWinner = true, anyWinner = false, gameWinner = false) }
                                 job?.cancel()
                             }
                         }
                     }
                 }
             }
-        }
-    }
-
-    private fun nextRound() {
-        viewModelScope.launch {
-            val nextRoundRequest = EventRequestDomain(
-                "START_GAME"
-            )
-            winnerAdminRepository.startNextGame(nextRoundRequest)
-            setEffect { ContractShowWinnerAdmin.Effect.Navigate }
         }
     }
 }

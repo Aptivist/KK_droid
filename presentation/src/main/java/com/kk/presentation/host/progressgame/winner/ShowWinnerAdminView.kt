@@ -38,10 +38,18 @@ fun ShowWinnerAdminView(
                 .fillMaxHeight(0.7F), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                 AnimatedVisibility(visible = uiState.anyWinner) {
                     KkOrangeTitle(label = stringResource(id = R.string.for_to))
+                }
+                AnimatedVisibility(visible = uiState.anyWinner) {
                     KkOrangeTitle(label = uiState.winnerName + "!")
                 }
                 AnimatedVisibility(visible = uiState.noWinner) {
                     KkOrangeTitle(label = stringResource(id = R.string.no_winner))
+                }
+                AnimatedVisibility(visible = uiState.gameWinner) {
+                    KkOrangeTitle(label = "GAME WON BY")
+                }
+                AnimatedVisibility(visible = uiState.gameWinner) {
+                    KkOrangeTitle(label = uiState.winnerName + "!")
                 }
             }
             Column(modifier = Modifier
@@ -49,9 +57,16 @@ fun ShowWinnerAdminView(
                 .padding(30.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Bottom) {
-                KkButton(onClick = { viewModel.setEvent(ContractShowWinnerAdmin.Event.NextGame) },
-                    label = stringResource(id = R.string.next_button),
-                    modifier = Modifier.fillMaxWidth())
+                AnimatedVisibility(visible = (uiState.anyWinner or uiState.noWinner)) {
+                    KkButton(onClick = { viewModel.setEvent(ContractShowWinnerAdmin.Event.NextGame) },
+                        label = stringResource(id = R.string.next_button),
+                        modifier = Modifier.fillMaxWidth())
+                }
+                AnimatedVisibility(visible = uiState.gameWinner) {
+                    KkButton(onClick = { viewModel.setEvent(ContractShowWinnerAdmin.Event.NextGame) },
+                        label = "GO HOME",
+                        modifier = Modifier.fillMaxWidth())
+                }
             }
         }
     }
