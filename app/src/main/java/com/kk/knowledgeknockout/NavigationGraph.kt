@@ -1,6 +1,5 @@
 package com.kk.knowledgeknockout
 
-import android.util.Log
 import com.kk.presentation.player.joinroom.JoinRoomView
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
@@ -16,7 +15,7 @@ import com.kk.presentation.host.progressgame.rateanswers.RateAnswerAdminView
 import com.kk.presentation.host.waitingroomadmin.WaitingRoomAdminView
 import com.kk.presentation.player.resultroom.ResultView
 import com.kk.presentation.player.gameroom.userquestionbutton.UserQuestionButtonView
-import com.kk.presentation.player.gameroom.UserAnswerView
+import com.kk.presentation.player.gameroom.AnswerView
 import com.kk.presentation.player.waitingroom.WaitingRoomPlayerView
 
 
@@ -42,7 +41,7 @@ fun NavigationGraph(){
         }
         composable(route = AppNavigation.CreateRoom.route){
             CreateRoomView(
-                onBackHome = {
+                navigateToHome = {
                     navController.navigate(AppNavigation.ScreenHome.route)
                 },
                 navigateToWaitingRoom = {
@@ -52,7 +51,7 @@ fun NavigationGraph(){
         }
         composable(route = AppNavigation.JoinRoom.route){
             JoinRoomView(
-                onBackHome = {
+                navigateToHome = {
                     navController.navigate(AppNavigation.ScreenHome.route)
                 },
                 navigateToWaitingRoom = {
@@ -77,8 +76,8 @@ fun NavigationGraph(){
         }
         composable(route = AppNavigation.WaitingRoomPlayer.route){
             WaitingRoomPlayerView(
-                onBackJoinRoom = {
-                    navController.navigate(AppNavigation.JoinRoom.route)
+                navigateToHome = {
+                    navController.navigate(AppNavigation.ScreenHome.route)
                 },
                 navigateToStartGamePlayer = {
                     navController.navigate(AppNavigation.StartGamePlayer.route)
@@ -108,6 +107,9 @@ fun NavigationGraph(){
         }
         composable(route = AppNavigation.StartGamePlayer.route){
             UserQuestionButtonView(
+                navigateToHome = {
+                    AppNavigation.ScreenHome.route
+                },
                 navigateToSendAnswer = {
                     navController.navigate(AppNavigation.SendAnswer.route+"/$it")
                 },
@@ -116,13 +118,16 @@ fun NavigationGraph(){
                 }
             )
         }
-        composable(route = AppNavigation.SendAnswer.route+"/{timeStamp}",arguments = listOf(navArgument("timeStamp") { type = NavType.IntType })){
+        composable(route = AppNavigation.SendAnswer.route+"/{timeStamp}",arguments = listOf(navArgument("timeStamp") { type = NavType.LongType })){
             // timeStamp is the system time when the user push the main button
-//            val timeStamp  = it.arguments?.getInt("timeStamp",0)
-//            Log.e("timeStamp", "timeStamp -> $timeStamp")
-            UserAnswerView(
+            val timeStamp  = it.arguments?.getLong("timeStamp",0)?:0
+            AnswerView(
+                timeStamp = timeStamp,
+                navigateToHome = {
+                    AppNavigation.ScreenHome.route
+                },
                 navigateToWaitingPlayers = {
-                    navController.navigate(AppNavigation.WaitingAnswerPlayer.route)
+                    navController.navigate(AppNavigation.EndRoundPlayer.route)
                 }
             )
         }

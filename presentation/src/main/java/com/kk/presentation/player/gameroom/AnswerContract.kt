@@ -7,18 +7,22 @@ import com.kk.presentation.baseMVI.UiState
 class AnswerContract {
     // Events that user performed
     sealed class Event : UiEvent {
-        object SendAnswer : Event()
+        object CloseSession: Event()
+        data class OnChangeAnswer(val answer: String): Event()
+        data class SendAnswer(val timeStamp: Long) : Event()
     }
 
     // UI View States
     data class State(
+        val showTexFieldAndButton: Boolean = true,
+        val answer: String = "",
         val error: String? = null,
-        val isLoading: Boolean = false,
+        val timer: String = ""
     ) : UiState
 
     // Side Effect
     sealed class Effect : UiEffect {
-        object NavigateHost : Effect()
-        object NavigatePlayer : Effect()
+        object NavigateToResults : Effect()
+        object NavigateToHome: Effect()
     }
 }

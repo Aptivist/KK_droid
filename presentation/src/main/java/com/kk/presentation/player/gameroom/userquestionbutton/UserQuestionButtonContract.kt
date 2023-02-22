@@ -11,12 +11,13 @@ class UserQuestionButtonContract {
     sealed class Event : UiEvent {
         object OnMainButtonClicked : Event()
         object OnSkipButtonClicked : Event()
+        object CloseSession: Event()
     }
 
     // View State
     data class State(
         val round: Int = 0,
-        val timeStamp: Int = 0,
+        val timeStamp: Long = 0,
         val timer: Int = 0,
         val error: String? = null,
         val roundStarted: Boolean = false,
@@ -27,5 +28,6 @@ class UserQuestionButtonContract {
     sealed class Effect : UiEffect {
         object NavigateToSendPlayerAnswer : Effect()
         object NavigateToWaitingPlayers : Effect()
+        object NavigateToHome: Effect()
     }
 }

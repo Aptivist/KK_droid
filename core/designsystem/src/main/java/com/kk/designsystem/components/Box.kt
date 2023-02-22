@@ -18,6 +18,7 @@ import com.kk.designsystem.R
 @Composable
 fun KKBox(
     isLoading: Boolean = false,
+    onClickConfirm : (() -> Unit)? = null,
     content: @Composable BoxScope.() -> Unit
 ) {
 
@@ -35,7 +36,7 @@ fun KKBox(
         textCancelButton = stringResource(id = R.string.cancel_button_on_back_pressed),
         onConfirm = {
             showDialog = false
-            activity.finish()
+            onClickConfirm?.invoke() ?: activity.finishAndRemoveTask()
         },
         textConfirmButton = stringResource(id = R.string.confirm_button_on_back_pressed)
     )
