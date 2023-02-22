@@ -5,9 +5,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.kk.local.domain.PreferencesRepository
-import com.kk.local.utils.KEY_CODE
-import com.kk.local.utils.KEY_PLAYER
-import com.kk.local.utils.PREFERENCES_NAME
+import com.kk.local.utils.*
 import kotlinx.coroutines.flow.first
 
 
@@ -55,6 +53,24 @@ class PreferencesRepositoryImpl(private val context: Context) : PreferencesRepos
     override suspend fun clearPreferences() {
         context.dataStore.edit { preferences ->
             preferences.clear()
+        }
+    }
+
+    override suspend fun saveNumberRound(round: String) {
+        val preferenceKey = stringPreferencesKey(ROUND_NUMBER)
+        context.dataStore.edit { preferences ->
+            preferences[preferenceKey] = round
+        }
+    }
+
+    override suspend fun getNumberRound(): String {
+        return try {
+            val preferencesKey = stringPreferencesKey(ROUND_NUMBER)
+            val preferences = context.dataStore.data.first()
+            preferences[preferencesKey] ?: ""
+        } catch (e: Exception){
+            e.printStackTrace()
+            ""
         }
     }
 
