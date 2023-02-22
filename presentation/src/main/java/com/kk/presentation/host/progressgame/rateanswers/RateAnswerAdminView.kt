@@ -27,7 +27,7 @@ fun RateAnswerAdminView(
             Column(modifier = Modifier
                 .fillMaxWidth()
                 .padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                KkTitle(label = uiState.round.toString() + "° Round")
+                KkTitle(label = uiState.round.toString() + stringResource(id = R.string.round))
             }
             Box(modifier = Modifier.padding(25.dp, 0.dp)) {
                 KkBody(label = stringResource(id = R.string.player_answer))
@@ -39,23 +39,29 @@ fun RateAnswerAdminView(
                 .fillMaxSize()
                 .padding(20.dp, 30.dp), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.Bottom) {
 
-
+                AnimatedVisibility(visible = !uiState.skipAnswers) {
                     KkIncorrectButton(
                         onClick = {
-                                  viewModel.setEvent(ContractRateAnswerHost.Event.IncorrectAnswer)
-                                  },
+                            viewModel.setEvent(ContractRateAnswerHost.Event.IncorrectAnswer)
+                        },
                         label = stringResource(id = R.string.incorrect_answer_button)
                     )
+                }
 
-
-
+                AnimatedVisibility(visible = !uiState.skipAnswers) {
                     KkCorrectButton(
                         onClick = {
-                                  viewModel.setEvent(ContractRateAnswerHost.Event.CorrectAnswer)
-                                  },
+                            viewModel.setEvent(ContractRateAnswerHost.Event.CorrectAnswer)
+                        },
                         label = stringResource(id = R.string.correct_answer_button)
                     )
-
+                }
+                AnimatedVisibility(visible = uiState.skipAnswers) {
+                    KkButton(onClick = {
+                                       viewModel.setEvent(ContractRateAnswerHost.Event.SkipAnswers)
+                    },
+                        label = stringResource(id = R.string.skip))
+                }
             }
         }
     }

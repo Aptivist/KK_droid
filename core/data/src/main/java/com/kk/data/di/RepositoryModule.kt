@@ -51,4 +51,8 @@ val repositoryModule = module {
     singleOf(::RateAnswersRepositoryImp){
         bind<RateAnswerRepository>()
     }
+
+    singleOf(::WinnerAdminRepositoryImp){
+        bind<WinnerAdminRepository>()
+    }
 }

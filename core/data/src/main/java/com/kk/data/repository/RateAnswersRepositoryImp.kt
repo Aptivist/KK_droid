@@ -28,6 +28,7 @@ class RateAnswersRepositoryImp(
     override fun receiveAnswers(): Flow<BaseResult<BaseResponseDomain<List<AnswerDomain>>>> {
         return try {
             socketService.receiveData().map {
+                Log.e("ANSWERS RECEIVED....",it.toString())
                 BaseResult.Success(gson.fromJson(it))
             }
         } catch (ex: Exception){
