@@ -9,6 +9,7 @@ class ResultRoomContract {
 
     sealed class Event : UiEvent {
         object OnGoHomeClicked : Event()
+        object CloseSession: Event()
     }
 
     data class State(
@@ -20,5 +21,4 @@ class ResultRoomContract {
     sealed class Effect : UiEffect {
         object Navigate : Effect()
     }
-
 }

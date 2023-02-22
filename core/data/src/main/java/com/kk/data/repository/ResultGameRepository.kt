@@ -7,4 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface ResultGameRepository {
     fun receiveData(): Flow<BaseResult<BaseResponseDomain<GameResultDomain>>>
+
+    suspend fun closeSession()
 }
