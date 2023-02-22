@@ -1,6 +1,5 @@
 package com.kk.presentation.host.progressgame
 
-import com.kk.domain.models.PlayersAnswerDomain
 import com.kk.presentation.baseMVI.UiEffect
 import com.kk.presentation.baseMVI.UiEvent
 import com.kk.presentation.baseMVI.UiState
