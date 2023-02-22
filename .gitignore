@@ -29,6 +29,5 @@ Thumbs.db
 .externalNativeBuild
 .cxx
 local.properties
-secure.properties
-
+/secure.properties
 /.idea/

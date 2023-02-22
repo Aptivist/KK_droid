@@ -11,21 +11,19 @@ import androidx.compose.ui.unit.dp
 import com.iteneum.core.ui.components.camera.GKCameraScannerView
 import com.kk.designsystem.components.*
 import com.kk.presentation.R
-import com.kk.presentation.host.creategame.CreateRoomContract
-import com.kk.presentation.host.creategame.CreateRoomViewModel
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
 fun JoinRoomView(
-    onBackHome: () -> Unit,
+    navigateToHome: () -> Unit,
     navigateToWaitingRoom: () -> Unit,
     viewModel: JoinRoomViewModel = koinViewModel()
 ) {
 
     val uiState by viewModel.uiState.collectAsState()
-    KKBox() {
+    KKBox(onClickConfirm = {viewModel.handleEvent(JoinRoomContract.Event.CloseSession)} ) {
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
@@ -98,6 +96,7 @@ fun JoinRoomView(
         viewModel.effect.collectLatest {
             when (it) {
                 JoinRoomContract.Effect.Navigate -> navigateToWaitingRoom()
+                JoinRoomContract.Effect.NavigateToHome -> navigateToHome()
             }
         }
     }

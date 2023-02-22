@@ -30,11 +30,15 @@ class UserQuestionButtonViewModel(
     override fun handleEvent(event: UserQuestionButtonContract.Event) {
         when (event) {
             is UserQuestionButtonContract.Event.OnMainButtonClicked -> {
-                setState { copy(timeStamp = System.currentTimeMillis().toInt()) }
+                setState { copy(timeStamp = System.currentTimeMillis()) }
                 setEffect { UserQuestionButtonContract.Effect.NavigateToSendPlayerAnswer }
                 job?.cancel()
             }
             is UserQuestionButtonContract.Event.OnSkipButtonClicked -> {}
+            UserQuestionButtonContract.Event.CloseSession -> {
+                closeSession()
+                setEffect { UserQuestionButtonContract.Effect.NavigateToHome }
+            }
         }
     }
 
@@ -59,6 +63,12 @@ class UserQuestionButtonViewModel(
                     }
                 }
             }
+        }
+    }
+
+    private fun closeSession(){
+        viewModelScope.launch(Dispatchers.IO){
+            userQuestionButtonRepository.closeSession()
         }
     }
 }

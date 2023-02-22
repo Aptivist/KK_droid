@@ -24,7 +24,7 @@ class RateAnswersRepositoryImp(
         socketService.requestSocket(gson.toJson(showAnswersRequest))
     }
 
-    override fun receiveAnswers(): Flow<BaseResult<BaseResponseDomain<List<PlayerAnswerDomain>>>> {
+    override fun receiveAnswers(): Flow<BaseResult<BaseResponseDomain<List<AnswerDomain>>>> {
         return try {
             socketService.receiveData().map {
                 BaseResult.Success(gson.fromJson(it))

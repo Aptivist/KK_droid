@@ -16,7 +16,7 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
     BaseViewModel<ContractRateAnswerHost.Event, ContractRateAnswerHost.State, ContractRateAnswerHost.Effect>(){
 
     private var job: Job? = null
-    private lateinit var answerList : Array<PlayerAnswerDomain>
+    private lateinit var answerList : Array<AnswerDomain>
     private var currentAnswerIndex = 0
     init {
         observeData()
@@ -75,7 +75,7 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
         viewModelScope.launch {
             val correctAnswerRequest = AddPointRequestDomain(
                 PointsDomain(
-                    answerList[currentAnswerIndex].playerId,
+                    answerList[currentAnswerIndex].playerId?:"",
                     "ADD_POINT"
                 )
             )

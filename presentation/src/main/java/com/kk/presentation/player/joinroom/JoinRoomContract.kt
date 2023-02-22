@@ -13,6 +13,7 @@ class JoinRoomContract {
         data class OnClickShowQR(val show : Boolean): Event()
         object OnScanQRCodeButtonClicked : Event()
         object OnJoinButtonClicked : Event()
+        object CloseSession: Event()
     }
 
     data class State(
@@ -28,5 +29,8 @@ class JoinRoomContract {
         object JoiningRoomState : JoinRoomState()
     }
 
-    sealed class Effect : UiEffect { object Navigate : Effect() }
+    sealed class Effect : UiEffect {
+        object Navigate : Effect()
+        object NavigateToHome: Effect()
+    }
 }

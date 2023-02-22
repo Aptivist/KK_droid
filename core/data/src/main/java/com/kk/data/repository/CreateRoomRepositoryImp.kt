@@ -21,6 +21,10 @@ class CreateRoomRepositoryImp(private val socketService: ISocketService, private
         socketService.requestSocket(gson.toJson(createGameRequestDomain.toGameRequestDTO()))
     }
 
+    override suspend fun closeSession() {
+        socketService.closeSocket()
+    }
+
     override fun receiveData(): Flow<BaseResult<BaseResponseDomain<GameRoomDomain>>> {
         return try {
             socketService.receiveData().map { BaseResult.Success(gson.fromJson(it)) }

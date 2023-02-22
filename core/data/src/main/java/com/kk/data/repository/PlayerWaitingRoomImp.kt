@@ -20,6 +20,10 @@ class PlayerWaitingRoomImp(private val service: ISocketService, private val gson
         }
     }
 
+    override suspend fun closeSession() {
+        service.closeSocket()
+    }
+
     override suspend fun showPlayers(eventRequestDomain: EventRequestDomain) {
         service.requestSocket(gson.toJson(eventRequestDomain))
     }

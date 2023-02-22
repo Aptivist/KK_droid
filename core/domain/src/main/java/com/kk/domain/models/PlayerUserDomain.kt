@@ -5,5 +5,5 @@ data class PlayerUserDomain(
     val id: String,
     val name: String,
     var points: Int? = null,
-    override val gameCode: String,
-): UserDomain()
+    val code: String,
+)

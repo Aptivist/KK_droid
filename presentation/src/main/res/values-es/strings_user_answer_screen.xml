@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="ua_title">1ra ronda</string>
-    <string name="ua_time">45 segundos</string>
+    <string name="ua_time">%1$s segundos</string>
     <string name="ua_user_answer">Respuesta</string>
     <string name="ua_send_answer">Enviar</string>
+    <string name="ua_waiting">ESPERANDO A TODOS LOS JUGADORES…</string>
 </resources>

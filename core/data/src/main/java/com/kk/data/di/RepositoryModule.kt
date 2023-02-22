@@ -33,6 +33,9 @@ val repositoryModule = module {
         bind<JoinRoomRepository>()
     }
 
+    singleOf(::AnswerRepositoryImp){
+        bind<AnswerRepository>()
+    }
 
 
 

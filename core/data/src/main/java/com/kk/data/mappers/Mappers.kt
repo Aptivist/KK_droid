@@ -45,6 +45,10 @@ fun  CreateGameRequestDomain.toGameRequestDTO() : CreateGameRequest = CreateGame
     this.rules.toRulesDTO()
 )
 
+fun EventAnswerRequestDomain.toAnswerRequestDTO(): EventAnswerRequest = EventAnswerRequest(
+    event = event, answer = answerDomain
+)
+
 fun  JoinRoomDomain.toJoinRequestDTO() : JoinGameRequest = JoinGameRequest(
     this.name,
     this.code

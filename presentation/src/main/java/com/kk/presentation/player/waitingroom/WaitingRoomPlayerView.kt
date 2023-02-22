@@ -21,13 +21,13 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun WaitingRoomPlayerView(
-    onBackJoinRoom : () -> Unit,
+    navigateToHome : () -> Unit,
     navigateToStartGamePlayer : () -> Unit,
     waitingRoomViewModel: WaitingRoomViewModel = koinViewModel()
 ) {
     val uiState = waitingRoomViewModel.uiState.collectAsState()
 
-    KKBox {
+    KKBox(onClickConfirm = {waitingRoomViewModel.handleEvent(WaitingRoomContract.Event.CloseSession)}){
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
             val (titleLabel, subtitleLabel, chipGroup) = createRefs()
 
@@ -64,7 +64,8 @@ fun WaitingRoomPlayerView(
     LaunchedEffect(key1 = Unit){
         waitingRoomViewModel.effect.collectLatest {
             when(it){
-                WaitingRoomContract.Effect.Navigate -> navigateToStartGamePlayer.invoke()
+                WaitingRoomContract.Effect.Navigate -> navigateToStartGamePlayer()
+                WaitingRoomContract.Effect.NavigateToHome -> navigateToHome()
             }
         }
     }
