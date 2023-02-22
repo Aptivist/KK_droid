@@ -108,7 +108,7 @@ fun NavigationGraph(){
         composable(route = AppNavigation.StartGamePlayer.route){
             UserQuestionButtonView(
                 navigateToHome = {
-                    AppNavigation.ScreenHome.route
+                    navController.navigate(AppNavigation.ScreenHome.route)
                 },
                 navigateToSendAnswer = {
                     navController.navigate(AppNavigation.SendAnswer.route+"/$it")
