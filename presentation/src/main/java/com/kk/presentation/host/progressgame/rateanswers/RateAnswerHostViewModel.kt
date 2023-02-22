@@ -29,11 +29,9 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
     override fun handleEvent(event: ContractRateAnswerHost.Event) {
         when (event) {
             is ContractRateAnswerHost.Event.CorrectAnswer -> {
-                Log.e("CHECKING....","Correct answer")
                 correctAnswer()
             }
             is ContractRateAnswerHost.Event.IncorrectAnswer -> {
-                Log.e("CHECKING....","Incorrect answer")
                 incorrectAnswer()
             }
         }
@@ -59,7 +57,10 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
                                 answerList = result.data.data.toTypedArray()
                                 setState { copy(playerAnswer = answerList[currentAnswerIndex].answer) }
                             }
-                            "NO_ANSWERS" -> { setEffect { ContractRateAnswerHost.Effect.Navigate }}
+                            "NO_ANSWERS" -> {
+                                setEffect { ContractRateAnswerHost.Effect.Navigate }
+                                job?.cancel()
+                            }
                             else -> {}
                         }
                     }
@@ -80,6 +81,7 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
             )
             rateAnswerRepository.addPoint(correctAnswerRequest)
             setEffect { ContractRateAnswerHost.Effect.Navigate }
+            job?.cancel()
         }
     }
 
@@ -90,6 +92,7 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
             )
             rateAnswerRepository.noPoints(noPointsRequest)
             setEffect { ContractRateAnswerHost.Effect.Navigate }
+            job?.cancel()
         }
     }
 

@@ -27,7 +27,7 @@ fun RateAnswerAdminView(
             Column(modifier = Modifier
                 .fillMaxWidth()
                 .padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                KkTitle(label = uiState.round.toString() + "° Round")
+                KkTitle(label = uiState.round.toString() + stringResource(id = R.string.round))
             }
             Box(modifier = Modifier.padding(25.dp, 0.dp)) {
                 KkBody(label = stringResource(id = R.string.player_answer))
