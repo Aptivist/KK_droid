@@ -19,10 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import com.kk.designsystem.R.drawable.main_button
-import com.kk.designsystem.components.KKBox
-import com.kk.designsystem.components.KkBody
-import com.kk.designsystem.components.KkOrangeTitle
-import com.kk.designsystem.components.KkTitle
+import com.kk.designsystem.components.*
 import com.kk.presentation.R
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
@@ -32,7 +29,7 @@ fun UserQuestionButtonView(
     round: Int = 1,
     navigateToHome: () -> Unit,
     navigateToSendAnswer: (timeStamp: Long) -> Unit,
-    navigateToWaitingPlayers: () -> Unit,
+    navigateToResults: () -> Unit,
     viewModel: UserQuestionButtonViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -89,12 +86,8 @@ fun UserQuestionButtonView(
                 .alpha(0.4f),
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = stringResource(R.string.uqb_waiting_host),
-                color = MaterialTheme.colorScheme.onBackground,
-                fontWeight = FontWeight.Bold,
-                fontSize = 30.sp,
-                textAlign = TextAlign.Center
+            KkTitleLarge(
+                label = stringResource(R.string.uqb_waiting_host),
             )
         }
     }
@@ -105,7 +98,7 @@ fun UserQuestionButtonView(
                 UserQuestionButtonContract.Effect.NavigateToSendPlayerAnswer -> navigateToSendAnswer(
                     uiState.timeStamp
                 )
-                UserQuestionButtonContract.Effect.NavigateToWaitingPlayers -> navigateToWaitingPlayers()
+                UserQuestionButtonContract.Effect.NavigateToResults -> navigateToResults()
                 UserQuestionButtonContract.Effect.NavigateToHome -> navigateToHome()
             }
         }

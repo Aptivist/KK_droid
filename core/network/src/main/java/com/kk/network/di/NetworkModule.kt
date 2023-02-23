@@ -22,7 +22,7 @@ fun provideHttpClient() = HttpClient(CIO){
 }
 
 object BaseUrl{
-    private const val baseUrl: String = "ws://192.168.86.249:8080/"
+    private const val baseUrl: String = "ws://192.168.86.58:8080/"
     const val urlHost: String = baseUrl+"host"
     const val urlPlayer: String = baseUrl+"player"
 }

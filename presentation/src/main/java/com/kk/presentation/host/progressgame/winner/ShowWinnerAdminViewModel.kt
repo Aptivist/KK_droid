@@ -1,10 +1,10 @@
 package com.kk.presentation.host.progressgame.winner
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.WinnerAdminRepository
 import com.kk.domain.models.BaseResult
 import com.kk.domain.models.EventRequestDomain
+import com.kk.local.domain.PreferencesRepository
 import com.kk.presentation.R
 import com.kk.presentation.baseMVI.BaseViewModel
 import com.kk.presentation.di.StringProvider
@@ -13,7 +13,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class ShowWinnerAdminViewModel(private val winnerAdminRepository: WinnerAdminRepository,
-                               private val stringProvider: StringProvider) :
+                               private val stringProvider: StringProvider,
+                               private val preferencesRepository: PreferencesRepository
+) :
 BaseViewModel<ContractShowWinnerAdmin.Event, ContractShowWinnerAdmin.State, ContractShowWinnerAdmin.Effect>() {
     private var job: Job? = null
 
@@ -30,7 +32,12 @@ BaseViewModel<ContractShowWinnerAdmin.Event, ContractShowWinnerAdmin.State, Cont
             is ContractShowWinnerAdmin.Event.ShowWinnerName -> {}
             is ContractShowWinnerAdmin.Event.NextGame -> {
                 nextRound()
-                setEffect { ContractShowWinnerAdmin.Effect.Navigate }
+                setEffect { ContractShowWinnerAdmin.Effect.NavigateToNextRound }
+            }
+            ContractShowWinnerAdmin.Event.FinalizeGame -> {
+                closeSession()
+                deleteLocalData()
+                setEffect { ContractShowWinnerAdmin.Effect.NavigateToHome }
             }
         }
     }
@@ -72,6 +79,18 @@ BaseViewModel<ContractShowWinnerAdmin.Event, ContractShowWinnerAdmin.State, Cont
                     }
                 }
             }
+        }
+    }
+
+    private fun closeSession(){
+        viewModelScope.launch(Dispatchers.IO) {
+            winnerAdminRepository.closeSession()
+        }
+    }
+
+    private fun deleteLocalData(){
+        viewModelScope.launch(Dispatchers.IO) {
+            preferencesRepository.clearPreferences()
         }
     }
 }

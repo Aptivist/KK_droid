@@ -1,5 +1,6 @@
 package com.kk.network.service
 
+import android.util.Log
 import com.kk.network.di.BaseUrl
 import com.kk.network.model.NetworkUserTypeResource
 import io.ktor.client.*
@@ -36,6 +37,7 @@ class SocketServiceImp(private val httpClient: HttpClient) : ISocketService {
     override fun receiveData(): Flow<String> {
         return socket?.incoming?.receiveAsFlow()
                 ?.map {
+                    Log.e("SOCKET",(it as Frame.Text).readText())
                     (it as Frame.Text).readText()
                 } ?: flow { emit("") }
     }

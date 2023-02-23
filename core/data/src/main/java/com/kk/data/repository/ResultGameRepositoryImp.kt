@@ -20,4 +20,8 @@ class ResultGameRepositoryImp(private val socketService: ISocketService, private
             flow { emit(BaseResult.Error(e)) }
         }
     }
+
+    override suspend fun closeSession() {
+        socketService.closeSocket()
+    }
 }

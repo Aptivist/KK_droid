@@ -8,6 +8,7 @@ class ContractShowWinnerAdmin {
     sealed class Event : UiEvent {
         object ShowWinnerName : Event()
         object NextGame : Event()
+        object FinalizeGame: Event()
     }
 
     data class State(
@@ -19,5 +20,8 @@ class ContractShowWinnerAdmin {
         val winnerName: String = ""
     ) : UiState
 
-    sealed class Effect : UiEffect { object Navigate : Effect() }
+    sealed class Effect : UiEffect {
+        object NavigateToNextRound : Effect()
+        object NavigateToHome: Effect()
+    }
 }

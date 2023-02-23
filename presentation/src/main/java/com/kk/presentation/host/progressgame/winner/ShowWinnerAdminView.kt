@@ -20,13 +20,14 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ShowWinnerAdminView(
+    navigateToHome:() -> Unit,
     navigateToNextRound: () -> Unit,
     viewModel: ShowWinnerAdminViewModel = koinViewModel()
 ){
 
     val uiState by viewModel.uiState.collectAsState()
 
-    KKBox{
+    KKBox(onClickConfirm = {ContractShowWinnerAdmin.Event.FinalizeGame}){
         Column(modifier = Modifier.fillMaxSize()) {
             Column(modifier = Modifier
                 .fillMaxWidth()
@@ -63,7 +64,7 @@ fun ShowWinnerAdminView(
                         modifier = Modifier.fillMaxWidth())
                 }
                 AnimatedVisibility(visible = uiState.gameWinner) {
-                    KkButton(onClick = { viewModel.setEvent(ContractShowWinnerAdmin.Event.NextGame) },
+                    KkButton(onClick = { viewModel.setEvent(ContractShowWinnerAdmin.Event.FinalizeGame) },
                         label = "GO HOME",
                         modifier = Modifier.fillMaxWidth())
                 }
@@ -74,7 +75,8 @@ fun ShowWinnerAdminView(
     LaunchedEffect(key1 = Unit){
         viewModel.effect.collectLatest { effect ->
             when(effect){
-                ContractShowWinnerAdmin.Effect.Navigate -> navigateToNextRound()
+                ContractShowWinnerAdmin.Effect.NavigateToNextRound -> navigateToNextRound()
+                ContractShowWinnerAdmin.Effect.NavigateToHome -> navigateToHome()
             }
         }
     }

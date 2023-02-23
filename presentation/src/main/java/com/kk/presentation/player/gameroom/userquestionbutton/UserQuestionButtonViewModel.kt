@@ -57,7 +57,7 @@ class UserQuestionButtonViewModel(
                             setState { copy(zIndex = 0f) }
                             setState { copy(timer = 0) }
                             setState { copy(roundStarted = false) }
-                            setEffect { UserQuestionButtonContract.Effect.NavigateToWaitingPlayers }
+                            setEffect { UserQuestionButtonContract.Effect.NavigateToResults }
                             job?.cancel()
                         }
                     }
