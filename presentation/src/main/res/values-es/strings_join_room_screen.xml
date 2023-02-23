@@ -5,4 +5,7 @@
     <string name="jr_code">Código</string>
     <string name="jr_scan_code">Escanear código QR</string>
     <string name="jr_join_room">Unirse</string>
+    <string name="jr_invalid_room">La sala ingresada no es válida. Por favor, verifique el código e intente nuevamente</string>
+    <string name="jr_room_initialized">La sala ya se ha inicializado. Por favor, inténtelo de nuevo en otra sala o cree una nueva</string>
+    <string name="jr_room_excceded_maximum_players">La sala ha excedido el número máximo de jugadores permitidos. Por favor, inténtelo de nuevo en otra sala o cree una nueva</string>
 </resources>

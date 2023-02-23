@@ -54,4 +54,9 @@ fun  JoinRoomDomain.toJoinRequestDTO() : JoinGameRequest = JoinGameRequest(
     this.code
 )
 
+fun  ReJoinRoomDomain.toReJoinRequestDTO() : ReJoinGameRequest = ReJoinGameRequest(
+    this.event,
+    this.code
+)
+
 

@@ -2,6 +2,7 @@ package com.kk.data.repository
 
 import com.google.gson.Gson
 import com.kk.data.mappers.toJoinRequestDTO
+import com.kk.data.mappers.toReJoinRequestDTO
 import com.kk.data.utils.extensions.fromJson
 import com.kk.domain.models.*
 import com.kk.network.service.ISocketService
@@ -18,6 +19,10 @@ class JoinRoomRepositoryImp(private val socketService: ISocketService, private v
     JoinRoomRepository {
     override suspend fun joinRoom(createGameRequestDomain: JoinRoomDomain) {
         socketService.requestSocket(gson.toJson(createGameRequestDomain.toJoinRequestDTO()))
+    }
+
+    override suspend fun reJoinRoom(createGameRequestDomain: ReJoinRoomDomain) {
+        socketService.requestSocket(gson.toJson(createGameRequestDomain.toReJoinRequestDTO()))
     }
 
     override suspend fun closeSession() {

@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.iteneum.core.ui.components.camera.GKCameraScannerView
 import com.kk.designsystem.components.*
 import com.kk.presentation.R
+import com.kk.presentation.di.StringProvider
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
@@ -19,10 +20,11 @@ import org.koin.androidx.compose.koinViewModel
 fun JoinRoomView(
     navigateToHome: () -> Unit,
     navigateToWaitingRoom: () -> Unit,
-    viewModel: JoinRoomViewModel = koinViewModel()
+    viewModel: JoinRoomViewModel = koinViewModel(),
 ) {
 
     val uiState by viewModel.uiState.collectAsState()
+
     KKBox(onClickConfirm = {viewModel.handleEvent(JoinRoomContract.Event.CloseSession)} ) {
         Column(
             modifier = Modifier
@@ -39,10 +41,11 @@ fun JoinRoomView(
             KkBody(label = stringResource(R.string.jr_name))
             Spacer(modifier = Modifier.size(10.dp))
             KkTextField(
-                value = uiState.name,
                 onValueChange = {
-                    viewModel.handleEvent(JoinRoomContract.Event.OnChangeName(it))
+                    if (it.length <= 15)  viewModel.handleEvent(JoinRoomContract.Event.OnChangeName(it))
+
                 },
+                value = uiState.name,
                 modifier = Modifier
                     .fillMaxWidth()
             )
@@ -52,11 +55,13 @@ fun JoinRoomView(
             Spacer(modifier = Modifier.size(10.dp))
             KkTextField(
                 value = uiState.code,
+                showError = viewModel.uiState.value.reJoin ?: false,
+                errorMessage = viewModel.uiState.value.error ?: "",
                 onValueChange = {
-                    viewModel.handleEvent(JoinRoomContract.Event.OnChangeCode(it))
+                    if (it.length <= 6) viewModel.handleEvent(JoinRoomContract.Event.OnChangeCode(it))
                 },
-                modifier = Modifier
-                    .fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
+
             )
             if (!viewModel.uiState.value.show ?: false) {
                 KkButton(
@@ -88,7 +93,8 @@ fun JoinRoomView(
                 label = stringResource(R.string.jr_join_room),
                 modifier = Modifier
                     .padding(vertical = 50.dp)
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
+                enabled = viewModel.uiState.value.isButtonEnabled ?: false
             )
         }
     }
