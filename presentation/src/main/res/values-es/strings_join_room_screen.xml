@@ -5,4 +5,5 @@
     <string name="jr_code">Código</string>
     <string name="jr_scan_code">Escanear código QR</string>
     <string name="jr_join_room">Unirse</string>
+    <string name="jr_invalid_room">La sala ingresada no es válida</string>
 </resources>

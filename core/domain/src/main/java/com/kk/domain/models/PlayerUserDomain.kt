@@ -6,4 +6,5 @@ data class PlayerUserDomain(
     val name: String,
     var points: Int? = null,
     val code: String,
+    val status: String = ""
 )

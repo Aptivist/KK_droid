@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.JoinRoomRepository
 import com.kk.domain.models.BaseResult
 import com.kk.domain.models.JoinRoomDomain
+import com.kk.domain.models.ReJoinRoomDomain
 import com.kk.local.domain.PreferencesRepository
 import com.kk.presentation.R
 import com.kk.presentation.baseMVI.BaseViewModel
@@ -28,16 +29,24 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
     override fun handleEvent(event: JoinRoomContract.Event) {
         when (event) {
             is JoinRoomContract.Event.OnJoinButtonClicked -> {
-                joinRoom()
+                if(uiState.value.reJoin){
+                    reJoinRoom()
+                }else{
+                    joinRoom()
+                }
+
             }
             is JoinRoomContract.Event.OnScanQRCodeButtonClicked -> {
-                scanQRCode()
+
             }
             is JoinRoomContract.Event.OnChangeCode -> {
                 setState { copy(code = event.code) }
+                setState { copy(isButtonEnabled = isButtonEnable()) }
+
             }
             is JoinRoomContract.Event.OnChangeName -> {
-                setState { copy(name = event.name) }
+                setState { copy(name = event.name ) }
+                setState { copy(isButtonEnabled = isButtonEnable()) }
             }
             is JoinRoomContract.Event.OnClickShowQR -> {
                 setState { copy(show = event.show) }
@@ -57,27 +66,33 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
         job = viewModelScope.launch(Dispatchers.IO) {
 
             joinRoomRepository.receiveData().collect { result ->
+
                 when (result) {
                     is BaseResult.Error -> setState { copy(error = stringProvider.getString(R.string.cr_error_connection)) }
-                    is BaseResult.Success ->{
-                        val dataResponse = result.data.data
-                        dataStoreRepository.saveGameCode(dataResponse.code)
-                        dataStoreRepository.savePlayerId(dataResponse.id)
-                        setEffect { JoinRoomContract.Effect.Navigate }
-                        job?.cancel()
+                    is BaseResult.Success -> {
+
+                        when(result.data.status){
+                            "SESSION_CODE_NOT_VALID" -> {
+                                setState { copy(reJoin = true,error = stringProvider.getString(R.string.jr_invalid_room)) }
+                            }
+
+                            else -> {
+                                val dataResponse = result.data.data
+                                dataStoreRepository.saveGameCode(uiState.value.code)
+                                dataStoreRepository.savePlayerId(dataResponse.id)
+                                setEffect { JoinRoomContract.Effect.Navigate }
+                                job?.cancel()
+                            }
+                        }
                     }
-
-                    /**
-                     * This line is Just for example
-                     */
-                    /*is BaseResult.Success -> setState {
-                        copy(data = result.toString())
-                    }*/
-
                 }
             }
         }
 
+    }
+
+    private fun isButtonEnable() : Boolean {
+        return uiState.value.code.isNotBlank() &&  uiState.value.name.isNotBlank()
     }
 
     private fun joinRoom() {
@@ -91,20 +106,20 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
         }
     }
 
+    private fun reJoinRoom() {
+        viewModelScope.launch {
+            val createReJoinRoomRequest = ReJoinRoomDomain(
+                event = "TRY_JOIN_ROOM",
+                code = uiState.value.code,
+            )
+            joinRoomRepository.reJoinRoom(createReJoinRoomRequest)
+
+        }
+    }
+
     private fun closeSession(){
         viewModelScope.launch(Dispatchers.IO) {
             joinRoomRepository.closeSession()
         }
     }
-
-    private fun scanQRCode() {
-        TODO("Not yet implemented")
-    }
-}
-
-
-fun String.toSafeIntString(): Int {
-    val numberString = this.replace(" ", "")
-    if (!this.isDigitsOnly()) return 0
-    return if (numberString.isEmpty()) 0 else toInt()
 }
