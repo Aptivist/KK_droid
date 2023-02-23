@@ -73,7 +73,7 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
 
                         when(result.data.status){
                             "SESSION_CODE_NOT_VALID" -> {
-                                setState { copy(reJoin = true,error = stringProvider.getString(R.string.invalidRoom)) }
+                                setState { copy(reJoin = true,error = stringProvider.getString(R.string.jr_invalid_room)) }
                             }
 
                             else -> {
