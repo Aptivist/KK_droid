@@ -3,7 +3,6 @@ package com.kk.presentation.player.joinroom
 import com.kk.presentation.baseMVI.UiEffect
 import com.kk.presentation.baseMVI.UiEvent
 import com.kk.presentation.baseMVI.UiState
-import com.kk.presentation.host.creategame.CreateRoomContract
 
 class JoinRoomContract {
     sealed class Event : UiEvent {
@@ -22,6 +21,7 @@ class JoinRoomContract {
         val show: Boolean = false,
         val error: String? = null,
         val reJoin: Boolean = false,
+        val isButtonEnabled : Boolean = false
     ) : UiState
 
     sealed class JoinRoomState {

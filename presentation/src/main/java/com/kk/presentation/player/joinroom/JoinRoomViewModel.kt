@@ -1,6 +1,5 @@
 package com.kk.presentation.player.joinroom
 
-import android.util.Log
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.JoinRoomRepository
@@ -38,13 +37,16 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
 
             }
             is JoinRoomContract.Event.OnScanQRCodeButtonClicked -> {
-                scanQRCode()
+
             }
             is JoinRoomContract.Event.OnChangeCode -> {
                 setState { copy(code = event.code) }
+                setState { copy(isButtonEnabled = isButtonEnable()) }
+
             }
             is JoinRoomContract.Event.OnChangeName -> {
-                setState { copy(name = event.name) }
+                setState { copy(name = event.name ) }
+                setState { copy(isButtonEnabled = isButtonEnable()) }
             }
             is JoinRoomContract.Event.OnClickShowQR -> {
                 setState { copy(show = event.show) }
@@ -71,7 +73,7 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
 
                         when(result.data.status){
                             "SESSION_CODE_NOT_VALID" -> {
-                                setState { copy(reJoin = true) }
+                                setState { copy(reJoin = true,error = stringProvider.getString(R.string.invalidRoom)) }
                             }
 
                             else -> {
@@ -87,6 +89,10 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
             }
         }
 
+    }
+
+    private fun isButtonEnable() : Boolean {
+        return uiState.value.code.isNotBlank() &&  uiState.value.name.isNotBlank()
     }
 
     private fun joinRoom() {
@@ -116,15 +122,4 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
             joinRoomRepository.closeSession()
         }
     }
-
-    private fun scanQRCode() {
-        TODO("Not yet implemented")
-    }
-}
-
-
-fun String.toSafeIntString(): Int {
-    val numberString = this.replace(" ", "")
-    if (!this.isDigitsOnly()) return 0
-    return if (numberString.isEmpty()) 0 else toInt()
 }
