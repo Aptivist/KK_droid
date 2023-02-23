@@ -17,6 +17,10 @@ class WinnerAdminRepositoryImp(
         socketService.requestSocket(gson.toJson(startNextGameRequest))
     }
 
+    override suspend fun closeSession() {
+        socketService.closeSocket()
+    }
+
     override fun receiveWinner(): Flow<BaseResult<BaseResponseDomain<WinnerDomain>>> {
         return try {
             socketService.receiveData().map {

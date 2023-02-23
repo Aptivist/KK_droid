@@ -1,7 +1,5 @@
 package com.kk.presentation.player.gameroom.userquestionbutton
 
-import com.kk.domain.models.BaseResponseDomain
-import com.kk.domain.models.KKTimerDomain
 import com.kk.presentation.baseMVI.UiEffect
 import com.kk.presentation.baseMVI.UiEvent
 import com.kk.presentation.baseMVI.UiState
@@ -27,7 +25,7 @@ class UserQuestionButtonContract {
     // Side Effect
     sealed class Effect : UiEffect {
         object NavigateToSendPlayerAnswer : Effect()
-        object NavigateToWaitingPlayers : Effect()
+        object NavigateToResults : Effect()
         object NavigateToHome: Effect()
     }
 }

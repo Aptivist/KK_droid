@@ -101,6 +101,9 @@ fun NavigationGraph(){
         }
         composable(route = AppNavigation.EndRoundHost.route){
             ShowWinnerAdminView(
+                navigateToHome = {
+                    navController.navigate(AppNavigation.ScreenHome.route)
+                },
                 navigateToNextRound = {
                     navController.navigate(AppNavigation.PrestartGameHost.route)
                 }
@@ -109,13 +112,13 @@ fun NavigationGraph(){
         composable(route = AppNavigation.StartGamePlayer.route){
             UserQuestionButtonView(
                 navigateToHome = {
-                    AppNavigation.ScreenHome.route
+                    navController.navigate(AppNavigation.ScreenHome.route)
                 },
                 navigateToSendAnswer = {
                     navController.navigate(AppNavigation.SendAnswer.route+"/$it")
                 },
-                navigateToWaitingPlayers = {
-                    navController.navigate(AppNavigation.WaitingAnswerPlayer.route)
+                navigateToResults = {
+                    navController.navigate(AppNavigation.EndRoundPlayer.route)
                 }
             )
         }
@@ -141,6 +144,9 @@ fun NavigationGraph(){
         }
         composable(route = AppNavigation.EndRoundPlayer.route){
             ResultView(
+                navigateToHome = {
+                    navController.navigate(AppNavigation.ScreenHome.route)
+                },
                 navigateToNextRound = {
                     navController.navigate(AppNavigation.StartGamePlayer.route)
                 }

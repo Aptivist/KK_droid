@@ -5,6 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.kk.designsystem.theme.DimGray
 import com.kk.designsystem.theme.KkTypography
 import java.util.*
 
@@ -17,6 +18,32 @@ fun KkTitle(
     Text(
         text = label,
         style = KkTypography.titleMedium,
+        modifier = modifier.clickable { onClick?.invoke() })
+}
+
+
+@Composable
+fun KkTitleLarge(
+    modifier: Modifier = Modifier,
+    label: String,
+    onClick: (() -> Unit)? = null
+) {
+    Text(
+        text = label,
+        style = KkTypography.titleLarge,
+        modifier = modifier.clickable { onClick?.invoke() })
+}
+
+@Composable
+fun KkBodyGray(
+    modifier: Modifier = Modifier,
+    label: String,
+    onClick: (() -> Unit)? = null
+) {
+    Text(
+        text = label,
+        color = DimGray,
+        style = KkTypography.bodyLarge,
         modifier = modifier.clickable { onClick?.invoke() })
 }
 

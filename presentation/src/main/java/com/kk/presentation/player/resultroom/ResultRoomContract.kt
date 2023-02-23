@@ -1,6 +1,8 @@
 package com.kk.presentation.player.resultroom
 
 import com.kk.domain.models.GameResultDomain
+import com.kk.domain.models.PlayerUserDomain
+import com.kk.domain.models.roundPlayerWon
 import com.kk.presentation.baseMVI.UiEffect
 import com.kk.presentation.baseMVI.UiEvent
 import com.kk.presentation.baseMVI.UiState
@@ -12,13 +14,17 @@ class ResultRoomContract {
         object CloseSession: Event()
     }
 
+    //TODO("USE SEALED CLASS or ENUM instead of STRING (status)")
     data class State(
-        val status: String? = null,
-        val data: GameResultDomain = GameResultDomain(),
-        val error: String? = null
-    ): UiState
+        val status: String = "WAITING",
+        val error: String? = null,
+        val title: String,
+        val winnerName: String = "",
+        val players: List<PlayerUserDomain> = emptyList(),
+        ): UiState
 
     sealed class Effect : UiEffect {
-        object Navigate : Effect()
+        object NavigateToNextRound : Effect()
+        object NavigateToHome: Effect()
     }
 }

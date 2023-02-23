@@ -1,13 +1,18 @@
 package com.kk.presentation.player.resultroom
 
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewModelScope
 import com.kk.domain.models.BaseResult
 import com.kk.data.repository.ResultGameRepository
+import com.kk.designsystem.theme.RedSalsa
+import com.kk.designsystem.theme.ShamrockGreen
 import com.kk.local.domain.PreferencesRepository
 import com.kk.presentation.R
 import com.kk.presentation.baseMVI.BaseViewModel
 import com.kk.presentation.di.StringProvider
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class ResultRoomViewModel(
@@ -15,30 +20,37 @@ class ResultRoomViewModel(
     private val stringProvider: StringProvider,
     private val dataStoreRepository: PreferencesRepository,
 ) : BaseViewModel<ResultRoomContract.Event, ResultRoomContract.State, ResultRoomContract.Effect>() {
+
+    private var job: Job? = null
+    private var playerId = ""
+
     init {
+        getPlayerId()
         observeData()
     }
     override fun createInitialState(): ResultRoomContract.State {
-        return ResultRoomContract.State()
+        //TODO("Add TO Resource files")
+        return ResultRoomContract.State(title = "Ronda")
     }
 
     override fun handleEvent(event: ResultRoomContract.Event) {
         when (event) {
             ResultRoomContract.Event.OnGoHomeClicked -> {
-                setEffect { ResultRoomContract.Effect.Navigate }
+                closeSession()
+                setEffect { ResultRoomContract.Effect.NavigateToHome }
             }
             ResultRoomContract.Event.CloseSession -> {
-                setEffect {
-                    ResultRoomContract.Effect.Navigate
-                }
                 closeSession()
                 deleteLocalData()
+                setEffect {
+                    ResultRoomContract.Effect.NavigateToHome
+                }
             }
         }
     }
 
     private fun observeData() {
-        viewModelScope.launch(Dispatchers.IO) {
+        job = viewModelScope.launch(Dispatchers.IO) {
             resultGameRepository.receiveData().collect() { result ->
                 when(result) {
                     is BaseResult.Error -> {
@@ -46,12 +58,40 @@ class ResultRoomViewModel(
                             copy(error = stringProvider.getString(R.string.cr_error_connection))
                         }
                     }
-                    is BaseResult.Success -> setState {
-                        copy(data = result.data.data, status = result.data.status)
+                    is BaseResult.Success -> {
+                        // TODO REFACTOR
+                        val gameResult = result.data
+
+                        if (gameResult.status == "NEXT_ROUND"){
+                            setEffect { ResultRoomContract.Effect.NavigateToNextRound }
+                            job?.cancel()
+                        }else {
+                            if (gameResult.status == "GAME_FINISHED"){
+                                setState {
+                                    //TODO (ADD correct title)
+                                    copy(status = if (playerId == gameResult.data.roundPlayerWon?.id) "GAME_FINISHED_WON" else "GAME_FINISHED_LOSE", title = "Resultados", players = gameResult.data.listPlayers)
+
+                                }
+                            }else {
+                                setState {
+                                    //TODO (ADD correct title)
+                                    copy(status = gameResult.status, title = "Resultados", winnerName = gameResult.data.roundPlayerWon?.name?:"",players = gameResult.data.listPlayers)
+
+                                }
+                            }
+
+                        }
+
                     }
                 }
 
             }
+        }
+    }
+
+    private fun getPlayerId(){
+        viewModelScope.launch(Dispatchers.IO) {
+            playerId = dataStoreRepository.getPlayerId()
         }
     }
 
