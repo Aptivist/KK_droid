@@ -65,7 +65,6 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
 
             joinRoomRepository.receiveData().collect { result ->
 
-                Log.d("Result",result.toString())
                 when (result) {
                     is BaseResult.Error -> setState { copy(error = stringProvider.getString(R.string.cr_error_connection)) }
                     is BaseResult.Success -> {
@@ -75,26 +74,15 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
                                 setState { copy(reJoin = true) }
                             }
 
-                            "SESSION_CODE_NOT_VALID" -> {
-                                setState { copy(reJoin = true) }
-                            }
                             else -> {
                                 val dataResponse = result.data.data
                                 dataStoreRepository.saveGameCode(uiState.value.code)
-                               // dataStoreRepository.savePlayerId(dataResponse.id)
+                                dataStoreRepository.savePlayerId(dataResponse.id)
                                 setEffect { JoinRoomContract.Effect.Navigate }
                                 job?.cancel()
                             }
                         }
                     }
-
-                    /**
-                     * This line is Just for example
-                     */
-                    /*is BaseResult.Success -> setState {
-                        copy(data = result.toString())
-                    }*/
-
                 }
             }
         }

@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.iteneum.core.ui.components.camera.GKCameraScannerView
 import com.kk.designsystem.components.*
 import com.kk.presentation.R
+import com.kk.presentation.di.StringProvider
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
@@ -19,7 +20,8 @@ import org.koin.androidx.compose.koinViewModel
 fun JoinRoomView(
     navigateToHome: () -> Unit,
     navigateToWaitingRoom: () -> Unit,
-    viewModel: JoinRoomViewModel = koinViewModel()
+    viewModel: JoinRoomViewModel = koinViewModel(),
+    stringProvider: StringProvider,
 ) {
 
     val uiState by viewModel.uiState.collectAsState()
@@ -53,7 +55,7 @@ fun JoinRoomView(
             KkTextField(
                 value = uiState.code,
                 showError = viewModel.uiState.value.reJoin ?: false,
-                errorMessage = "Invalid Room",
+                errorMessage = stringProvider.getString(R.string.invalidRoom),
                 onValueChange = {
                     viewModel.handleEvent(JoinRoomContract.Event.OnChangeCode(it))
                 },

@@ -19,7 +19,7 @@ fun KkTextField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    errorMessage: String? = "Invalid input",
+    errorMessage: String? = "",
     showError : Boolean? = false
 ){
     val focusManager = LocalFocusManager.current
