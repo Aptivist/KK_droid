@@ -1,9 +1,11 @@
 package com.kk.presentation.host.progressgame.rateanswers
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.RateAnswerRepository
-import com.kk.domain.models.*
+import com.kk.domain.models.AddPointRequestDomain
+import com.kk.domain.models.AnswerDomain
+import com.kk.domain.models.BaseResult
+import com.kk.domain.models.EventRequestDomain
 import com.kk.local.domain.PreferencesRepository
 import com.kk.presentation.R
 import com.kk.presentation.baseMVI.BaseViewModel
@@ -80,7 +82,7 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
     private fun correctAnswer(){
         viewModelScope.launch {
             val correctAnswerRequest = AddPointRequestDomain(
-                    answerList[currentAnswerIndex].playerId?:"",
+                    answerList[currentAnswerIndex].playerId,
                     "ADD_POINT"
 
             )
@@ -109,7 +111,7 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
 
     private fun setRoundNumber(){
         viewModelScope.launch(Dispatchers.IO) {
-            val roundNumber = dataStoreRepository.getNumberRound().toInt()
+            val roundNumber = dataStoreRepository.getNumberRound()
             setState { copy(round = roundNumber)}
         }
     }

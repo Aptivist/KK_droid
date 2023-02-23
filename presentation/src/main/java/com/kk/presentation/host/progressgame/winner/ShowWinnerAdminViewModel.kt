@@ -65,9 +65,6 @@ BaseViewModel<ContractShowWinnerAdmin.Event, ContractShowWinnerAdmin.State, Cont
                                     setState { copy(anyWinner = true, winnerName = result.data.data.roundPlayerWon.name) }
                                     job?.cancel()
                                 }
-                                if(!result.data.data.listPlayers.isNullOrEmpty()){
-
-                                }
                             }
                             "GAME_FINISHED" -> {
                                 setState { copy(gameWinner = true, winnerName = result.data.data.roundPlayerWon.name) }

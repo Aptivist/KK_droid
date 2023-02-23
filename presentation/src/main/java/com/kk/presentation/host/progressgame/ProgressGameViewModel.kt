@@ -1,6 +1,5 @@
 package com.kk.presentation.host.progressgame
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.ProgressGameRepository
 import com.kk.domain.models.BaseResult
