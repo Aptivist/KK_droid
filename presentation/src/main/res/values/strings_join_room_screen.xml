@@ -5,5 +5,7 @@
     <string name="jr_code">Code</string>
     <string name="jr_scan_code">Scan QR code</string>
     <string name="jr_join_room">Join</string>
-    <string name="jr_invalid_room">Invalid Room</string>
+    <string name="jr_invalid_room">The entered room is invalid. Please check the code and try again.</string>
+    <string name="jr_room_initialized">The room has already been initialized. Please try again in another room or create a new one.</string>
+    <string name="jr_room_excceded_maximum_players">The room has exceeded the maximum number of allowed players. Please try again in another room or create a new one.</string>
 </resources>

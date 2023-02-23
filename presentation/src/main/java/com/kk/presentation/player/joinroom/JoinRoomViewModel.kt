@@ -1,6 +1,5 @@
 package com.kk.presentation.player.joinroom
 
-import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.JoinRoomRepository
 import com.kk.domain.models.BaseResult
@@ -76,12 +75,20 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
                                 setState { copy(reJoin = true,error = stringProvider.getString(R.string.jr_invalid_room)) }
                             }
 
-                            else -> {
-                                val dataResponse = result.data.data
-                                dataStoreRepository.saveGameCode(uiState.value.code)
-                                dataStoreRepository.savePlayerId(dataResponse.id)
-                                setEffect { JoinRoomContract.Effect.Navigate }
-                                job?.cancel()
+                            "ROOM_INITIALIZED" -> {
+                                setState { copy(reJoin = true,error = stringProvider.getString(R.string.jr_room_initialized)) }
+                            }
+
+                            "EXCEEDED_MAXIMUM_PLAYERS" -> {
+                                setState { copy(reJoin = true,error = stringProvider.getString(R.string.jr_room_excceded_maximum_players)) }
+                            }
+
+                            "CONNECTED" -> {
+                                    val dataResponse = result.data.data
+                                    dataStoreRepository.saveGameCode(uiState.value.code)
+                                    dataStoreRepository.savePlayerId(dataResponse.id)
+                                    setEffect { JoinRoomContract.Effect.Navigate }
+                                    job?.cancel()
                             }
                         }
                     }
