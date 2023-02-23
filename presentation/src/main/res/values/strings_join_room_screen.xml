@@ -5,4 +5,5 @@
     <string name="jr_code">Code</string>
     <string name="jr_scan_code">Scan QR code</string>
     <string name="jr_join_room">Join</string>
+    <string name="jr_invalid_room">Invalid Room</string>
 </resources>
