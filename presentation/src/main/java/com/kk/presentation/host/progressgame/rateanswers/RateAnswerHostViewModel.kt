@@ -29,12 +29,13 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
     override fun handleEvent(event: ContractRateAnswerHost.Event) {
         when (event) {
             is ContractRateAnswerHost.Event.CorrectAnswer -> {
-                Log.e("CHECKING....","Correct answer")
                 correctAnswer()
             }
             is ContractRateAnswerHost.Event.IncorrectAnswer -> {
-                Log.e("CHECKING....","Incorrect answer")
                 incorrectAnswer()
+            }
+            is ContractRateAnswerHost.Event.SkipAnswers -> {
+                noPoints()
             }
         }
     }
@@ -59,8 +60,9 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
                                 answerList = result.data.data.toTypedArray()
                                 setState { copy(playerAnswer = answerList[currentAnswerIndex].answer) }
                             }
-                            "NO_ANSWERS" -> { setEffect { ContractRateAnswerHost.Effect.Navigate }}
-                            else -> {}
+                            "NO_ANSWERS" -> {
+                                setState { copy(skipAnswers = true) }
+                            }
                         }
                     }
                 }
@@ -73,13 +75,13 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
     private fun correctAnswer(){
         viewModelScope.launch {
             val correctAnswerRequest = AddPointRequestDomain(
-                PointsDomain(
                     answerList[currentAnswerIndex].playerId?:"",
                     "ADD_POINT"
-                )
+
             )
             rateAnswerRepository.addPoint(correctAnswerRequest)
             setEffect { ContractRateAnswerHost.Effect.Navigate }
+            job?.cancel()
         }
     }
 
@@ -90,6 +92,7 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
             )
             rateAnswerRepository.noPoints(noPointsRequest)
             setEffect { ContractRateAnswerHost.Effect.Navigate }
+            job?.cancel()
         }
     }
 
