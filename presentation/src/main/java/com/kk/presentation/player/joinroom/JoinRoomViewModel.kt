@@ -1,10 +1,12 @@
 package com.kk.presentation.player.joinroom
 
+import android.util.Log
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.JoinRoomRepository
 import com.kk.domain.models.BaseResult
 import com.kk.domain.models.JoinRoomDomain
+import com.kk.domain.models.ReJoinRoomDomain
 import com.kk.local.domain.PreferencesRepository
 import com.kk.presentation.R
 import com.kk.presentation.baseMVI.BaseViewModel
@@ -28,7 +30,12 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
     override fun handleEvent(event: JoinRoomContract.Event) {
         when (event) {
             is JoinRoomContract.Event.OnJoinButtonClicked -> {
-                joinRoom()
+                if(uiState.value.reJoin){
+                    reJoinRoom()
+                }else{
+                    joinRoom()
+                }
+
             }
             is JoinRoomContract.Event.OnScanQRCodeButtonClicked -> {
                 scanQRCode()
@@ -57,14 +64,28 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
         job = viewModelScope.launch(Dispatchers.IO) {
 
             joinRoomRepository.receiveData().collect { result ->
+
+                Log.d("Result",result.toString())
                 when (result) {
                     is BaseResult.Error -> setState { copy(error = stringProvider.getString(R.string.cr_error_connection)) }
-                    is BaseResult.Success ->{
-                        val dataResponse = result.data.data
-                        dataStoreRepository.saveGameCode(dataResponse.code)
-                        dataStoreRepository.savePlayerId(dataResponse.id)
-                        setEffect { JoinRoomContract.Effect.Navigate }
-                        job?.cancel()
+                    is BaseResult.Success -> {
+
+                        when(result.data.status){
+                            "SESSION_CODE_NOT_VALID" -> {
+                                setState { copy(reJoin = true) }
+                            }
+
+                            "SESSION_CODE_NOT_VALID" -> {
+                                setState { copy(reJoin = true) }
+                            }
+                            else -> {
+                                val dataResponse = result.data.data
+                                dataStoreRepository.saveGameCode(uiState.value.code)
+                               // dataStoreRepository.savePlayerId(dataResponse.id)
+                                setEffect { JoinRoomContract.Effect.Navigate }
+                                job?.cancel()
+                            }
+                        }
                     }
 
                     /**
@@ -87,6 +108,17 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
                     code = uiState.value.code,
                 )
             joinRoomRepository.joinRoom(createJoinRoomRequest)
+
+        }
+    }
+
+    private fun reJoinRoom() {
+        viewModelScope.launch {
+            val createReJoinRoomRequest = ReJoinRoomDomain(
+                event = "TRY_JOIN_ROOM",
+                code = uiState.value.code,
+            )
+            joinRoomRepository.reJoinRoom(createReJoinRoomRequest)
 
         }
     }

@@ -21,6 +21,7 @@ class JoinRoomContract {
         val code: String = "",
         val show: Boolean = false,
         val error: String? = null,
+        val reJoin: Boolean = false,
     ) : UiState
 
     sealed class JoinRoomState {

@@ -1,5 +1,6 @@
 package com.kk.designsystem.components
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -17,7 +18,9 @@ import androidx.compose.ui.unit.dp
 fun KkTextField(
     value: String,
     onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    errorMessage: String? = "Invalid input",
+    showError : Boolean? = false
 ){
     val focusManager = LocalFocusManager.current
     TextField(
@@ -34,6 +37,14 @@ fun KkTextField(
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
         keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
     )
+
+    if (showError == true) {
+        Text(
+            text = errorMessage ?: "",
+            color = MaterialTheme.colorScheme.error,
+            modifier = Modifier.padding(start = 16.dp, top = 4.dp)
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -52,11 +52,13 @@ fun JoinRoomView(
             Spacer(modifier = Modifier.size(10.dp))
             KkTextField(
                 value = uiState.code,
+                showError = viewModel.uiState.value.reJoin ?: false,
+                errorMessage = "Invalid Room",
                 onValueChange = {
                     viewModel.handleEvent(JoinRoomContract.Event.OnChangeCode(it))
                 },
-                modifier = Modifier
-                    .fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
+
             )
             if (!viewModel.uiState.value.show ?: false) {
                 KkButton(
