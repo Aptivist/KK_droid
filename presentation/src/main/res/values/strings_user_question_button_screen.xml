@@ -9,4 +9,5 @@
     <string name="uqb_rd">rd</string>
     <string name="uqb_waiting_host">Waiting host…</string>
     <string name="uqb_connection_lost">Connection lost</string>
+    <string name="uqb_skipping">Skipping</string>
 </resources>

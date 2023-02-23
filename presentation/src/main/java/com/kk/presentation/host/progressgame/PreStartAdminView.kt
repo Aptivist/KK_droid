@@ -28,7 +28,7 @@ fun PreStartAdminView(
             Column(modifier = Modifier
                 .fillMaxWidth()
                 .padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                KkTitle(label = uiState.round.toString() +  "° Round")
+                KkTitle(label = uiState.round.toString() +  stringResource(id = R.string.round))
             }
             AnimatedVisibility(visible = uiState.preStartState) {
                 Box(modifier = Modifier.padding(25.dp)) {

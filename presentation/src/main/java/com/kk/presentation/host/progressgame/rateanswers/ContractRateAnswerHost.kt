@@ -9,12 +9,14 @@ class ContractRateAnswerHost {
     sealed class Event : UiEvent {
         object CorrectAnswer: Event()
         object IncorrectAnswer : Event()
+        object SkipAnswers: Event()
     }
 
     data class State(
         val error: String? = null,
         var round: Int = 1,
         var playerAnswer: String = "",
+        var skipAnswers: Boolean = false,
     ): UiState
 
     sealed class Effect : UiEffect { object Navigate : Effect() }

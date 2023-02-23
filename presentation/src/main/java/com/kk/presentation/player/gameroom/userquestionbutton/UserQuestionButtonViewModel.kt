@@ -25,7 +25,7 @@ class UserQuestionButtonViewModel(
     }
 
     override fun createInitialState(): UserQuestionButtonContract.State {
-        return UserQuestionButtonContract.State(roundStarted = false)
+        return UserQuestionButtonContract.State()
     }
 
     override fun handleEvent(event: UserQuestionButtonContract.Event) {
@@ -36,7 +36,9 @@ class UserQuestionButtonViewModel(
                 job?.cancel()
             }
             is UserQuestionButtonContract.Event.OnSkipButtonClicked -> {
-                navigateToWaitingPlayers()
+                setState { copy(message = stringProvider.getString(R.string.uqb_skipping)) }
+                setState { copy(zIndex = 0f) }
+                setState { copy(skipped = true) }
             }
             UserQuestionButtonContract.Event.CloseSession -> {
                 setState { copy(showDialog = false) }
@@ -56,13 +58,12 @@ class UserQuestionButtonViewModel(
                         setState { copy(error = stringProvider.getString(R.string.cr_error_connection)) }
                     }
                     is BaseResult.Success -> {
-                        if (result.data.data.time > 0) {
+                        if (result.data.data.time > 0 && uiState.value.skipped.not()) {
                             setState { copy(zIndex = 2f) }
-                            setState { copy(timer = result.data.data.time) }
-                            setState { copy(roundStarted = true) }
                         } else if (result.data.data.time == 0) {
                             navigateToWaitingPlayers()
                         }
+                        setState { copy(timer = result.data.data.time) }
                     }
                 }
             }
@@ -72,8 +73,7 @@ class UserQuestionButtonViewModel(
     private fun navigateToWaitingPlayers() {
         setState { copy(zIndex = 0f) }
         setState { copy(timer = 0) }
-        setState { copy(roundStarted = false) }
-        setEffect { UserQuestionButtonContract.Effect.NavigateToWaitingPlayers }
+        setEffect { UserQuestionButtonContract.Effect.NavigateToResults }
         job?.cancel()
     }
 

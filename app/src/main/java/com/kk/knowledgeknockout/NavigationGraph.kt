@@ -12,6 +12,7 @@ import com.kk.presentation.home.HomeView
 import com.kk.presentation.host.creategame.CreateRoomView
 import com.kk.presentation.host.progressgame.*
 import com.kk.presentation.host.progressgame.rateanswers.RateAnswerAdminView
+import com.kk.presentation.host.progressgame.winner.ShowWinnerAdminView
 import com.kk.presentation.host.waitingroomadmin.WaitingRoomAdminView
 import com.kk.presentation.player.resultroom.ResultView
 import com.kk.presentation.player.gameroom.userquestionbutton.UserQuestionButtonView
@@ -100,6 +101,9 @@ fun NavigationGraph(){
         }
         composable(route = AppNavigation.EndRoundHost.route){
             ShowWinnerAdminView(
+                navigateToHome = {
+                    navController.navigate(AppNavigation.ScreenHome.route)
+                },
                 navigateToNextRound = {
                     navController.navigate(AppNavigation.PrestartGameHost.route)
                 }
@@ -113,8 +117,8 @@ fun NavigationGraph(){
                 navigateToSendAnswer = {
                     navController.navigate(AppNavigation.SendAnswer.route+"/$it")
                 },
-                navigateToWaitingPlayers = {
-                    navController.navigate(AppNavigation.WaitingAnswerPlayer.route)
+                navigateToResults = {
+                    navController.navigate(AppNavigation.EndRoundPlayer.route)
                 }
             )
         }
@@ -140,6 +144,9 @@ fun NavigationGraph(){
         }
         composable(route = AppNavigation.EndRoundPlayer.route){
             ResultView(
+                navigateToHome = {
+                    navController.navigate(AppNavigation.ScreenHome.route)
+                },
                 navigateToNextRound = {
                     navController.navigate(AppNavigation.StartGamePlayer.route)
                 }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="round_n">Round # %1$s</string>
-    <string name="waiting_for_host">Waiting for host…</string>
+    <string name="waiting_for_host">Waiting results…</string>
     <string name="correct_answer">Correct answer!</string>
+    <string name="no_points">No one got points</string>
     <string name="results">Results</string>
     <string name="you_won">You won!</string>
     <string name="you_lose">You lose</string>

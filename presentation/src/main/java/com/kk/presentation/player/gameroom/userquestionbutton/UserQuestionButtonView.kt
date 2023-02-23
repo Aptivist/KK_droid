@@ -31,7 +31,7 @@ fun UserQuestionButtonView(
     round: Int = 1,
     navigateToHome: () -> Unit,
     navigateToSendAnswer: (timeStamp: Long) -> Unit,
-    navigateToWaitingPlayers: () -> Unit,
+    navigateToResults: () -> Unit,
     viewModel: UserQuestionButtonViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -64,7 +64,7 @@ fun UserQuestionButtonView(
                 modifier = Modifier
                     .height(300.dp)
                     .align(Alignment.CenterHorizontally)
-                    .clickable(enabled = uiState.roundStarted) {
+                    .clickable {
                         viewModel.handleEvent(
                             UserQuestionButtonContract.Event.OnMainButtonClicked
                         )
@@ -73,11 +73,7 @@ fun UserQuestionButtonView(
             Spacer(modifier = Modifier.size(50.dp))
             KkBody(
                 label = stringResource(R.string.uqb_skip),
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .clickable() {
-                        viewModel.handleEvent(UserQuestionButtonContract.Event.OnSkipButtonClicked)
-                    }
+                onClick = { viewModel.handleEvent(UserQuestionButtonContract.Event.OnSkipButtonClicked) }
             )
         }
         Box(
@@ -88,13 +84,18 @@ fun UserQuestionButtonView(
                 .alpha(0.4f),
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = stringResource(R.string.uqb_waiting_host),
-                color = MaterialTheme.colorScheme.onBackground,
-                fontWeight = FontWeight.Bold,
-                fontSize = 30.sp,
-                textAlign = TextAlign.Center
-            )
+            Column {
+                Text(
+                    text = if (uiState.skipped) {
+                       stringResource(id = R.string.uqb_skipping)
+                    }
+                    else stringResource(R.string.uqb_waiting_host),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 30.sp,
+                    textAlign = TextAlign.Center
+                )
+            }
         }
         KKAlertDialog(
             visible = uiState.showDialog,
@@ -117,7 +118,7 @@ fun UserQuestionButtonView(
                 UserQuestionButtonContract.Effect.NavigateToSendPlayerAnswer -> navigateToSendAnswer(
                     uiState.timeStamp
                 )
-                UserQuestionButtonContract.Effect.NavigateToWaitingPlayers -> navigateToWaitingPlayers()
+                UserQuestionButtonContract.Effect.NavigateToResults -> navigateToResults()
                 UserQuestionButtonContract.Effect.NavigateToHome -> navigateToHome()
             }
         }
