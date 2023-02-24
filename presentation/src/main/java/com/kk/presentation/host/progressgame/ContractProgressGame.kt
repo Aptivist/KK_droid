@@ -13,7 +13,7 @@ class ContractProgressGame {
     data class State(
         val error: String? = null,
         val timeLeft: String = "",
-        val round: Int = 1,
+        val round: Int = 0,
         val preStartState: Boolean = false,
         val awaitingAnswersState: Boolean = false
         ): UiState
