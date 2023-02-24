@@ -54,7 +54,7 @@ fun JoinRoomView(
             KkBody(label = stringResource(R.string.jr_code))
             Spacer(modifier = Modifier.size(10.dp))
             KkTextField(
-                value = uiState.code,
+                value = uiState.code.uppercase(),
                 showError = viewModel.uiState.value.reJoin ?: false,
                 errorMessage = viewModel.uiState.value.error ?: "",
                 onValueChange = {
