@@ -21,7 +21,8 @@ class UserQuestionButtonContract {
         val zIndex: Float = 0f,
         val showDialog: Boolean = false,
         val skipped: Boolean = false,
-        val message: String? = null
+        val message: String? = null,
+        val roundStarted: Boolean = false
     ) : UiState
 
     // Side Effect
