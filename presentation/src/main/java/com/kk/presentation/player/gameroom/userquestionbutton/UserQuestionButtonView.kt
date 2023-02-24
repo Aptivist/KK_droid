@@ -62,7 +62,7 @@ fun UserQuestionButtonView(
                 modifier = Modifier
                     .height(300.dp)
                     .align(Alignment.CenterHorizontally)
-                    .clickable {
+                    .clickable(enabled = uiState.roundStarted && !uiState.skipped) {
                         viewModel.handleEvent(
                             UserQuestionButtonContract.Event.OnMainButtonClicked
                         )
@@ -71,7 +71,7 @@ fun UserQuestionButtonView(
             Spacer(modifier = Modifier.size(50.dp))
             KkBody(
                 label = stringResource(R.string.uqb_skip),
-                onClick = { viewModel.handleEvent(UserQuestionButtonContract.Event.OnSkipButtonClicked) }
+                onClick = { viewModel.handleEvent(UserQuestionButtonContract.Event.OnSkipButtonClicked) },
             )
         }
         Box(

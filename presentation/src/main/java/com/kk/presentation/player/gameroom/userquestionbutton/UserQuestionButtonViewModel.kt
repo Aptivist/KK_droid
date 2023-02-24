@@ -1,5 +1,6 @@
 package com.kk.presentation.player.gameroom.userquestionbutton
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.UserQuestionButtonRepository
 import com.kk.domain.models.BaseResult
@@ -32,14 +33,18 @@ class UserQuestionButtonViewModel(
     override fun handleEvent(event: UserQuestionButtonContract.Event) {
         when (event) {
             is UserQuestionButtonContract.Event.OnMainButtonClicked -> {
+                Log.e("log", "Main")
                 setState { copy(timeStamp = System.currentTimeMillis()) }
                 setEffect { UserQuestionButtonContract.Effect.NavigateToSendPlayerAnswer }
                 job?.cancel()
             }
             is UserQuestionButtonContract.Event.OnSkipButtonClicked -> {
-                setState { copy(message = stringProvider.getString(R.string.uqb_skipping)) }
-                setState { copy(zIndex = 0f) }
-                setState { copy(skipped = true) }
+                if (uiState.value.roundStarted) {
+                    Log.e("log", "Skip")
+                    setState { copy(message = stringProvider.getString(R.string.uqb_skipping)) }
+                    setState { copy(zIndex = 0f) }
+                    setState { copy(skipped = true) }
+                }
             }
             UserQuestionButtonContract.Event.CloseSession -> {
                 setState { copy(showDialog = false) }
@@ -61,8 +66,10 @@ class UserQuestionButtonViewModel(
                     is BaseResult.Success -> {
                         if (result.data.data.time > 0 && uiState.value.skipped.not()) {
                             setState { copy(zIndex = 2f) }
+                            setState { copy(roundStarted = true) }
                         } else if (result.data.data.time == 0) {
                             navigateToWaitingPlayers()
+                            setState { copy(roundStarted = false) }
                         }
                         setState { copy(timer = result.data.data.time) }
                     }
@@ -87,11 +94,7 @@ class UserQuestionButtonViewModel(
 
     private fun getRoundNumber() {
         viewModelScope.launch(Dispatchers.IO) {
-            var roundNumber = dataStoreRepository.getNumberRound()
-            if (roundNumber == 0) {
-                roundNumber = 1
-                dataStoreRepository.saveNumberRound(roundNumber)
-            }
+            val roundNumber = dataStoreRepository.getNumberRound()
             setState { copy(round = roundNumber) }
         }
     }
