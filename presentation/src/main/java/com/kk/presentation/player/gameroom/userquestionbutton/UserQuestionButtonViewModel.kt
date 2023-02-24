@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class UserQuestionButtonViewModel(
     private val userQuestionButtonRepository: UserQuestionButtonRepository,
     private val dataStoreRepository: PreferencesRepository,
-    private val stringProvider: StringProvider
+    private val stringProvider: StringProvider,
 ) :
     BaseViewModel<UserQuestionButtonContract.Event, UserQuestionButtonContract.State, UserQuestionButtonContract.Effect>() {
 
@@ -22,6 +22,7 @@ class UserQuestionButtonViewModel(
 
     init {
         observeData()
+        getRoundNumber()
     }
 
     override fun createInitialState(): UserQuestionButtonContract.State {
@@ -81,6 +82,14 @@ class UserQuestionButtonViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             userQuestionButtonRepository.closeSession()
             dataStoreRepository.clearPreferences()
+        }
+    }
+
+    private fun getRoundNumber() {
+        viewModelScope.launch(Dispatchers.IO) {
+            var roundNumber = dataStoreRepository.getNumberRound()
+            if (roundNumber == 0) roundNumber = 1
+            setState { copy(round = roundNumber) }
         }
     }
 }

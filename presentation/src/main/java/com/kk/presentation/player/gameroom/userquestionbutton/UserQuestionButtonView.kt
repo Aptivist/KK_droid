@@ -28,7 +28,6 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun UserQuestionButtonView(
-    round: Int = 1,
     navigateToHome: () -> Unit,
     navigateToSendAnswer: (timeStamp: Long) -> Unit,
     navigateToResults: () -> Unit,
@@ -47,12 +46,11 @@ fun UserQuestionButtonView(
         ) {
             Spacer(modifier = Modifier.size(30.dp))
             KkTitle(
-                label = "" + round + stringResource(id = R.string.uqb_st) + " " + stringResource(
+                label = uiState.round.toString() + stringResource(id = R.string.uqb_round_sufix) + " " + stringResource(
                     id = R.string.uqb_title
                 )
             )
             Spacer(modifier = Modifier.size(50.dp))
-
             KkOrangeTitle(
                 label = uiState.timer.toString() + " " + stringResource(id = R.string.uqb_time),
                 modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -87,9 +85,8 @@ fun UserQuestionButtonView(
             Column {
                 Text(
                     text = if (uiState.skipped) {
-                       stringResource(id = R.string.uqb_skipping)
-                    }
-                    else stringResource(R.string.uqb_waiting_host),
+                        stringResource(id = R.string.uqb_skipping)
+                    } else stringResource(R.string.uqb_waiting_host),
                     color = MaterialTheme.colorScheme.onBackground,
                     fontWeight = FontWeight.Bold,
                     fontSize = 30.sp,
