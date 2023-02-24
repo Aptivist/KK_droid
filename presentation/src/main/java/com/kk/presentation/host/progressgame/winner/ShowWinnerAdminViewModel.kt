@@ -20,7 +20,9 @@ BaseViewModel<ContractShowWinnerAdmin.Event, ContractShowWinnerAdmin.State, Cont
     private var job: Job? = null
 
     init {
+        getRoundNumber()
         observeData()
+        changeRoundNumber()
     }
 
     override fun createInitialState(): ContractShowWinnerAdmin.State {
@@ -63,9 +65,6 @@ BaseViewModel<ContractShowWinnerAdmin.Event, ContractShowWinnerAdmin.State, Cont
                                     setState { copy(anyWinner = true, winnerName = result.data.data.roundPlayerWon.name) }
                                     job?.cancel()
                                 }
-                                if(!result.data.data.listPlayers.isNullOrEmpty()){
-
-                                }
                             }
                             "GAME_FINISHED" -> {
                                 setState { copy(gameWinner = true, winnerName = result.data.data.roundPlayerWon.name) }
@@ -91,6 +90,20 @@ BaseViewModel<ContractShowWinnerAdmin.Event, ContractShowWinnerAdmin.State, Cont
     private fun deleteLocalData(){
         viewModelScope.launch(Dispatchers.IO) {
             preferencesRepository.clearPreferences()
+        }
+    }
+
+    private fun getRoundNumber(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val roundNumber = preferencesRepository.getNumberRound()
+            setState { copy(round = roundNumber)}
+        }
+    }
+
+    private fun changeRoundNumber(){
+        viewModelScope.launch(Dispatchers.IO){
+            val roundNumber = preferencesRepository.getNumberRound() + 1
+            preferencesRepository.saveNumberRound(roundNumber)
         }
     }
 }

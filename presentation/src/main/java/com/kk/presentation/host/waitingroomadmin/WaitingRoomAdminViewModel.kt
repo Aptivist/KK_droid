@@ -34,8 +34,8 @@ class WaitingRoomAdminViewModel (private val waitingRoomAdminRepository: Waiting
     override fun handleEvent(event: WaitingRoomAdminContract.Event) {
         when(event){
             WaitingRoomAdminContract.Event.OnStartGame -> {
+                setInitializedRoundNumber()
                 sendEvent()
-
             }
         }
     }
@@ -72,4 +72,9 @@ class WaitingRoomAdminViewModel (private val waitingRoomAdminRepository: Waiting
         }
     }
 
+    private fun setInitializedRoundNumber(){
+        viewModelScope.launch{
+            dataStoreRepository.saveNumberRound(1)
+        }
+    }
 }

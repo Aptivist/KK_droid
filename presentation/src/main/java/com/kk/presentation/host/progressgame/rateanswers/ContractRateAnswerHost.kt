@@ -14,7 +14,7 @@ class ContractRateAnswerHost {
 
     data class State(
         val error: String? = null,
-        var round: Int = 1,
+        var round: Int = 0,
         var playerAnswer: String = "",
         var skipAnswers: Boolean = false,
     ): UiState

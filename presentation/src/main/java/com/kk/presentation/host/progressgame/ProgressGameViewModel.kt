@@ -1,12 +1,10 @@
 package com.kk.presentation.host.progressgame
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.ProgressGameRepository
-import com.kk.domain.models.AddPointRequestDomain
 import com.kk.domain.models.BaseResult
 import com.kk.domain.models.EventRequestDomain
-import com.kk.domain.models.PointsDomain
+import com.kk.local.domain.PreferencesRepository
 import com.kk.presentation.R
 import com.kk.presentation.baseMVI.BaseViewModel
 import com.kk.presentation.di.StringProvider
@@ -15,13 +13,15 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class ProgressGameViewModel(private val progressGameRepository: ProgressGameRepository,
-                            private val stringProvider: StringProvider)  :
+                            private val stringProvider: StringProvider,
+                            private val dataStoreRepository: PreferencesRepository)  :
     BaseViewModel<ContractProgressGame.Event, ContractProgressGame.State, ContractProgressGame.Effect>()  {
 
     private var job: Job? = null
 
 
     init {
+        setRoundNumber()
         observeData()
     }
     override fun createInitialState(): ContractProgressGame.State {
@@ -48,8 +48,6 @@ class ProgressGameViewModel(private val progressGameRepository: ProgressGameRepo
             }
     }
 
-
-
     private fun observeData(){
         job = viewModelScope.launch(Dispatchers.IO){
             progressGameRepository.receiveData().collect{ result ->
@@ -66,6 +64,13 @@ class ProgressGameViewModel(private val progressGameRepository: ProgressGameRepo
                     }
                 }
             }
+        }
+    }
+
+    private fun setRoundNumber(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val roundNumber: Int = dataStoreRepository.getNumberRound()
+            setState { copy(round = roundNumber)}
         }
     }
 }

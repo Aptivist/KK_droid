@@ -1,9 +1,12 @@
 package com.kk.presentation.host.progressgame.rateanswers
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.kk.data.repository.RateAnswerRepository
-import com.kk.domain.models.*
+import com.kk.domain.models.AddPointRequestDomain
+import com.kk.domain.models.AnswerDomain
+import com.kk.domain.models.BaseResult
+import com.kk.domain.models.EventRequestDomain
+import com.kk.local.domain.PreferencesRepository
 import com.kk.presentation.R
 import com.kk.presentation.baseMVI.BaseViewModel
 import com.kk.presentation.di.StringProvider
@@ -12,17 +15,21 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerRepository,
-                              private val stringProvider: StringProvider):
+                              private val stringProvider: StringProvider,
+                              private val dataStoreRepository: PreferencesRepository
+):
     BaseViewModel<ContractRateAnswerHost.Event, ContractRateAnswerHost.State, ContractRateAnswerHost.Effect>(){
 
     private var job: Job? = null
     private lateinit var answerList : Array<AnswerDomain>
     private var currentAnswerIndex = 0
     init {
+        setRoundNumber()
         observeData()
         showAnswers()
     }
     override fun createInitialState(): ContractRateAnswerHost.State {
+
         return ContractRateAnswerHost.State()
     }
 
@@ -75,7 +82,7 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
     private fun correctAnswer(){
         viewModelScope.launch {
             val correctAnswerRequest = AddPointRequestDomain(
-                    answerList[currentAnswerIndex].playerId?:"",
+                    answerList[currentAnswerIndex].playerId,
                     "ADD_POINT"
 
             )
@@ -99,6 +106,13 @@ class RateAnswerHostViewModel(private val rateAnswerRepository: RateAnswerReposi
     private fun showAnswers(){
         viewModelScope.launch {
             rateAnswerRepository.showAnswers(EventRequestDomain("SHOW_ANSWERS"))
+        }
+    }
+
+    private fun setRoundNumber(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val roundNumber = dataStoreRepository.getNumberRound()
+            setState { copy(round = roundNumber)}
         }
     }
 }
