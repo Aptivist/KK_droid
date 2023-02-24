@@ -69,13 +69,22 @@ class ResultRoomViewModel(
                             if (gameResult.status == "GAME_FINISHED"){
                                 setState {
                                     //TODO (ADD correct title)
-                                    copy(status = if (playerId == gameResult.data.roundPlayerWon?.id) "GAME_FINISHED_WON" else "GAME_FINISHED_LOSE", title = "Resultados", players = gameResult.data.listPlayers)
+                                    copy(
+                                        status = if (playerId == gameResult.data.roundPlayerWon?.id) "GAME_FINISHED_WON" else "GAME_FINISHED_LOSE",
+                                        title = stringProvider.getString(R.string.results),
+                                        players = gameResult.data.listPlayers
+                                    )
 
                                 }
                             }else {
                                 setState {
                                     //TODO (ADD correct title)
-                                    copy(status = gameResult.status, title = "Resultados", winnerName = gameResult.data.roundPlayerWon?.name?:"",players = gameResult.data.listPlayers)
+                                    copy(
+                                        status = gameResult.status,
+                                        title = stringProvider.getString(R.string.results),
+                                        winnerName = gameResult.data.roundPlayerWon?.name ?: "",
+                                        players = gameResult.data.listPlayers
+                                    )
 
                                 }
                             }
