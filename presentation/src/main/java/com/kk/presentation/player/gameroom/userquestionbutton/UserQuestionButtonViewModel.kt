@@ -22,6 +22,7 @@ class UserQuestionButtonViewModel(
 
     init {
         observeData()
+        getRoundNumber()
     }
 
     override fun createInitialState(): UserQuestionButtonContract.State {
@@ -81,6 +82,17 @@ class UserQuestionButtonViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             userQuestionButtonRepository.closeSession()
             dataStoreRepository.clearPreferences()
+        }
+    }
+
+    private fun getRoundNumber() {
+        viewModelScope.launch(Dispatchers.IO) {
+            var roundNumber = dataStoreRepository.getNumberRound()
+            if (roundNumber == 0) {
+                roundNumber = 1
+                dataStoreRepository.saveNumberRound(roundNumber)
+            }
+            setState { copy(round = roundNumber) }
         }
     }
 }
