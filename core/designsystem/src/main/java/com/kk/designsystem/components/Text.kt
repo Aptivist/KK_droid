@@ -6,6 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.kk.designsystem.theme.DimGray
+import com.kk.designsystem.theme.EerieBlack
 import com.kk.designsystem.theme.KkTypography
 import java.util.*
 
@@ -19,6 +20,18 @@ fun KkTitle(
         text = label,
         style = KkTypography.titleMedium,
         modifier = modifier.clickable { onClick?.invoke() })
+}
+
+@Composable
+fun KkTitleResult(
+    modifier: Modifier = Modifier,
+    label: String,
+) {
+    Text(
+        text = label,
+        style = KkTypography.titleMedium,
+        color = EerieBlack,
+        modifier = modifier)
 }
 
 

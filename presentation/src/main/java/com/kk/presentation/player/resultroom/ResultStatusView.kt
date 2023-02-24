@@ -145,7 +145,7 @@ fun BaseViewResult(
             .fillMaxSize()
             .background(backgroundColor)
     ) {
-        KkTitle(
+        KkTitleResult(
             label = title,
             modifier = Modifier
                 .padding(vertical = 40.dp)
