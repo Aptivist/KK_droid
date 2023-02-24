@@ -24,12 +24,6 @@ class JoinRoomContract {
         val isButtonEnabled : Boolean = false
     ) : UiState
 
-    sealed class JoinRoomState {
-        object Idle : JoinRoomState()
-        object ScanningQRCodeState : JoinRoomState()
-        object JoiningRoomState : JoinRoomState()
-    }
-
     sealed class Effect : UiEffect {
         object Navigate : Effect()
         object NavigateToHome: Effect()

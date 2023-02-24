@@ -73,7 +73,7 @@ class ResultRoomViewModel(
                                     //TODO (ADD correct title)
                                     copy(
                                         status = if (playerId == gameResult.data.roundPlayerWon?.id) "GAME_FINISHED_WON" else "GAME_FINISHED_LOSE",
-                                        title = "Resultados",
+                                        title = stringProvider.getString(R.string.results),
                                         players = gameResult.data.listPlayers
                                     )
 
@@ -83,7 +83,7 @@ class ResultRoomViewModel(
                                     //TODO (ADD correct title)
                                     copy(
                                         status = gameResult.status,
-                                        title = "Resultados",
+                                        title = stringProvider.getString(R.string.results),
                                         winnerName = gameResult.data.roundPlayerWon?.name ?: "",
                                         players = gameResult.data.listPlayers
                                     )
