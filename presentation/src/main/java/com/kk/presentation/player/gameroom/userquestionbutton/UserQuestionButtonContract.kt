@@ -9,7 +9,7 @@ class UserQuestionButtonContract {
     sealed class Event : UiEvent {
         object OnMainButtonClicked : Event()
         object OnSkipButtonClicked : Event()
-        object CloseSession: Event()
+        object CloseSession : Event()
     }
 
     // View State
@@ -18,14 +18,16 @@ class UserQuestionButtonContract {
         val timeStamp: Long = 0,
         val timer: Int = 0,
         val error: String? = null,
-        val roundStarted: Boolean = false,
-        val zIndex: Float = 0f
+        val zIndex: Float = 0f,
+        val showDialog: Boolean = false,
+        val skipped: Boolean = false,
+        val message: String? = null
     ) : UiState
 
     // Side Effect
     sealed class Effect : UiEffect {
         object NavigateToSendPlayerAnswer : Effect()
         object NavigateToResults : Effect()
-        object NavigateToHome: Effect()
+        object NavigateToHome : Effect()
     }
 }

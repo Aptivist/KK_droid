@@ -19,8 +19,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import com.kk.designsystem.R.drawable.main_button
+import com.kk.designsystem.R.string.*
 import com.kk.designsystem.components.*
 import com.kk.presentation.R
+import com.kk.presentation.R.string.uqb_connection_lost
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
@@ -34,7 +36,7 @@ fun UserQuestionButtonView(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val image = painterResource(id = main_button)
-    KKBox(onClickConfirm = {viewModel.handleEvent(UserQuestionButtonContract.Event.CloseSession)}) {
+    KKBox(onClickConfirm = { viewModel.handleEvent(UserQuestionButtonContract.Event.CloseSession) }) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -62,7 +64,7 @@ fun UserQuestionButtonView(
                 modifier = Modifier
                     .height(300.dp)
                     .align(Alignment.CenterHorizontally)
-                    .clickable(enabled = uiState.roundStarted) {
+                    .clickable {
                         viewModel.handleEvent(
                             UserQuestionButtonContract.Event.OnMainButtonClicked
                         )
@@ -71,11 +73,7 @@ fun UserQuestionButtonView(
             Spacer(modifier = Modifier.size(50.dp))
             KkBody(
                 label = stringResource(R.string.uqb_skip),
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .clickable() {
-                        viewModel.handleEvent(UserQuestionButtonContract.Event.OnSkipButtonClicked)
-                    }
+                onClick = { viewModel.handleEvent(UserQuestionButtonContract.Event.OnSkipButtonClicked) }
             )
         }
         Box(
@@ -86,10 +84,32 @@ fun UserQuestionButtonView(
                 .alpha(0.4f),
             contentAlignment = Alignment.Center
         ) {
-            KkTitleLarge(
-                label = stringResource(R.string.uqb_waiting_host),
-            )
+            Column {
+                Text(
+                    text = if (uiState.skipped) {
+                       stringResource(id = R.string.uqb_skipping)
+                    }
+                    else stringResource(R.string.uqb_waiting_host),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 30.sp,
+                    textAlign = TextAlign.Center
+                )
+            }
         }
+        KKAlertDialog(
+            visible = uiState.showDialog,
+            title = stringResource(id = title_on_back_pressed),
+            message = stringResource(id = uqb_connection_lost),
+            onCancel = {
+                viewModel.handleEvent(UserQuestionButtonContract.Event.CloseSession)
+            },
+            textCancelButton = stringResource(id = cancel_button_on_back_pressed),
+            onConfirm = {
+                viewModel.handleEvent(UserQuestionButtonContract.Event.CloseSession)
+            },
+            textConfirmButton = stringResource(id = confirm_button_on_back_pressed)
+        )
     }
 
     LaunchedEffect(key1 = Unit) {

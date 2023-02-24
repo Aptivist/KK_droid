@@ -2,7 +2,7 @@ package com.kk.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Snow = Color(0x5FFFCFC)
+val Snow = Color(0xFFFFFCFC)
 val EerieBlack = Color(0xFF1E1E1E)
 val DimGray = Color(0xFF6C6C6C)
 val BurntSienna = Color(0xFFEF6844)

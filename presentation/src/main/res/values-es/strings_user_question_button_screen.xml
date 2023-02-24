@@ -8,4 +8,6 @@
     <string name="uqb_nd">da</string>
     <string name="uqb_rd">ra</string>
     <string name="uqb_waiting_host">Esperando al host…</string>
+    <string name="uqb_connection_lost">Conexión perdida</string>
+    <string name="uqb_skipping">Saltando…</string>
 </resources>
