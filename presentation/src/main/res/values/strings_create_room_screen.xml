@@ -5,5 +5,10 @@
     <string name="cr_points">Points</string>
     <string name="cr_time">Timer (seconds)</string>
     <string name="cr_create">Create</string>
+    <string name="cr_error_title">Error</string>
+    <string name="cr_accept">OK</string>
     <string name="cr_error_connection">Connection Error</string>
+    <string name="cr_error_players">Input a number of players</string>
+    <string name="cr_error_points">Input a number of points</string>
+    <string name="cr_error_time">Input a number seconds per round</string>
 </resources>

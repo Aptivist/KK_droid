@@ -14,9 +14,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class CreateRoomViewModel(private val createRoomRepository: CreateRoomRepository, private val stringProvider: StringProvider,private val dataStoreRepository: PreferencesRepository) :
+class CreateRoomViewModel(private val createRoomRepository: CreateRoomRepository,
+                          private val stringProvider: StringProvider,
+                          private val dataStoreRepository: PreferencesRepository
+) :
     BaseViewModel<CreateRoomContract.Event, CreateRoomContract.State, CreateRoomContract.Effect>() {
     private var job: Job? = null
+
     init {
         observeData()
     }
@@ -38,12 +42,21 @@ class CreateRoomViewModel(private val createRoomRepository: CreateRoomRepository
                 setState { copy(time = event.time.toSafeIntDigit()) }
             }
             CreateRoomContract.Event.OnCreateRoom -> {
-                createRoom()
+
+                when {
+                    uiState.value.players <= 0 -> setState { copy(error = stringProvider.getString(R.string.cr_error_players)) }
+                    uiState.value.points <= 0 -> setState { copy(error = stringProvider.getString(R.string.cr_error_points)) }
+                    uiState.value.time <= 0 -> setState { copy(error = stringProvider.getString(R.string.cr_error_time)) }
+                    else -> createRoom()
+                }
+
             }
             CreateRoomContract.Event.CloseSession -> {
                 closeSession()
                 setEffect { CreateRoomContract.Effect.NavigateToHome }
             }
+
+            CreateRoomContract.Event.ClearError -> setState { copy(error = null) }
         }
     }
 

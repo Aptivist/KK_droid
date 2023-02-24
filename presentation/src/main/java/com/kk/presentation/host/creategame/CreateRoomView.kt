@@ -96,6 +96,13 @@ fun CreateRoomView(
         }
     }
 
+    KKAlertDialog(
+        visible = uiState.error!=null,
+        title = stringResource(R.string.cr_error_title),
+        message = uiState.error ?: "",
+        onConfirm = {viewModel.handleEvent(CreateRoomContract.Event.ClearError)},
+        textConfirmButton = stringResource(R.string.cr_accept)
+    )
 
     LaunchedEffect(Unit){
         viewModel.effect.collectLatest {

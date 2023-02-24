@@ -5,5 +5,10 @@
     <string name="cr_points">Puntos</string>
     <string name="cr_time">Timer (segundos)</string>
     <string name="cr_create">Crear</string>
+    <string name="cr_error_title">Error</string>
+    <string name="cr_accept">Aceptar</string>
     <string name="cr_error_connection">Error de conexión</string>
+    <string name="cr_error_players">Ingrese un numero de jugadores</string>
+    <string name="cr_error_points">Ingrese un numero de puntos</string>
+    <string name="cr_error_time">Ingrese un numero de tiempo</string>
 </resources>
