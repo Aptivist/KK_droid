@@ -12,6 +12,7 @@ class CreateRoomContract {
         data class OnChangePlayers(val players: String): Event()
         data class OnChangePoints(val points: String): Event()
         data class OnChangeTime(val time: String ): Event()
+        object ClearError : Event()
         object CloseSession: Event()
     }
 
@@ -23,7 +24,7 @@ class CreateRoomContract {
         val points : Int = 0,
         val data: String = "",
         val error: String? = null,
-        val isLoading: Boolean = false,
+        val isLoading: Boolean = false
     ) : UiState
 
     // Side Effect

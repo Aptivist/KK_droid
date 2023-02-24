@@ -1,6 +1,5 @@
 package com.kk.designsystem.components
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.material3.AlertDialog
 import androidx.compose.runtime.*
 import androidx.compose.ui.window.DialogProperties
@@ -16,7 +15,7 @@ fun KKAlertDialog(
     textCancelButton: String = "",
     textConfirmButton: String
 ) {
-    AnimatedVisibility(visible = visible) {
+    if (visible) {
         AlertDialog(
             onDismissRequest = { onDismiss?.invoke() },
             properties = DialogProperties(dismissOnBackPress = false),
