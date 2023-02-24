@@ -27,7 +27,9 @@ class ResultRoomViewModel(
     init {
         getPlayerId()
         observeData()
+        changeRoundNumber()
     }
+
     override fun createInitialState(): ResultRoomContract.State {
         //TODO("Add TO Resource files")
         return ResultRoomContract.State(title = "Ronda")
@@ -52,7 +54,7 @@ class ResultRoomViewModel(
     private fun observeData() {
         job = viewModelScope.launch(Dispatchers.IO) {
             resultGameRepository.receiveData().collect() { result ->
-                when(result) {
+                when (result) {
                     is BaseResult.Error -> {
                         setState {
                             copy(error = stringProvider.getString(R.string.cr_error_connection))
@@ -62,20 +64,29 @@ class ResultRoomViewModel(
                         // TODO REFACTOR
                         val gameResult = result.data
 
-                        if (gameResult.status == "NEXT_ROUND"){
+                        if (gameResult.status == "NEXT_ROUND") {
                             setEffect { ResultRoomContract.Effect.NavigateToNextRound }
                             job?.cancel()
-                        }else {
-                            if (gameResult.status == "GAME_FINISHED"){
+                        } else {
+                            if (gameResult.status == "GAME_FINISHED") {
                                 setState {
                                     //TODO (ADD correct title)
-                                    copy(status = if (playerId == gameResult.data.roundPlayerWon?.id) "GAME_FINISHED_WON" else "GAME_FINISHED_LOSE", title = "Resultados", players = gameResult.data.listPlayers)
+                                    copy(
+                                        status = if (playerId == gameResult.data.roundPlayerWon?.id) "GAME_FINISHED_WON" else "GAME_FINISHED_LOSE",
+                                        title = "Resultados",
+                                        players = gameResult.data.listPlayers
+                                    )
 
                                 }
-                            }else {
+                            } else {
                                 setState {
                                     //TODO (ADD correct title)
-                                    copy(status = gameResult.status, title = "Resultados", winnerName = gameResult.data.roundPlayerWon?.name?:"",players = gameResult.data.listPlayers)
+                                    copy(
+                                        status = gameResult.status,
+                                        title = "Resultados",
+                                        winnerName = gameResult.data.roundPlayerWon?.name ?: "",
+                                        players = gameResult.data.listPlayers
+                                    )
 
                                 }
                             }
@@ -89,21 +100,28 @@ class ResultRoomViewModel(
         }
     }
 
-    private fun getPlayerId(){
+    private fun getPlayerId() {
         viewModelScope.launch(Dispatchers.IO) {
             playerId = dataStoreRepository.getPlayerId()
         }
     }
 
-    private fun closeSession(){
-        viewModelScope.launch(Dispatchers.IO){
+    private fun closeSession() {
+        viewModelScope.launch(Dispatchers.IO) {
             resultGameRepository.closeSession()
         }
     }
 
-    private fun deleteLocalData(){
-        viewModelScope.launch(Dispatchers.IO){
+    private fun deleteLocalData() {
+        viewModelScope.launch(Dispatchers.IO) {
             dataStoreRepository.clearPreferences()
+        }
+    }
+
+    private fun changeRoundNumber() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val roundNumber = dataStoreRepository.getNumberRound() + 1
+            dataStoreRepository.saveNumberRound(roundNumber)
         }
     }
 }
