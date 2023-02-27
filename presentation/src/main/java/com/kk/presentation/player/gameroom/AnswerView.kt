@@ -31,7 +31,7 @@ fun AnswerView(
                 .padding(horizontal = 30.dp)
         ) {
             KkTitle(
-                label = stringResource(R.string.ua_title),
+                label = stringResource(R.string.ua_title,uiState.roundNumber),
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(top = 40.dp)

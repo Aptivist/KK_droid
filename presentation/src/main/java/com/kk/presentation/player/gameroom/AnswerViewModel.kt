@@ -23,6 +23,7 @@ class AnswerViewModel(
     init {
         getPlayerId()
         getGameCode()
+        getRoundNumber()
         observeData()
     }
 
@@ -97,6 +98,13 @@ class AnswerViewModel(
     private fun getGameCode() {
         viewModelScope.launch(Dispatchers.IO) {
             gameCode = preferencesRepository.getGameCode()
+        }
+    }
+
+    private fun getRoundNumber(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val roundNumber = preferencesRepository.getNumberRound()
+            setState { copy(roundNumber = roundNumber) }
         }
     }
 
