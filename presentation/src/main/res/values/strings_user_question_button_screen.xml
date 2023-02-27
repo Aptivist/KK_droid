@@ -4,7 +4,6 @@
     <string name="uqb_time">seconds</string>
     <string name="uqb_skip">Skip</string>
     <string name="uqb_main_button">Main button</string>
-    <string name="uqb_round_sufix">#</string>
     <string name="uqb_waiting_host">Waiting host…</string>
     <string name="uqb_connection_lost">Connection lost</string>
     <string name="uqb_skipping">Skipping</string>
