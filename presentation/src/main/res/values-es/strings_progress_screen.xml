@@ -13,6 +13,7 @@
     <string name="pg_error_message">Error de Conexión</string>
     <string name="pg_text_confirm_button">Aceptar</string>
     <string name="skip">saltar</string>
-    <string name="round">° Ronda</string>
+    <string name="round">Ronda #</string>
     <string name="no_winner">¡nadie ganó!</string>
+    <string name="game_won">¡EL GANADOR ES</string>
 </resources>
