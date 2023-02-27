@@ -46,9 +46,7 @@ fun UserQuestionButtonView(
         ) {
             Spacer(modifier = Modifier.size(30.dp))
             KkTitle(
-                label = uiState.round.toString() + stringResource(id = R.string.uqb_round_sufix) + " " + stringResource(
-                    id = R.string.uqb_title
-                )
+                label = stringResource(id = R.string.uqb_title) + " # " + uiState.round.toString()
             )
             Spacer(modifier = Modifier.size(50.dp))
             KkOrangeTitle(
