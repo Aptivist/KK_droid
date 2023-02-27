@@ -28,6 +28,7 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
     override fun handleEvent(event: JoinRoomContract.Event) {
         when (event) {
             is JoinRoomContract.Event.OnJoinButtonClicked -> {
+                clearLocalData()
                 if(uiState.value.reJoin){
                     reJoinRoom()
                 }else{
@@ -59,6 +60,7 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
             }
         }
     }
+
 
     private fun observeData() {
 
@@ -127,6 +129,12 @@ class JoinRoomViewModel(private val joinRoomRepository: JoinRoomRepository, priv
     private fun closeSession(){
         viewModelScope.launch(Dispatchers.IO) {
             joinRoomRepository.closeSession()
+        }
+    }
+
+    private fun clearLocalData() {
+        viewModelScope.launch (Dispatchers.IO){
+            dataStoreRepository.clearPreferences()
         }
     }
 }
