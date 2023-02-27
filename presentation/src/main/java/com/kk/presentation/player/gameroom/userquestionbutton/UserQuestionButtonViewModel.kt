@@ -94,7 +94,11 @@ class UserQuestionButtonViewModel(
 
     private fun getRoundNumber() {
         viewModelScope.launch(Dispatchers.IO) {
-            val roundNumber = dataStoreRepository.getNumberRound()
+            var roundNumber = dataStoreRepository.getNumberRound()
+            if (roundNumber == 0) {
+                roundNumber = 1
+                dataStoreRepository.saveNumberRound(roundNumber)
+            }
             setState { copy(round = roundNumber) }
         }
     }
