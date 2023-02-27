@@ -15,6 +15,7 @@ class AnswerContract {
     // UI View States
     data class State(
         val showTexFieldAndButton: Boolean = true,
+        val roundNumber: Int = 0,
         val answer: String = "",
         val error: String? = null,
         val timer: String = ""
