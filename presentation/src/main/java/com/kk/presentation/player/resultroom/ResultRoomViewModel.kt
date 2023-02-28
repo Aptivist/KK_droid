@@ -19,7 +19,6 @@ class ResultRoomViewModel(
 
     private var job: Job? = null
     private var playerId = ""
-    private var roundNumber = 0
 
     init {
         getRoundNumber()
@@ -118,14 +117,14 @@ class ResultRoomViewModel(
 
     private fun getRoundNumber(){
         viewModelScope.launch(Dispatchers.IO) {
-            roundNumber = dataStoreRepository.getNumberRound()
+            val roundNumber = dataStoreRepository.getNumberRound()
             setState { copy(title = stringProvider.getString(R.string.round_n, roundNumber)) }
         }
     }
 
     private fun changeRoundNumber() {
         viewModelScope.launch(Dispatchers.IO) {
-            roundNumber += 1
+            val roundNumber = dataStoreRepository.getNumberRound() + 1
             dataStoreRepository.saveNumberRound(roundNumber)
         }
     }
