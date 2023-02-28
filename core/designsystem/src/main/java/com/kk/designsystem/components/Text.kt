@@ -5,6 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import com.kk.designsystem.theme.DimGray
 import com.kk.designsystem.theme.EerieBlack
 import com.kk.designsystem.theme.KkTypography
@@ -14,12 +15,12 @@ import java.util.*
 fun KkTitle(
     modifier: Modifier = Modifier,
     label: String,
-    onClick: (() -> Unit)? = null
+    textAlign: TextAlign? = TextAlign.Center
 ) {
     Text(
         text = label,
         style = KkTypography.titleMedium,
-        modifier = modifier.clickable { onClick?.invoke() })
+        modifier = modifier, textAlign = textAlign)
 }
 
 @Composable
