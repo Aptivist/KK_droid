@@ -125,7 +125,8 @@ class ResultRoomViewModel(
 
     private fun changeRoundNumber() {
         viewModelScope.launch(Dispatchers.IO) {
-            dataStoreRepository.saveNumberRound(roundNumber+1)
+            roundNumber += 1
+            dataStoreRepository.saveNumberRound(roundNumber)
         }
     }
 }
