@@ -1,12 +1,8 @@
 package com.kk.presentation.player.resultroom
 
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewModelScope
-import com.kk.domain.models.BaseResult
 import com.kk.data.repository.ResultGameRepository
-import com.kk.designsystem.theme.RedSalsa
-import com.kk.designsystem.theme.ShamrockGreen
+import com.kk.domain.models.BaseResult
 import com.kk.local.domain.PreferencesRepository
 import com.kk.presentation.R
 import com.kk.presentation.baseMVI.BaseViewModel
@@ -23,8 +19,10 @@ class ResultRoomViewModel(
 
     private var job: Job? = null
     private var playerId = ""
+    private var roundNumber = 0
 
     init {
+        getRoundNumber()
         getPlayerId()
         observeData()
         changeRoundNumber()
@@ -32,7 +30,7 @@ class ResultRoomViewModel(
 
     override fun createInitialState(): ResultRoomContract.State {
         //TODO("Add TO Resource files")
-        return ResultRoomContract.State(title = "Ronda")
+        return ResultRoomContract.State()
     }
 
     override fun handleEvent(event: ResultRoomContract.Event) {
@@ -118,10 +116,16 @@ class ResultRoomViewModel(
         }
     }
 
+    private fun getRoundNumber(){
+        viewModelScope.launch(Dispatchers.IO) {
+            roundNumber = dataStoreRepository.getNumberRound()
+            setState { copy(title = stringProvider.getString(R.string.round_n, roundNumber)) }
+        }
+    }
+
     private fun changeRoundNumber() {
         viewModelScope.launch(Dispatchers.IO) {
-            val roundNumber = dataStoreRepository.getNumberRound() + 1
-            dataStoreRepository.saveNumberRound(roundNumber)
+            dataStoreRepository.saveNumberRound(roundNumber+1)
         }
     }
 }
